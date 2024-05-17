@@ -1,6 +1,6 @@
-## meritApp: Build Your Resume
+## meritcode: Build Your Resume
 
-**meritApp** is a powerful resume builder designed to help you create professional and impactful resumes.  
+**meritcode** is a powerful resume builder designed to help you create professional and impactful resumes.  
 
 ### Getting Started
 
@@ -14,8 +14,8 @@ Follow these steps to set up the meritApp development environment locally:
 **1. Clone the Repository**
 
 ```bash
-git clone https://github.com/meritApp/meritApp.git
-cd meritApp
+git clone https://github.com/MeritMap01/meritcode.git
+cd meritcode
 ```
 
 **2. Install Dependencies**
@@ -35,13 +35,13 @@ Review the environment variables in `.env` and adjust them as needed (e.g., port
 **4. Start Services with Docker Compose**
 
 ```bash
-docker compose -f tools/compose/development.yml --env-file .env -p meritApp up -d
+docker compose -f tools/compose/development.yml --env-file .env -p meritcode up -d
 ```
 
 This command will launch all necessary services. You can check their status with:
 
 ```bash
-docker compose -p meritApp ps
+docker compose -p meritcode ps
 ```
 
 **5. Run the Development Server**
@@ -55,7 +55,7 @@ The frontend should be accessible at `http://localhost:5173`, and the backend AP
 
 ### Contributing New Resume Templates
 
-Want to help expand meritApp's library of resume templates? Follow these steps:
+Want to help expand meritcode's library of resume templates? Follow these steps:
 
 **1. Create New Template Files**
 
