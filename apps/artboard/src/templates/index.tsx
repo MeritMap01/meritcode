@@ -12,9 +12,11 @@ import { Nosepass } from "./nosepass";
 import { Onyx } from "./onyx";
 import { Pikachu } from "./pikachu";
 import { Rhyhorn } from "./rhyhorn";
+import {Orion} from "./orion";
 
 export const getTemplate = (template: Template) => {
   switch (template) {
+    
     case "azurill":
       return Azurill;
     case "bronzor":
@@ -35,6 +37,8 @@ export const getTemplate = (template: Template) => {
       return Nosepass;
     case "onyx":
       return Onyx;
+    case "orion":
+      return Orion;
     case "pikachu":
       return Pikachu;
     case "rhyhorn":

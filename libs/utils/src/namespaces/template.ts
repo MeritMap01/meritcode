@@ -9,6 +9,7 @@ export const templatesList = [
   "leafish",
   "nosepass",
   "onyx",
+  "orion",
   "pikachu",
   "rhyhorn",
 ] as const;
