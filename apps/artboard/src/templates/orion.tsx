@@ -29,24 +29,16 @@ import {
     const basics = useArtboardStore((state) => state.resume.basics);
   
     return (
-      <div className="flex flex-col items-center justify-center space-y-2 pb-2 text-center bg-gray-200 p-4 rounded-md">
-        <Picture />
-  
+      <div className="flex flex-col items-center justify-center space-y-2 pb-2 text-center border-b-2 border-gray-600">
+        
         <div>
-          <div className="text-3xl font-bold">{basics.name}</div>
+          <div className="text-3xl font-bold font-roboto">{basics.name}</div>
           <div className="text-xl text-gray-600">{basics.headline}</div>
         </div>
   
         <div className="flex flex-wrap items-center gap-3 text-sm">
-          {basics.location && (
-            <div className="flex items-center gap-1">
-              <i className="ph ph-map-pin text-primary" />
-              <div>{basics.location}</div>
-            </div>
-          )}
           {basics.phone && (
             <div className="flex items-center gap-1">
-              <i className="ph ph-phone text-primary" />
               <a href={`tel:${basics.phone}`} target="_blank" rel="noreferrer">
                 {basics.phone}
               </a>
@@ -54,23 +46,16 @@ import {
           )}
           {basics.email && (
             <div className="flex items-center gap-1">
-              <i className="ph ph-at text-primary" />
               <a href={`mailto:${basics.email}`} target="_blank" rel="noreferrer">
                 {basics.email}
               </a>
             </div>
           )}
-          <Link url={basics.url} />
-          {basics.customFields.map((item) => (
-            <div key={item.id} className="flex items-center gap-1">
-              <i className={`ph ph-${item.icon} text-primary`} />
-              <span>{[item.name, item.value].filter(Boolean).join(": ")}</span>
-            </div>
-          ))}
         </div>
       </div>
     );
   };
+  
   
   const Summary = () => {
     const section = useArtboardStore((state) => state.resume.sections.summary);
@@ -78,26 +63,13 @@ import {
     if (!section.visible || isEmptyString(section.content)) return null;
   
     return (
-      <section id={section.id}>
-        <div className="mb-2 hidden font-bold text-primary group-[.main]:block">
-          <h4>{section.name}</h4>
-        </div>
-  
-        <div className="mb-2 hidden items-center gap-x-2 text-center font-bold text-primary group-[.sidebar]:flex">
-          <div className="h-1.5 w-1.5 rounded-full border border-primary" />
-          <h4>{section.name}</h4>
-          <div className="h-1.5 w-1.5 rounded-full border border-primary" />
-        </div>
-  
-        <main className={cn("relative space-y-2", "border-l border-primary pl-4")}>
-          <div className="absolute left-[-4.5px] top-[8px] hidden h-[8px] w-[8px] rounded-full bg-primary group-[.main]:block" />
-  
-          <div
-            className="wysiwyg"
-            style={{ columns: section.columns }}
-            dangerouslySetInnerHTML={{ __html: section.content }}
-          />
-        </main>
+      <section id={section.id} className="mt-4">
+        <h4 className="font-bold ">Summary</h4>
+        <div
+          className="wysiwyg"
+          style={{ columns: section.columns }}
+          dangerouslySetInnerHTML={{ __html: section.content }}
+        />
       </section>
     );
   };
@@ -162,7 +134,7 @@ import {
   
     return (
       <section id={section.id} className="grid">
-        <div className="mb-2  font-bold text-primary group-[.main]:block">
+        <div className="mb-2  font-bold  group-[.main]:block">
           <h4>{section.name}</h4>
         </div>
   
@@ -253,14 +225,19 @@ import {
   
     return (
       <Section<Experience> section={section} urlKey="url" summaryKey="summary">
+        
         {(item) => (
-          <div>
-
+          <div className="flex items-center justify-between">
+          <div className="text-left">
             <div className="font-bold">{item.company}</div>
             <div>{item.position}</div>
             <div>{item.location}</div>
+          </div>
+
+          <div className="shrink-0 text-right">
             <div className="font-bold">{item.date}</div>
           </div>
+        </div>
         )}
       </Section>
     );
@@ -272,13 +249,18 @@ import {
     return (
       <Section<Education> section={section} urlKey="url" summaryKey="summary">
         {(item) => (
-          <div>
+          <div className="flex items-center justify-between">
+          <div className="text-left">
             <div className="font-bold">{item.institution}</div>
             <div>{item.area}</div>
             <div>{item.score}</div>
-            <div>{item.studyType}</div>
-            <div className="font-bold">{item.date}</div>
           </div>
+
+          <div className="shrink-0 text-right">
+            <div className="font-bold">{item.date}</div>
+            <div>{item.studyType}</div>
+          </div>
+        </div>
         )}
       </Section>
     );
@@ -316,18 +298,18 @@ import {
     );
   };
   
-  const Skills = () => {
+  const CoreCompetencies = () => {
     const section = useArtboardStore((state) => state.resume.sections.skills);
   
     return (
-      <Section<Skill> section={section} levelKey="level" keywordsKey="keywords">
-        {(item) => (
-          <div>
-            <div className="font-bold">{item.name}</div>
-            <div>{item.description}</div>
-          </div>
-        )}
-      </Section>
+      <section id={section.id} className="mt-4">
+        <h4 className="font-bold">Core Competencies</h4>
+        <ul className="mt-2 grid grid-cols-4 gap-2 list-disc list-inside">
+          {section.items.map((item) => (
+            <li key={item.id}>{item.name}</li>
+          ))}
+        </ul>
+      </section>
     );
   };
   
@@ -464,7 +446,7 @@ import {
       case "certifications":
         return <Certifications />;
       case "skills":
-        return <Skills />;
+        return <CoreCompetencies/>;
       case "interests":
         return <Interests />;
       case "publications":
@@ -485,34 +467,24 @@ import {
   };
   
   export const Orion = ({ columns, isFirstPage = false }: TemplateProps) => {
-    const [main, sidebar] = columns;
+    const [main,sidebar] = columns;
   
     return (
       <div className="p-6 space-y-6 bg-white shadow-lg rounded-lg">
         {isFirstPage && <Header />}
   
-        <div className="grid grid-cols-4 gap-6">
-          <div className="col-span-1 bg-gray-100 p-4 rounded-lg border border-slate-600">
-            {sidebar.map((section) => (
-              <Fragment key={section}>
-                    
-                    {mapSectionToComponent(section)}
-                    
-          </Fragment>
-              
-            ))}
-          </div>
-  
-          <div className="col-span-3 bg-gray-50 p-4 rounded-lg space-y-6">
-            {main.map((section) => (
-              <Fragment key={section}>
-                        
-                        {mapSectionToComponent(section)}
-                        
-              </Fragment>
-            ))}
-          </div>
+        
+        <div className="col-span-3  p-4 rounded-lg space-y-6">
+          {main.map((section) => (
+            <Fragment key={section}>
+                      
+                      {mapSectionToComponent(section)}
+                      
+            </Fragment>
+          ))}
         </div>
+        
       </div>
+      
     );
   };
