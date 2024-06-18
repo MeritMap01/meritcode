@@ -6,6 +6,7 @@ import { Chikorita } from "./chikorita";
 import { Ditto } from "./ditto";
 import { Gengar } from "./gengar";
 import { Glalie } from "./glalie";
+import { Horizon } from "./horizon";
 import { Kakuna } from "./kakuna";
 import { Leafish } from "./leafish";
 import { Majestic } from "./majestic"
@@ -28,6 +29,8 @@ export const getTemplate = (template: Template) => {
       return Gengar;
     case "glalie":
       return Glalie;
+    case "horizon":
+      return Horizon;
     case "kakuna":
       return Kakuna;
     case "leafish":
