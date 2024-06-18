@@ -470,7 +470,7 @@ import {
     const [main,sidebar] = columns;
   
     return (
-      <div className="p-6 space-y-6 bg-white shadow-lg rounded-lg">
+      <div className="p-6 space-y-6 bg-white  rounded-lg">
         {isFirstPage && <Header />}
   
         
