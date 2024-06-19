@@ -228,7 +228,7 @@ const WorkExperience = () => {
           <div className="shrink-0 text-right">
             <div className="font-bold">{item.date}</div>
           </div>
-          
+          <p className="mt-1" dangerouslySetInnerHTML={{ __html: item.summary }} />
         </div>
       ))}
     </section>

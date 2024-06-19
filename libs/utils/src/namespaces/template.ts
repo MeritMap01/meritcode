@@ -11,6 +11,7 @@ export const templatesList = [
   "nosepass",
   "onyx",
   "orion",
+  "palette",
   "pikachu",
   "rhyhorn",
 ] as const;

@@ -11,6 +11,7 @@ import { Leafish } from "./leafish";
 import { Legacy } from "./legacy";
 import { Nosepass } from "./nosepass";
 import { Onyx } from "./onyx";
+import { Palette } from "./palette";
 import { Pikachu } from "./pikachu";
 import { Rhyhorn } from "./rhyhorn";
 import {Orion} from "./orion";
@@ -42,6 +43,8 @@ export const getTemplate = (template: Template) => {
       return Onyx;
     case "orion":
       return Orion;
+    case "palette":
+      return Palette;
     case "pikachu":
       return Pikachu;
     case "rhyhorn":
