@@ -14,6 +14,8 @@ import { Nosepass } from "./nosepass";
 import { Onyx } from "./onyx";
 import { Pikachu } from "./pikachu";
 import { Rhyhorn } from "./rhyhorn";
+import { Genesis } from "./genesis";
+// import { Nexus } from "./nexus";
 import {Orion} from "./orion";
 import { Legacy } from "./legacy";
 import { Palette } from "./palette";
@@ -22,6 +24,10 @@ export const getTemplate = (template: Template) => {
   switch (template) {
     case "azurill":
       return Azurill;
+    // case "nexus":
+    //   return Nexus;
+    case "genesis":
+      return Genesis;
     case "bronzor":
       return Bronzor;
     case "chikorita":

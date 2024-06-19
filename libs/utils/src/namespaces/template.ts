@@ -13,6 +13,8 @@ export const templatesList = [
   "onyx",
   "pikachu",
   "rhyhorn",
+  "genesis",
+  "nexus",
   "legacy",
   "orion",
   "palette",
