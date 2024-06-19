@@ -26,28 +26,28 @@ import {
   
   const Summary = () => {
     const section = useArtboardStore((state) => state.resume.sections.summary);
-
-    return(
-        <div>
-            <div className="grid m-2 p-2 ml-6 mr-6">
-            <h2 style={{ letterSpacing: '0.3em' }} className="mb-2 pb-3 text-xl border-b border-primary text-left font-bold text-primary">
-            {section.name.toUpperCase()}
-            </h2>
-            <div
-                className="wysiwyg text-left"
-                style={{ columns: section.columns }}
-                dangerouslySetInnerHTML={{ __html: section.content }}
+    const margin = useArtboardStore((state) => state.resume.metadata.page.margin);
+    return (
+        <div style={{ margin }}>
+            <div className="grid">
+                <h2 style={{ letterSpacing: '0.3em' }} className="mb-2 pb-3 text-xl border-b border-primary text-left font-bold text-primary">
+                    {section.name.toUpperCase()}
+                </h2>
+                <div
+                    className="wysiwyg text-left"
+                    style={{ columns: section.columns }}
+                    dangerouslySetInnerHTML={{ __html: section.content }}
                 />
             </div>
         </div>
-    )
-  }
+    );
+}
+
 
   const Header = () => {
     const basics = useArtboardStore((state) => state.resume.basics);
     // const flag = useArtboardStore((state) => state.resume.basics.picture.effects.hidden)
     const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary);
-    const fontSize = useArtboardStore((state) => state.resume.metadata.typography.font.size);
     return (
       <div style={{ backgroundColor: primaryColor , color : "white"}} className="p-8">
         <div className="grid grid-cols-7">
@@ -162,7 +162,7 @@ import {
     if (!section.visible || !section.items.length) return null;
   
     return (
-      <section id={section.id} className="grid mt-0 m-1 p-2">
+      <section id={section.id} className="grid">
         <h2 style={{ letterSpacing: '0.3em' }} className="mb-2 pb-3 text-xl border-b border-primary text-left font-bold text-primary">
           {section.name.toUpperCase()}
         </h2>
@@ -472,6 +472,7 @@ import {
       <div>
         {isFirstPage && <Header />}
         {isFirstPage && <Summary/>}
+
         <div className="p-custom grid grid-cols-5 items-start space-x-6">
           <div className="grid gap-y-4 col-span-2">
             {sidebar.map((section) => (
