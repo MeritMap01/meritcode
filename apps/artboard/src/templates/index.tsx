@@ -24,7 +24,7 @@ import { Legacy } from "./legacy";
 import { Orion } from "./orion";
 import { Palette } from "./palette";
 import { Ignite } from "./ignite";
-import {Innovate} from "./innovate";
+import { Innovate } from "./innovate";
 import { Joyful } from "./joyful";
 import { Zenith } from "./zenith";
 import { Pinnacle } from "./pinnacle";

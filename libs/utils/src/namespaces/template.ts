@@ -34,13 +34,14 @@ export const templatesList = [
   "ditto",
   "gengar",
   "glalie",
+  "horizon",
   "kakuna",
   "leafish",
   "nosepass",
   "onyx",
   "pikachu",
   "rhyhorn",
-  
+
 ] as const;
 
 export type Template = (typeof templatesList)[number];
