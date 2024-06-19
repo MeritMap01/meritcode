@@ -56,14 +56,14 @@ const ProfileSummary = () => {
   if (!summary.visible || !summary.content) return null;
 
   return (
-    <section className="mb-6">
+   <div className="w-full"> <section className="mb-6 ">
       <h3 className="text-lg font-semibold border-b-2 pb-2" style={{ borderColor: '#5baaab', color: '#5baaab' }}>Profile Summary</h3>
       <div
         className="wysiwyg"
         style={{ columns: summary.columns }}
         dangerouslySetInnerHTML={{ __html: summary.content }}
       />
-    </section>
+    </section></div>
   );
 };
 
@@ -508,10 +508,10 @@ export const Legacy = ({ columns, isFirstPage = false } : TemplateProps) => {
   return (
     <div className=" bg-white ">
       {isFirstPage && <Header />}
-      <div className="p-8">
+      <div className="p-8 w-100vw">
           <div className="grid grid-cols-4 gap-6">
           
-          <div className="col-span-3">
+          <div className="col-span-12">
               {main.map((section) => (
               <Fragment key={section}>
                   {mapSectionToComponent(section)}
