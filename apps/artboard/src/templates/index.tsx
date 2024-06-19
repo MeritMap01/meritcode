@@ -14,6 +14,9 @@ import { Nosepass } from "./nosepass";
 import { Onyx } from "./onyx";
 import { Pikachu } from "./pikachu";
 import { Rhyhorn } from "./rhyhorn";
+import {Orion} from "./orion";
+import { Legacy } from "./legacy";
+import { Palette } from "./palette";
 
 export const getTemplate = (template: Template) => {
   switch (template) {
@@ -45,6 +48,12 @@ export const getTemplate = (template: Template) => {
       return Pikachu;
     case "rhyhorn":
       return Rhyhorn;
+    case "legacy":
+      return Legacy;
+    case "orion":
+      return Orion;
+    case "palette":
+      return Palette;
     default:
       return Onyx;
   }
