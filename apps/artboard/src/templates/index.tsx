@@ -51,6 +51,12 @@ export const getTemplate = (template: Template) => {
       return Pikachu;
     case "rhyhorn":
       return Rhyhorn;
+    case "legacy":
+      return Legacy;
+    case "orion":
+      return Orion;
+    case "palette":
+      return Palette;
     default:
       return Onyx;
   }
