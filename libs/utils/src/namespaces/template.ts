@@ -9,6 +9,7 @@ export const templatesList = [
   "kakuna",
   "leafish",
   "majestic",
+  "naruto",
   "nosepass",
   "onyx",
   "pikachu",
