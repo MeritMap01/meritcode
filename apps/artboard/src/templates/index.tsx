@@ -16,6 +16,10 @@ import { Pikachu } from "./pikachu";
 import { Rhyhorn } from "./rhyhorn";
 import { Genesis } from "./genesis";
 import { Nexus } from "./nexus";
+import { Legacy } from "./legacy";
+import { Orion } from "./orion";
+import { Palette } from "./palette";
+import { Zenith } from "./zenith";
 
 export const getTemplate = (template: Template) => {
   switch (template) {
@@ -25,6 +29,8 @@ export const getTemplate = (template: Template) => {
       return Nexus;
     case "genesis":
       return Genesis;
+    case "zenith":
+      return Zenith;
     case "bronzor":
       return Bronzor;
     case "chikorita":

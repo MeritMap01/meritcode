@@ -14,7 +14,11 @@ export const templatesList = [
   "pikachu",
   "rhyhorn",
   "genesis",
-  "nexus"
+  "nexus",
+  "zenith",
+  "legacy",
+  "orion",
+  "palette"
 ] as const;
 
 export type Template = (typeof templatesList)[number];
