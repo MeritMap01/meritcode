@@ -7,7 +7,6 @@ import {
     Experience,
     Interest,
     Language,
-    Profile,
     Project,
     Publication,
     Reference,
@@ -15,11 +14,12 @@ import {
     SectionWithItem,
     Skill,
     URL,
+    Profile,
     Volunteer,
 } from "@reactive-resume/schema";
-import { cn, hexToRgb, isEmptyString, isUrl, linearTransform } from "@reactive-resume/utils";
+import { cn, isEmptyString, isUrl } from "@reactive-resume/utils";
 import get from "lodash.get";
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 
 import { Picture } from "../components/picture";
 import { useArtboardStore } from "../store/artboard";
@@ -27,12 +27,16 @@ import { TemplateProps } from "../types/template";
 
 const Header = () => {
     const basics = useArtboardStore((state) => state.resume.basics);
+    const profiles = useArtboardStore((state) => state.resume.sections.profiles);
+    const fontSize = useArtboardStore((state) => state.resume.metadata.typography.font.size);
 
     return (
-        <div className="flex flex-col items-center space-y-4 border-b text-center">
-            <div className="flex flex-col gap-5">
-                <div className="text-5xl font-bold tracking-widest">{basics.name}</div>
-                <div className="text-3xl">{basics.headline}</div>
+        <div className="flex flex-row space-x-4 justify-between pb-5">
+            <Picture className=" w-64 h-72 mr-6" />
+            <div className="h-auto self-stretch w-0.5 bg-primary  text-center"></div>
+            <div className="flex flex-col items-center gap-3 text-center w-[100%] justify-center">
+                <h1 className="text-5xl font-bold tracking-widest text-primary">{basics.name.toUpperCase()}</h1>
+                <p className="text-xl">{basics.headline}</p>
             </div>
         </div>
     );
@@ -42,14 +46,12 @@ const Summary = () => {
     const section = useArtboardStore((state) => state.resume.sections.summary);
 
     if (!section.visible || isEmptyString(section.content)) return null;
-    const changeName = section.name === "Summary" ? "EXPERTISE" : section.name
 
     return (
-        <section id={section.id} className="border-b">
-            <h4 className="mb-2 pb-0.5 text-2xl font-bold">{changeName}</h4>
-
+        <section id={section.id}>
             <div
                 className="wysiwyg"
+                style={{ columns: section.columns }}
                 dangerouslySetInnerHTML={{ __html: section.content }}
             />
         </section>
@@ -58,22 +60,16 @@ const Summary = () => {
 
 type RatingProps = { level: number };
 
-const Rating = ({ level }: RatingProps) => {
-    const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary);
-
-    return (
-        <div className="relative">
+const Rating = ({ level }: RatingProps) => (
+    <div className="flex items-center gap-x-1">
+        {Array.from({ length: 5 }).map((_, index) => (
             <div
-                className="h-2.5 w-full rounded-sm"
-                style={{ backgroundColor: hexToRgb(primaryColor, 0.4) }}
+                key={index}
+                className={cn("h-2.5 w-5 border border-primary", level > index && "bg-primary")}
             />
-            <div
-                className="absolute inset-y-0 left-0 h-2.5 w-full rounded-sm bg-primary"
-                style={{ width: `${linearTransform(level, 0, 5, 0, 100)}%` }}
-            />
-        </div>
-    );
-};
+        ))}
+    </div>
+);
 
 type LinkProps = {
     url: URL;
@@ -87,7 +83,7 @@ const Link = ({ url, icon, label, className }: LinkProps) => {
 
     return (
         <div className="flex items-center gap-x-1.5">
-            {icon ?? <i className="ph ph-bold ph-link group-[.main]:text-primary" />}
+            {icon ?? <i className="ph ph-bold ph-link text-primary group-[.sidebar]:text-background" />}
             <a
                 href={url.href}
                 target="_blank"
@@ -120,18 +116,18 @@ const Section = <T,>({
     keywordsKey,
 }: SectionProps<T>) => {
     if (!section.visible || !section.items.length) return null;
-    const gridChanges = section.name === "Skills" ? "flex flex-wrap px-2  text-left -mx-2" : "grid gap-x-6 gap-y-3"
 
-    const containerClass = section.name === "Skills" ? "flex flex-wrap px-1  text-left -mx-2" : "grid gap-x-6 gap-y-3";
+    const nameChanges = section.name === "Experience" ? "WORK EXPERIENCE" : section.name
+    const changeStyles = section.name === "Experience" && "group-[.main]:text-center"
+    const alignChanges = section.name === "Skills" ? "flex flex-wrap px-2  text-left -mx-2" : "grid gap-x-6 gap-y-3 pl-0 p-9 group-[.main]:pl-9"
+
     return (
-        <section id={section.id} className="grid group-[.sidebar]:border-b">
-            <h4 className="mb-2 pb-0.5 text-2xl font-bold">
-                {section.name.toUpperCase()}
-            </h4>
+        <section id={section.id} className="grid">
+            <h4 className="mb-2 border-b border-t tracking-widest text-xl p-6 text-center border-primary font-bold text-primary">{nameChanges.toUpperCase()}</h4>
 
             <div
-                className={containerClass}
-                style={{ gridTemplateColumns: !gridChanges ? `repeat(${section.columns}, 1fr)` : undefined }}
+                className={`${changeStyles} ${alignChanges}`}
+                style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
             >
                 {section.items
                     .filter((item) => item.visible)
@@ -149,7 +145,7 @@ const Section = <T,>({
                                 </div>
 
                                 {summary !== undefined && !isEmptyString(summary) && (
-                                    <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: summary }} />
+                                    <div className="" dangerouslySetInnerHTML={{ __html: summary }} />
                                 )}
 
                                 {level !== undefined && level > 0 && <Rating level={level} />}
@@ -161,52 +157,7 @@ const Section = <T,>({
                         );
                     })}
             </div>
-        </section >
-    );
-};
-
-const Experience = () => {
-    const section = useArtboardStore((state) => state.resume.sections.experience);
-
-    return (
-        <Section<Experience> section={section} urlKey="url" summaryKey="summary">
-            {(item) => (
-                <div className="flex items-center justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
-                    <div className="text-left">
-                        <div className="font-bold">{item.company}</div>
-                        <div>{item.position}</div>
-                    </div>
-
-                    <div className="shrink-0 text-right">
-                        <div className="font-bold">{item.date}</div>
-                        <div>{item.location}</div>
-                    </div>
-                </div>
-            )}
-        </Section>
-    );
-};
-
-const Education = () => {
-    const section = useArtboardStore((state) => state.resume.sections.education);
-
-    return (
-        <Section<Education> section={section} urlKey="url" summaryKey="summary">
-            {(item) => (
-                <div className="flex flex-col items-center justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
-                    <div className="">
-                        <div className="font-bold">{item.institution}</div>
-                        <div>{item.area}</div>
-                        <div>{item.score}</div>
-                    </div>
-
-                    <div className="">
-                        <div className="font-bold">{item.date}</div>
-                        <div>{item.studyType}</div>
-                    </div>
-                </div>
-            )}
-        </Section>
+        </section>
     );
 };
 
@@ -217,7 +168,7 @@ const Profiles = () => {
     return (
         <Section<Profile> section={section}>
             {(item) => (
-                <div className="flex gap-2 items-center">
+                <div>
                     {isUrl(item.url.href) ? (
                         <Link
                             url={item.url}
@@ -242,6 +193,51 @@ const Profiles = () => {
     );
 };
 
+const Experience = () => {
+    const section = useArtboardStore((state) => state.resume.sections.experience);
+
+    return (
+        <Section<Experience> section={section} summaryKey="summary">
+            {(item) => (
+                <div className="flex flex-col justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
+                    <div className="flex justify-center">
+                        <div className="font-bold">{item.company}</div>
+                        <div>{item.position}</div>
+                    </div>
+
+                    <div className="flex justify-center">
+                        <div className="font-bold">{item.date}</div>
+                        <div>,{item.location}</div>
+                    </div>
+                </div>
+            )}
+        </Section>
+    );
+};
+
+const Education = () => {
+    const section = useArtboardStore((state) => state.resume.sections.education);
+
+    return (
+        <Section<Education> section={section} urlKey="url" summaryKey="summary">
+            {(item) => (
+                <div className="flex items-center justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
+                    <div className="text-left">
+                        <div className="font-bold">{item.institution}</div>
+                        <div>{item.area}</div>
+                        <div>{item.score}</div>
+                    </div>
+
+                    <div className="shrink-0 text-right group-[.sidebar]:text-left">
+                        <div className="font-bold">{item.date}</div>
+                        <div>{item.studyType}</div>
+                    </div>
+                </div>
+            )}
+        </Section>
+    );
+};
+
 const Awards = () => {
     const section = useArtboardStore((state) => state.resume.sections.awards);
 
@@ -254,7 +250,7 @@ const Awards = () => {
                         <div>{item.awarder}</div>
                     </div>
 
-                    <div className="shrink-0 text-right">
+                    <div className="shrink-0 text-right group-[.sidebar]:text-left">
                         <div className="font-bold">{item.date}</div>
                     </div>
                 </div>
@@ -275,7 +271,7 @@ const Certifications = () => {
                         <div>{item.issuer}</div>
                     </div>
 
-                    <div className="shrink-0 text-right">
+                    <div className="shrink-0 text-right group-[.sidebar]:text-left">
                         <div className="font-bold">{item.date}</div>
                     </div>
                 </div>
@@ -288,10 +284,13 @@ const Skills = () => {
     const section = useArtboardStore((state) => state.resume.sections.skills);
 
     return (
-        <Section<Skill> section={section} levelKey="level" keywordsKey="keywords" className=" group-[.main]:w-[50%] py-1">
+        <Section<Skill> section={section} levelKey="level" keywordsKey="keywords" className=" group-[.main]:w-[50%] px-2">
             {(item) => (
-                <div >
-                    <div className="">{item.name}</div>
+                <div>
+                    <div className="flex items-center gap-2">
+                        <i className="ph ph-bold ph-check-circle"></i>
+                        <div className="font-bold">{item.name}</div>
+                    </div>
                     <div>{item.description}</div>
                 </div>
             )}
@@ -303,7 +302,7 @@ const Interests = () => {
     const section = useArtboardStore((state) => state.resume.sections.interests);
 
     return (
-        <Section<Interest> section={section} keywordsKey="keywords" className="space-y-0.5">
+        <Section<Interest> section={section} className="space-y-1" keywordsKey="keywords">
             {(item) => <div className="font-bold">{item.name}</div>}
         </Section>
     );
@@ -321,7 +320,7 @@ const Publications = () => {
                         <div>{item.publisher}</div>
                     </div>
 
-                    <div className="shrink-0 text-right">
+                    <div className="shrink-0 text-right group-[.sidebar]:text-left">
                         <div className="font-bold">{item.date}</div>
                     </div>
                 </div>
@@ -342,7 +341,7 @@ const Volunteer = () => {
                         <div>{item.position}</div>
                     </div>
 
-                    <div className="shrink-0 text-right">
+                    <div className="shrink-0 text-right group-[.sidebar]:text-left">
                         <div className="font-bold">{item.date}</div>
                         <div>{item.location}</div>
                     </div>
@@ -358,7 +357,7 @@ const Languages = () => {
     return (
         <Section<Language> section={section} levelKey="level">
             {(item) => (
-                <div className="space-y-0.5">
+                <div>
                     <div className="font-bold">{item.name}</div>
                     <div>{item.description}</div>
                 </div>
@@ -379,7 +378,7 @@ const Projects = () => {
                         <div>{item.description}</div>
                     </div>
 
-                    <div className="shrink-0 text-right">
+                    <div className="shrink-0 text-right group-[.sidebar]:text-left">
                         <div className="font-bold">{item.date}</div>
                     </div>
                 </div>
@@ -456,8 +455,6 @@ const mapSectionToComponent = (section: SectionKey) => {
     switch (section) {
         case "profiles":
             return <Profiles />;
-        case "summary":
-            return <Summary />;
         case "experience":
             return <Experience />;
         case "education":
@@ -487,23 +484,22 @@ const mapSectionToComponent = (section: SectionKey) => {
     }
 };
 
-export const Zenith = ({ columns, isFirstPage = false }: TemplateProps) => {
+export const Pinnacle = ({ columns, isFirstPage = false }: TemplateProps) => {
     const [main, sidebar] = columns;
-    const basics = useArtboardStore((state) => state.resume.basics);
-
-    const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary);
 
     return (
         <div className="p-custom space-y-3">
             {isFirstPage && <Header />}
 
-            <div className="grid grid-cols-3 gap-x-4 ">
-                <div className="sidebar group col-span-1 space-y-4">
+            <div className="grid grid-cols-[1fr_auto_2fr]">
+                <div className="sidebar group space-y-4">
                     {sidebar.map((section) => (
                         <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
                     ))}
                 </div>
-                <div className="main group col-span-2 space-y-4">
+                <div className="w-0.5 bg-primary"></div>
+
+                <div className="main group space-y-4">
                     {main.map((section) => (
                         <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
                     ))}

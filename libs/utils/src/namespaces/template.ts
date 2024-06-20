@@ -18,7 +18,8 @@ export const templatesList = [
   "zenith",
   "legacy",
   "orion",
-  "palette"
+  "palette",
+  "pinnacle"
 ] as const;
 
 export type Template = (typeof templatesList)[number];

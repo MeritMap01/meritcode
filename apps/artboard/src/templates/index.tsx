@@ -20,6 +20,7 @@ import { Legacy } from "./legacy";
 import { Orion } from "./orion";
 import { Palette } from "./palette";
 import { Zenith } from "./zenith";
+import { Pinnacle } from "./pinnacle"
 
 export const getTemplate = (template: Template) => {
   switch (template) {
@@ -63,6 +64,8 @@ export const getTemplate = (template: Template) => {
       return Orion;
     case "palette":
       return Palette;
+    case "pinnacle":
+      return Pinnacle
     default:
       return Onyx;
   }
