@@ -29,11 +29,11 @@ const Header = () => {
     const basics = useArtboardStore((state) => state.resume.basics);
     const profiles = useArtboardStore((state) => state.resume.sections.profiles);
     const fontSize = useArtboardStore((state) => state.resume.metadata.typography.font.size);
-
+    const picture = useArtboardStore((state) => state.resume.basics.picture);
     return (
         <div className="flex flex-row space-x-4 justify-between pb-5">
-            <Picture className=" w-64 h-72 mr-6" />
-            <div className="h-auto self-stretch w-0.5 bg-primary  text-center"></div>
+            {picture.url && <img src={picture.url} className="h-72 w-72 text-center" />}
+            {picture.url && <div className="h-auto self-stretch w-0.5 bg-primary text-center"></div>}
             <div className="flex flex-col items-center gap-3 text-center w-[100%] justify-center">
                 <h1 className="text-5xl font-bold tracking-widest text-primary">{basics.name.toUpperCase()}</h1>
                 <p className="text-xl">{basics.headline}</p>
