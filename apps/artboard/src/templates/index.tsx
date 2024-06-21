@@ -25,8 +25,6 @@ import { Ignite } from "./ignite";
 import { Zenith } from "./zenith";
 import { Pinnacle } from "./pinnacle";
 import { Aurora } from "./aurora"
-import { Zenith } from "./zenith";
-import { Pinnacle } from "./pinnacle"
 
 export const getTemplate = (template: Template) => {
   switch (template) {
