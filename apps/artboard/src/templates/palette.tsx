@@ -149,7 +149,7 @@ const Section = <T,>({
 
   return (
     <section id={section.id} className="grid">
-       <h3 className="text-lg font-sans border-b-2 font-semibold mb-2" style={{ color: '#454040' }}>{section.name.toUpperCase()}</h3>
+       <h3 className="text-lg font-sans border-b-0 font-semibold mb-2" style={{ color: '#454040' }}>{section.name.toUpperCase()}</h3>
 
       <div
         className="grid gap-x-6 gap-y-3"
@@ -493,7 +493,7 @@ export const Palette = ({ columns, isFirstPage = false }: TemplateProps) => {
 
   return (
     <div className="p-custom grid grid-cols-3 space-x-6">
-      <div className="sidebar bg-gray-100 p-4 group space-y-4">
+      <div className="sidebar bg-gray-100 m-6 p-6 group space-y-4">
         {isFirstPage && <Header />}
 
         {sidebar.map((section) => (

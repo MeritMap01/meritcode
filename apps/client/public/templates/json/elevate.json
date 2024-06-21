@@ -13,10 +13,10 @@
       "picture": {
         "url": "https://i.imgur.com/HgwyOuJ.jpg",
         "size": 120,
-        "aspectRatio": 1,
-        "borderRadius": 0,
+        "aspectRatio": 1.2,
+        "borderRadius": 4,
         "effects": {
-          "hidden": true,
+          "hidden": false,
           "border": false,
           "grayscale": false
         }
@@ -271,7 +271,7 @@
       "custom": {}
     },
     "metadata": {
-      "template": "horizon",
+      "template": "azurill",
       "layout": [
         [
           ["summary", "experience", "education", "references"],
@@ -279,9 +279,9 @@
             "profiles",
             "skills",
             "certifications",
+            "projects",
             "interests",
             "languages",
-            "projects",
             "awards",
             "volunteer",
             "publications"
@@ -303,16 +303,16 @@
       "theme": {
         "background": "#ffffff",
         "text": "#000000",
-        "primary": "#7b4f1a"
+        "primary": "#ca8a04"
       },
       "typography": {
         "font": {
-          "family": "IBM Plex Serif",
+          "family": "Merriweather",
           "subset": "latin",
           "variants": ["regular"],
           "size": 13
         },
-        "lineHeight": 1.6,
+        "lineHeight": 1.75,
         "hideIcons": false,
         "underlineLinks": true
       },

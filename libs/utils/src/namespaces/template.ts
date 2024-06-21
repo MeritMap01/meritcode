@@ -3,12 +3,14 @@ export const templatesList = [
   "bronzor",
   "chikorita",
   "ditto",
+  "elevate",
   "gengar",
   "glalie",
   "horizon",
   "kakuna",
   "leafish",
   "majestic",
+  "naruto",
   "nosepass",
   "onyx",
   "pikachu",
@@ -19,6 +21,7 @@ export const templatesList = [
   "legacy",
   "orion",
   "palette",
+  "ignite",
   "pinnacle"
 ] as const;
 

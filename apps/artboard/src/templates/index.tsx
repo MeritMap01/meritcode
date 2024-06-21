@@ -4,6 +4,7 @@ import { Azurill } from "./azurill";
 import { Bronzor } from "./bronzor";
 import { Chikorita } from "./chikorita";
 import { Ditto } from "./ditto";
+import { Elevate } from "./elevate";
 import { Gengar } from "./gengar";
 import { Glalie } from "./glalie";
 import { Horizon } from "./horizon";
@@ -15,10 +16,12 @@ import { Onyx } from "./onyx";
 import { Pikachu } from "./pikachu";
 import { Rhyhorn } from "./rhyhorn";
 import { Genesis } from "./genesis";
+import { Naruto } from "./naruto";
 import { Nexus } from "./nexus";
 import { Legacy } from "./legacy";
 import { Orion } from "./orion";
 import { Palette } from "./palette";
+import { Ignite } from "./ignite";
 import { Zenith } from "./zenith";
 import { Pinnacle } from "./pinnacle"
 
@@ -38,6 +41,8 @@ export const getTemplate = (template: Template) => {
       return Chikorita;
     case "ditto":
       return Ditto;
+    case "elevate":
+      return Elevate;
     case "gengar":
       return Gengar;
     case "glalie":
@@ -50,6 +55,8 @@ export const getTemplate = (template: Template) => {
       return Leafish;
     case "majestic":
       return Majestic;
+    case "naruto":
+      return Naruto;
     case "nosepass":
       return Nosepass;
     case "onyx":
@@ -64,6 +71,8 @@ export const getTemplate = (template: Template) => {
       return Orion;
     case "palette":
       return Palette;
+    case "ignite":
+      return Ignite;
     case "pinnacle":
       return Pinnacle
     default:
