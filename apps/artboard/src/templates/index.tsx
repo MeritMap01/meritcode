@@ -16,6 +16,7 @@ import { Onyx } from "./onyx";
 import { Pikachu } from "./pikachu";
 import { Rhyhorn } from "./rhyhorn";
 import { Genesis } from "./genesis";
+import { Naruto } from "./naruto";
 // import { Nexus } from "./nexus";
 import {Orion} from "./orion";
 import { Legacy } from "./legacy";
@@ -49,6 +50,8 @@ export const getTemplate = (template: Template) => {
       return Leafish;
     case "majestic":
       return Majestic;
+    case "naruto":
+      return Naruto;
     case "nosepass":
       return Nosepass;
     case "onyx":
