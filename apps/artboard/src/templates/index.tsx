@@ -21,6 +21,7 @@ import { Naruto } from "./naruto";
 import {Orion} from "./orion";
 import { Legacy } from "./legacy";
 import { Palette } from "./palette";
+import { Ignite } from "./ignite";
 
 export const getTemplate = (template: Template) => {
   switch (template) {
@@ -66,6 +67,8 @@ export const getTemplate = (template: Template) => {
       return Orion;
     case "palette":
       return Palette;
+    case "ignite":
+      return Ignite;
     default:
       return Onyx;
   }
