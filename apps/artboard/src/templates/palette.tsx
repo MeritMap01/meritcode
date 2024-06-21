@@ -31,7 +31,7 @@ const Header = () => {
   
   return (
     <header className="flex flex-col items-center justify-between p-4  rounded-md">
-      <img src={picture.url} alt="Profile" className="w-24 h-24 rounded-full mr-4 m-1" />
+      <img src={picture.url} alt="Profile" className="w-30 h-30 rounded-full mr-4 m-1" />
       <div className="flex items-center m-2">
         
         <div>
@@ -148,11 +148,11 @@ const Section = <T,>({
   if (!section.visible || !section.items.length) return null;
 
   return (
-    <section id={section.id} className="grid">
-       <h3 className="text-lg font-sans border-b-0 font-semibold mb-2" style={{ color: '#454040' }}>{section.name.toUpperCase()}</h3>
+    <section id={section.id} className="grid text-wrap">
+       <h3 className="text-lg text-wrap font-sans border-b-2 font-semibold mb-2" style={{ color: '#454040' }}>{section.name.toUpperCase()}</h3>
 
       <div
-        className="grid gap-x-6 gap-y-3"
+        className="grid gap-x-6 text-wrap gap-y-3"
         style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
       >
         {section.items
@@ -493,7 +493,7 @@ export const Palette = ({ columns, isFirstPage = false }: TemplateProps) => {
 
   return (
     <div className="p-custom grid grid-cols-3 space-x-6">
-      <div className="sidebar bg-gray-100 m-6 p-6 group space-y-4">
+      <div className="sidebar bg-gray-100 ml-6 mt-4 p-6 group space-y-4 text-wrap">
         {isFirstPage && <Header />}
 
         {sidebar.map((section) => (

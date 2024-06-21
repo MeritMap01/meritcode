@@ -53,14 +53,20 @@ import {
     if (!section.visible || isEmptyString(section.content)) return null;
   
     return (
-      <section className="p-4 text-lg font-serif" id={section.id}>
+      <div>
+        <section className="p-4 text-lg font-serif" id={section.id}>
         
         <div
           className="text-lg font-serif "
           style={{ columns: section.columns }}
           dangerouslySetInnerHTML={{ __html: section.content }}
         />
-      </section>
+       </section>
+       <div className="flex justify-between">
+            <div className="w-1/5 border-t-2 border-[#9c9b97]"></div>
+            <div className="w-1/5 border-t-2 border-[#9c9b97]"></div>
+          </div>
+      </div>
     );
   };
   
@@ -462,10 +468,7 @@ import {
           <div className="ml-8 mt-8 pr-4">{isFirstPage && <Header />}
           <div className="w-1/5 border-t-2 border-[#9c9b97]"></div>
           {isFirstPage && <Summary />}
-          <div className="flex justify-between">
-            <div className="w-1/5 border-t-2 border-[#9c9b97]"></div>
-            <div className="w-1/5 border-t-2 border-[#9c9b97]"></div>
-          </div>
+          
           <div className="flex flex-1">
             <div className="flex-1 p-4 space-y-4">
               
