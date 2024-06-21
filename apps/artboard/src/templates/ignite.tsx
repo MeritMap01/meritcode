@@ -29,11 +29,11 @@ import {
     const basics = useArtboardStore((state) => state.resume.basics);
     const { name, headline, phone } = useArtboardStore((state) => state.resume.basics);
     return (
-        <header className="flex flex-col items-left text-left p-6 mb-1">
+        <header className="flex flex-col text-wrap items-left text-left p-6 mb-1">
         <h1 className="text-4xl text-left font-bold mb-1">{name}</h1>
         <div className="flex justify-start space-x-8 text-sm text-gray-600 mt-2 mb-4">
          {<span>•</span>}
-          <p>{basics.email}</p>
+          <p className="overflow-wrap ">{basics.email}</p>
           <span>•</span>
           <p>{basics.location}</p>
           <span>•</span>
@@ -465,23 +465,23 @@ import {
   
     return (
         <div className=" bg-[#ecebe6] group min-h-[inherit] flex flex-col">
-          <div className="ml-8 mt-8 pr-4">{isFirstPage && <Header />}
+          <div className="ml-8 mt-8 pr-4 ">{isFirstPage && <Header />}
           <div className="w-1/5 border-t-2 border-[#9c9b97]"></div>
           {isFirstPage && <Summary />}
           
-          <div className="flex flex-1">
-            <div className="flex-1 p-4 space-y-4">
-              
-              {main.map((section) => (
-                <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
-              ))}
-            </div>
-            <div className="w-1/3 p-4 space-y-4 ">
-              {sidebar.map((section) => (
-                <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
-              ))}
-            </div>
-          </div></div>
+          <div className="flex flex-1 overflow-hidden">
+          <div className="flex-1 p-4 space-y-4 max-w-full break-words">
+            {main.map((section) => (
+              <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
+            ))}
+          </div>
+          <div className="w-1/3 p-4 space-y-4 max-w-full break-words overflow-hidden">
+            {sidebar.map((section) => (
+              <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
+            ))}
+          </div>
+        </div>
+          </div>
         </div>
       );
     };
