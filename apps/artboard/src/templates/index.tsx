@@ -17,20 +17,24 @@ import { Pikachu } from "./pikachu";
 import { Rhyhorn } from "./rhyhorn";
 import { Genesis } from "./genesis";
 import { Naruto } from "./naruto";
-// import { Nexus } from "./nexus";
-import {Orion} from "./orion";
+import { Nexus } from "./nexus";
 import { Legacy } from "./legacy";
+import { Orion } from "./orion";
 import { Palette } from "./palette";
 import { Ignite } from "./ignite";
+import { Zenith } from "./zenith";
+import { Pinnacle } from "./pinnacle"
 
 export const getTemplate = (template: Template) => {
   switch (template) {
     case "azurill":
       return Azurill;
-    // case "nexus":
-    //   return Nexus;
+    case "nexus":
+      return Nexus;
     case "genesis":
       return Genesis;
+    case "zenith":
+      return Zenith;
     case "bronzor":
       return Bronzor;
     case "chikorita":
@@ -69,6 +73,8 @@ export const getTemplate = (template: Template) => {
       return Palette;
     case "ignite":
       return Ignite;
+    case "pinnacle":
+      return Pinnacle
     default:
       return Onyx;
   }
