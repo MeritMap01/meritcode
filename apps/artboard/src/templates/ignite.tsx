@@ -31,7 +31,7 @@ import {
     return (
         <header className="flex flex-col items-left text-left p-6 mb-1">
         <h1 className="text-4xl text-left font-bold mb-1">{name}</h1>
-        <div className="flex justify-center space-x-12 text-sm text-gray-600 mt-2 mb-4">
+        <div className="flex justify-start space-x-8 text-sm text-gray-600 mt-2 mb-4">
          {<span>•</span>}
           <p>{basics.email}</p>
           <span>•</span>
@@ -43,7 +43,6 @@ import {
         <div className="text-lg text-gray-600">
           <p>{headline}</p>
         </div>
-        <hr className="mt-4"/>
       </header>
     );
   };
@@ -171,7 +170,7 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.experience);
   
     return (
-        <section className="p-6 border-t-2  border-gray-600">
+        <section className="">
         <h2 className="text-xl font-bold mb-2">Experience</h2>
         {section.items.map((item) => (
           <div key={item.id} className="mb-4">
@@ -188,7 +187,7 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.education);
   
     return (
-        <section className="p-6 border-t-2 border-gray-600">
+        <section className="">
         <h2 className="text-xl font-bold mb-2">Education</h2>
         {section.items.map((item) => (
           <div key={item.id} className="mb-4">
@@ -281,7 +280,7 @@ import {
     if (!skills.visible || !skills.items.length) return null;
   
     return (
-        <section className="p-6">
+        <section className="">
           <h2 className="text-xl font-bold mb-2">Core Skills</h2>
           <ul className="list-disc ml-5">
             {skills.items.map((item, index) => (
@@ -460,8 +459,13 @@ import {
   
     return (
         <div className=" bg-[#ecebe6] group min-h-[inherit] flex flex-col">
-          {isFirstPage && <Header />}
+          <div className="ml-8 mt-8 pr-4">{isFirstPage && <Header />}
+          <div className="w-1/5 border-t-2 border-[#9c9b97]"></div>
           {isFirstPage && <Summary />}
+          <div className="flex justify-between">
+            <div className="w-1/5 border-t-2 border-[#9c9b97]"></div>
+            <div className="w-1/5 border-t-2 border-[#9c9b97]"></div>
+          </div>
           <div className="flex flex-1">
             <div className="flex-1 p-4 space-y-4">
               
@@ -474,7 +478,7 @@ import {
                 <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
               ))}
             </div>
-          </div>
+          </div></div>
         </div>
       );
     };
