@@ -28,7 +28,7 @@ import { TemplateProps } from "../types/template";
 const Header = () => {
     const basics = useArtboardStore((state) => state.resume.basics);
     const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary);
-
+    const picture = useArtboardStore((state) => state.resume.basics.picture);
     return (
         <div className="relative pb-0" style={{ backgroundColor: hexToRgb(primaryColor, 0.2) }}>
             <div className="flex relative justify-between w-full">
@@ -39,7 +39,7 @@ const Header = () => {
                         {basics.phone && (
                             <>
                                 <div className="flex items-center gap-x-1.5">
-                                    <i className="ph ph-bold ph-phone text-primary " />
+                                    <i className="ph ph-bold ph-phone  " />
                                     <a href={`tel:${basics.phone}`} target="_blank" rel="noreferrer">
                                         {basics.phone}
                                     </a>
@@ -84,7 +84,7 @@ const Header = () => {
                         ))}
                     </div>
                 </div>
-                <Picture className="h-37" />
+                {picture.url && <img src={picture.url} className=" h-64 w-64 text-center" />}
             </div>
         </div>
     );
@@ -167,7 +167,7 @@ const Section = <T,>({
 
     return (
         <section id={section.id} className="grid group-[.main]:border-b">
-            <h4 className="mb-2 text-base font-bold">{section.name}</h4>
+            <h4 className="mb-2 text-primary font-bold">{section.name}</h4>
 
             <div
                 className="grid gap-x-6 gap-y-3"
@@ -279,7 +279,7 @@ const Education = () => {
                 <div className="group-[.sidebar]:flex-col group-[.sidebar]:items-start">
                     <div className="">
                         <div className="flex">
-                            <div className="font-bold text-primary">{item.institution}</div>
+                            <div className="font-bold">{item.institution}</div>
                             <div>,{item.area}</div>
                         </div>
                     </div>
@@ -326,7 +326,7 @@ const Certifications = () => {
             {(item) => (
                 <div className="flex items-center justify-between">
                     <div className="text-left ml-2">
-                        <div className="font-bold text-primary">{item.name}</div>
+                        <div className="font-bold">{item.name}</div>
                         <div>{item.issuer}</div>
                     </div>
 
@@ -346,7 +346,7 @@ const Skills = () => {
         <Section<Skill> section={section} levelKey="level" keywordsKey="keywords">
             {(item) => (
                 <div>
-                    <div className="font-bold text-primary">{item.name}</div>
+                    <div className="font-bold">{item.name}</div>
                     <div className="ml-4">{item.description}</div>
                 </div>
             )}
