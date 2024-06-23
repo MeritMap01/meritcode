@@ -4,7 +4,7 @@ import {
   CustomSection,
   CustomSectionGroup,
   Education,
-  Experience,
+  // Experience,
   Interest,
   Language,
   Profile,
@@ -135,7 +135,7 @@ const Section = <T,>({
   return (
     <section id={section.id} className="grid">
       <div className="mb-2  font-bold  group-[.main]:block">
-        <h4>{section.name}</h4>
+        <h2>{section.name}</h2>
       </div>
 
       <div className="mx-auto mb-2 hidden items-center gap-x-2 text-center font-bold text-primary group-[.sidebar]:flex">
@@ -224,23 +224,23 @@ const Experience = () => {
   const section = useArtboardStore((state) => state.resume.sections.experience);
 
   return (
-    <Section<Experience> section={section} urlKey="url" summaryKey="summary">
+    <section className="mb-6">
       
-      {(item) => (
-        <div className="flex items-center justify-between">
-        <div className="text-left">
-          <div className="font-bold">{item.company}</div>
-          <div>{item.position}</div>
-          <div>{item.location}</div>
-        </div>
+      <h2 className="text-lg font-semibold ">Experience</h2>
+      {section.items.map((item) => (
+        <div key={item.id} className="">
+          <div className="flex items-center space-x-12 w-full">
+              <h3 className="font-bold overflow-wrap-anywhere flex-grow"> {item.company}</h3>
+              <div className="shrink-0 text-right overflow-wrap-anywhere">
+                  <div className="font-bold">{item.date}</div>
+              </div>
+          </div>
+          <p className="font-bold">{item.position}, {item.location}</p>
 
-        <div className="shrink-0 text-right">
-          <div className="font-bold">{item.date}</div>
+          <p className="mt-1" dangerouslySetInnerHTML={{ __html: item.summary }} />
         </div>
-        <p className="mt-1" dangerouslySetInnerHTML={{ __html: item.summary }} />
-      </div>
-      )}
-    </Section>
+      ))}
+    </section>
   );
 };
 
@@ -250,14 +250,14 @@ const Education = () => {
   return (
     <Section<Education> section={section} urlKey="url" summaryKey="summary">
       {(item) => (
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between overflow-wrap-anywhere">
         <div className="text-left">
           <div className="font-bold">{item.institution}</div>
           <div>{item.area}</div>
           <div>{item.score}</div>
         </div>
 
-        <div className="shrink-0 text-right">
+        <div className="shrink-0 text-right overflow-wrap-anywhere">
           <div className="font-bold">{item.date}</div>
           <div>{item.studyType}</div>
         </div>
@@ -304,7 +304,7 @@ const CoreCompetencies = () => {
 
   return (
     <section id={section.id} className="mt-4">
-      <h4 className="font-bold">Core Competencies</h4>
+      <h2 className="font-bold">Core Competencies</h2>
       <ul className="mt-2 grid grid-cols-4 gap-2 list-disc list-inside">
         {section.items.map((item) => (
           <li key={item.id}>{item.name}</li>
@@ -347,10 +347,15 @@ const Volunteer = () => {
     <Section<Volunteer> section={section} urlKey="url" summaryKey="summary">
       {(item) => (
         <div>
-          <div className="font-bold">{item.organization}</div>
+          <div className="flex items-center space-x-12 w-full">
+              <h3 className="font-bold overflow-wrap-anywhere flex-grow"> {item.organization}</h3>
+              <div className="shrink-0 text-right overflow-wrap-anywhere">
+                  <div className="font-bold">{item.date}</div>
+              </div>
+          </div>
           <div>{item.position}</div>
           <div>{item.location}</div>
-          <div className="font-bold">{item.date}</div>
+          
         </div>
       )}
     </Section>
@@ -471,7 +476,7 @@ export const Orion = ({ columns, isFirstPage = false }: TemplateProps) => {
   const [main,sidebar] = columns;
 
   return (
-    <div className="p-6 space-y-6 bg-white  rounded-lg">
+    <div className="p-2 space-y-0 bg-white">
       {isFirstPage && <Header />}
 
       

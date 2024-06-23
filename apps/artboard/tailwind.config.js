@@ -1,6 +1,8 @@
 const { createGlobPatternsForDependencies } = require("@nx/react/tailwind");
 const { join } = require("path");
 
+
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: "class",
@@ -25,5 +27,12 @@ module.exports = {
       spacing: { custom: "var(--margin)" },
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [require("@tailwindcss/typography"),function ({ addUtilities }) {
+    addUtilities({
+      '.overflow-wrap-anywhere': {
+        'overflow-wrap': 'anywhere',
+      },
+      })
+    }],
 };
+

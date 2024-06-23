@@ -50,7 +50,7 @@ const Header = () => {
         <p className="break-words text-center">{email}</p>
       </div>
       <div className="flex items-center space-x-2 max-w-full">
-        <p className="break-words text-center">{url.href}</p>
+        <p className="break-words text-center overflow-wrap-anywhere">{url.href}</p>
       </div>
     </div>
   </header>
@@ -490,14 +490,14 @@ export const Palette = ({ columns, isFirstPage = false }: TemplateProps) => {
 
   return (
     <div className="p-custom grid grid-cols-3 space-x-6">
-      <div className="sidebar bg-gray-100 ml-6 mt-4 p-6 group space-y-4 text-wrap max-w-full break-words">
+      <div className="sidebar bg-gray-100 ml-6 mt-4 p-6 group space-y-4 text-wrap max-w-full break-words overflow-wrap-anywhere">
         {isFirstPage && <Header />}
         {sidebar.map((section) => (
           <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
         ))}
       </div>
 
-      <div className="main group col-span-2 space-y-4">
+      <div className="main group col-span-2 space-y-4 overflow-wrap-anywhere">
         
 
         {main.map((section) => (

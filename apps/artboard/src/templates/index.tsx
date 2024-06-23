@@ -22,6 +22,7 @@ import {Orion} from "./orion";
 import { Legacy } from "./legacy";
 import { Palette } from "./palette";
 import { Ignite } from "./ignite";
+import { Joyful } from "./joyful";
 
 export const getTemplate = (template: Template) => {
   switch (template) {
@@ -69,6 +70,8 @@ export const getTemplate = (template: Template) => {
       return Palette;
     case "ignite":
       return Ignite;
+    case "joyful":
+      return Joyful;
     default:
       return Onyx;
   }
