@@ -29,10 +29,10 @@ const Header = () => {
     const basics = useArtboardStore((state) => state.resume.basics);
 
     return (
-        <div className="flex flex-col items-center space-y-4 border-b text-center">
-            <div className="flex flex-col gap-5">
-                <div className="text-5xl font-bold tracking-widest">{basics.name}</div>
-                <div className="text-3xl">{basics.headline}</div>
+        <div className="flex flex-col items-center p-custom space-y-4 border-b text-center">
+            <div className="flex flex-col gap-3">
+                <div className="text-5xl font-bold tracking-widest">{basics.name.toUpperCase()}</div>
+                <div className="text-3xl text-primary">{basics.headline.toUpperCase()}</div>
             </div>
         </div>
     );
@@ -45,7 +45,7 @@ const Summary = () => {
     const changeName = section.name === "Summary" ? "EXPERTISE" : section.name
 
     return (
-        <section id={section.id} className="border-b">
+        <section id={section.id} className="group-[.sidebar]:border-b">
             <h4 className="mb-2 pb-0.5 text-2xl font-bold">{changeName}</h4>
 
             <div
@@ -86,8 +86,8 @@ const Link = ({ url, icon, label, className }: LinkProps) => {
     if (!isUrl(url.href)) return null;
 
     return (
-        <div className="flex items-center gap-x-1.5">
-            {icon ?? <i className="ph ph-bold ph-link group-[.main]:text-primary" />}
+        <div className="flex items-start mb-2 gap-x-1.5">
+            {icon ?? <i className="ph ph-bold ph-link group-[.main]:text-primary mt-1" />}
             <a
                 href={url.href}
                 target="_blank"
@@ -177,7 +177,7 @@ const Experience = () => {
                         <div>{item.position}</div>
                     </div>
 
-                    <div className="shrink-0 text-right">
+                    <div className="shrink-0 text-right group-[.sidebar]:text-left">
                         <div className="font-bold">{item.date}</div>
                         <div>{item.location}</div>
                     </div>
@@ -193,11 +193,13 @@ const Education = () => {
     return (
         <Section<Education> section={section} urlKey="url" summaryKey="summary">
             {(item) => (
-                <div className="flex flex-col items-center justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
+                <div className="flex flex-col justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
                     <div className="">
                         <div className="font-bold">{item.institution}</div>
-                        <div>{item.area}</div>
-                        <div>{item.score}</div>
+                        <div className="flex items-center gap-3">
+                            <div>{item.area}</div>
+                            <div className="font-bold">{item.score}</div>
+                        </div>
                     </div>
 
                     <div className="">
@@ -342,7 +344,7 @@ const Volunteer = () => {
                         <div>{item.position}</div>
                     </div>
 
-                    <div className="shrink-0 text-right">
+                    <div className="shrink-0 group-[.main]:text-right">
                         <div className="font-bold">{item.date}</div>
                         <div>{item.location}</div>
                     </div>
@@ -494,16 +496,18 @@ export const Zenith = ({ columns, isFirstPage = false }: TemplateProps) => {
     const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary);
 
     return (
-        <div className="p-custom space-y-3">
+        <div className="p-custom ">
             {isFirstPage && <Header />}
 
-            <div className="grid grid-cols-3 gap-x-4 ">
-                <div className="sidebar group col-span-1 space-y-4">
+            <div className="grid grid-cols-5 gap-x-4 ">
+                <div className="sidebar group overflow-wrap-anywhere p-custom col-span-2 space-y-4"
+                    style={{ backgroundColor: hexToRgb(primaryColor, 0.2) }}
+                >
                     {sidebar.map((section) => (
                         <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
                     ))}
                 </div>
-                <div className="main group col-span-2 space-y-4">
+                <div className="main group overflow-wrap-anywhere col-span-3 space-y-4 p-custom pl-1">
                     {main.map((section) => (
                         <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
                     ))}
