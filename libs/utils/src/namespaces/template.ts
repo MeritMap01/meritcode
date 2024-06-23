@@ -17,6 +17,7 @@ export const templatesList = [
   "rhyhorn",
   "genesis",
   "nexus",
+  "nurture",
   "zenith",
   "legacy",
   "orion",
