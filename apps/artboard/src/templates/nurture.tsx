@@ -3,7 +3,7 @@ import {
   Certification,
   CustomSection,
   CustomSectionGroup,
-  
+  Education,
   Experience,
   Interest,
   Language,
@@ -24,40 +24,27 @@ import { Fragment } from "react";
 import { Picture } from "../components/picture";
 import { useArtboardStore } from "../store/artboard";
 import { TemplateProps } from "../types/template";
-import { color } from "framer-motion";
 
 const Header = () => {
-  const { name, headline, phone,picture,location,email,url } = useArtboardStore((state) => state.resume.basics);
-  
+  const basics = useArtboardStore((state) => state.resume.basics);
+  const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary);
   return (
-    <header className="flex flex-col items-center justify-between p-4 rounded-md">
-    <img src={picture.url} alt="Profile" className="w-30 h-30 rounded-full m-1" />
-    <div className="flex flex-col items-center m-2">
-      <h1 className="text-3xl font-bold text-center">{name}</h1>
-      <h2 className="text-xl text-gray-600 text-center">{headline}</h2>
-    </div>
-    <div className="flex flex-col items-center m-2 space-y-2">
-      <div className="flex items-center space-x-2 max-w-full">
-        <i className="ph ph-bold ph-map-pin text-primary" style={{ color: "#454040" }} />
-        <p className="break-words text-center">{location}</p>
-      </div>
-      <div className="flex items-center space-x-2 max-w-full">
-        <i className="ph ph-bold ph-phone text-primary" style={{ color: "#454040" }} />
-        <p className="break-words text-center">{phone}</p>
-      </div>
-      <div className="flex items-center space-x-2 max-w-full">
-        <i className="ph ph-bold ph-at text-primary" style={{ color: "#454040" }} />
-        <p className="break-words text-center">{email}</p>
-      </div>
-      <div className="flex items-center space-x-2 max-w-full">
-        <p className="break-words text-center overflow-wrap-anywhere">{url.href}</p>
+    <div className="flex items-center space-x-4">
+      <Picture className="mt-5 mb-4" />
+      <div className="space-y-2 text-left m-10">
+        <div className="ml-6">
+          <div className="text-5xl tracking-wider font-bold mb-4" style={{ color: primaryColor }}>
+            {basics.name}
+          </div>
+          <div className="text-xl font-bold" style={{ color: primaryColor }}>
+            {basics.headline.toUpperCase()}
+          </div>
+        </div>
+      
       </div>
     </div>
-  </header>
-  
   );
 };
-
 
 const Summary = () => {
   const section = useArtboardStore((state) => state.resume.sections.summary);
@@ -66,7 +53,13 @@ const Summary = () => {
 
   return (
     <section id={section.id}>
-       <h3 className="text-lg font-sans border-b-2 font-semibold mb-2" style={{ color: '#454040' }}>SUMMARY</h3>
+      <h4 className="mb-2 pb-0.5 text-lg tracking-widest font-bold">
+          <span className="pr-6 pl-2 pt-1 bg-blue-100">
+            <span className="relative bottom-3 ">
+            {section.name.toUpperCase()}
+            </span>
+          </span>
+        </h4>
 
       <div
         className="wysiwyg"
@@ -82,18 +75,13 @@ type RatingProps = { level: number };
 const Rating = ({ level }: RatingProps) => (
   <div className="flex items-center gap-x-1.5">
     {Array.from({ length: 5 }).map((_, index) => (
-      <i
+      <div
         key={index}
         className={cn(
-          "ph ph-diamond ",
-          level > index && "ph-fill",
-          level <= index && "ph-bold",
-        )} style={{color:"#959392"}}
+          "h-2 w-2 rounded-full border border-primary group-[.sidebar]:border-background",
+          level > index && "bg-primary group-[.sidebar]:bg-background",
+        )}
       />
-      // <div
-      //   key={index}
-      //   className={cn("h-2 w-4 border border-primary", level > index && "bg-primary")}
-      // />
     ))}
   </div>
 );
@@ -110,7 +98,7 @@ const Link = ({ url, icon, label, className }: LinkProps) => {
 
   return (
     <div className="flex items-center gap-x-1.5">
-      {icon ?? <i className="ph ph-bold ph-link text-primary group-[.summary]:text-background" />}
+      {icon ?? <i className="ph ph-bold ph-link text-primary" />}
       <a
         href={url.href}
         target="_blank"
@@ -132,7 +120,7 @@ type SectionProps<T> = {
   summaryKey?: keyof T;
   keywordsKey?: keyof T;
 };
-
+let index = -1;
 const Section = <T,>({
   section,
   children,
@@ -143,12 +131,22 @@ const Section = <T,>({
   keywordsKey,
 }: SectionProps<T>) => {
   if (!section.visible || !section.items.length) return null;
+  const lightColors = ["#C6F6D5", " #ffe0b3", "#b3ffcc"];
+  index = (index + 1) % lightColors.length;
+  console.log(index);
+  const bgcolor = lightColors[index];
 
   return (
-    <section id={section.id} className="grid text-wrap">
-       <h3 className="text-lg text-wrap font-sans border-b-2 font-semibold mb-2" style={{ color: '#454040' }}>{section.name.toUpperCase()}</h3>
+    <section id={section.id} className="grid">
+        <h4 className="mb-2 pb-0.5 text-lg tracking-widest font-bold text">
+          <span className="pr-6 pl-2 pt-1" style={{ backgroundColor: bgcolor }}>
+            <span className="relative bottom-3 ">
+            {section.name.toUpperCase()}
+            </span>
+          </span>
+        </h4>
       <div
-        className="grid gap-x-6 text-wrap gap-y-3"
+        className="grid gap-x-6 gap-y-3"
         style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
       >
         {section.items
@@ -180,6 +178,51 @@ const Section = <T,>({
           })}
       </div>
     </section>
+  );
+};
+
+const Experience = () => {
+  const section = useArtboardStore((state) => state.resume.sections.experience);
+
+  return (
+    <Section<Experience> section={section} urlKey="url" summaryKey="summary">
+      {(item) => (
+        <div className="flex items-center justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
+          <div className="text-left">
+            <div className="font-bold">{item.company}</div>
+            <div>{item.position}</div>
+          </div>
+
+          <div className="shrink-0 text-right">
+            <div className="font-bold">{item.date}</div>
+            <div>{item.location}</div>
+          </div>
+        </div>
+      )}
+    </Section>
+  );
+};
+
+const Education = () => {
+  const section = useArtboardStore((state) => state.resume.sections.education);
+
+  return (
+    <Section<Education> section={section} urlKey="url" summaryKey="summary">
+      {(item) => (
+        <div className="flex items-center justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
+          <div className="text-left">
+            <div className="font-bold">{item.institution}</div>
+            <div>{item.area}</div>
+            <div>{item.score}</div>
+          </div>
+
+          <div className="shrink-0 text-right">
+          <div>{item.studyType}</div>
+            <div className="font-bold text-start">{item.date}</div>
+          </div>
+        </div>
+      )}
+    </Section>
   );
 };
 
@@ -215,57 +258,11 @@ const Profiles = () => {
   );
 };
 
-const WorkExperience = () => {
-  const experience = useArtboardStore((state) => state.resume.sections.experience);
-
-  if (!experience.visible || !experience.items.length) return null;
-
-  return (
-    <section className="mt-6">
-      <h3 className="text-lg font-sans border-b-2 font-semibold mb-2" style={{ color: '#454040' }}>WORK EXPERIENCE</h3>
-      {experience.items.map((item) => (
-        <div key={item.id} className="mb-4">
-          <h4 className="font-sans font-bold">{item.position} - {item.company}</h4>
-          <div className="flex justify-between">
-            <p>{item.location}</p>
-            <p>{item.date}</p>
-          </div>
-          <p className="mt-1" dangerouslySetInnerHTML={{ __html: item.summary }} />
-        </div>
-      ))}
-    </section>
-  );
-};
-
-
-const Education = () => {
-  const education = useArtboardStore((state) => state.resume.sections.education);
-
-  if (!education.visible || !education.items.length) return null;
-
-  return (
-    <section className="mb-6">
-      <h3 className="text-lg font-sans border-b-2 font-semibold mb-2" style={{ color: '#454040' }}>EDUCATION</h3>
-      {education.items.map((item) => (
-        <div key={item.id} className="mt-2">
-          <h4 className="font-bold" style={{color:"#959392"}}>{item.institution}</h4>
-          <p className="italic">{item.area}</p>
-          <p >{item.studyType}</p>
-          <div className="shrink-0 text-right">
-            <div className="font-bold">{item.date}</div>
-          </div>
-        </div>
-      ))}
-    </section>
-  );
-};
-
-
 const Awards = () => {
   const section = useArtboardStore((state) => state.resume.sections.awards);
 
-  return (   
-      <Section<Award> section={section} urlKey="url" summaryKey="summary">
+  return (
+    <Section<Award> section={section} urlKey="url" summaryKey="summary">
       {(item) => (
         <div className="flex items-center justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
           <div className="text-left">
@@ -273,7 +270,7 @@ const Awards = () => {
             <div>{item.awarder}</div>
           </div>
 
-          <div className="shrink-0 text-right group-[.sidebar]:text-left">
+          <div className="shrink-0 text-right">
             <div className="font-bold">{item.date}</div>
           </div>
         </div>
@@ -294,7 +291,7 @@ const Certifications = () => {
             <div>{item.issuer}</div>
           </div>
 
-          <div className="shrink-0 text-right group-[.sidebar]:text-left">
+          <div className="shrink-0 text-right">
             <div className="font-bold">{item.date}</div>
           </div>
         </div>
@@ -305,14 +302,22 @@ const Certifications = () => {
 
 const Skills = () => {
   const section = useArtboardStore((state) => state.resume.sections.skills);
-
+  const lightColors = ["#C6F6D5", " #ffe0b3", "#b3ffcc"];
+  let ind =-1;
+  ind = (ind + 1) % lightColors.length;
   return (
     <Section<Skill> section={section} levelKey="level" keywordsKey="keywords">
       {(item) => (
+        <div className="flex flex-col ">
+        <div className="flex">
+        <span className="h-1 w-1 rounded-full bg-black mt-2 mr-1"></span>
         <div>
-          <div className="font-bold">{item.name}</div>
-          <div>{item.description}</div>
-        </div>
+      <div className="text-left pr-1 font-bold">{item.name}</div>
+     
+      <div >{item.description}</div>
+       </div>
+      </div>
+      </div>
       )}
     </Section>
   );
@@ -322,11 +327,57 @@ const Interests = () => {
   const section = useArtboardStore((state) => state.resume.sections.interests);
 
   return (
-    <Section<Interest> section={section} className="space-y-1" keywordsKey="keywords">
+    <Section<Interest> section={section} keywordsKey="keywords" className="space-y-0.5">
       {(item) => <div className="font-bold">{item.name}</div>}
     </Section>
   );
 };
+
+const Contact = () =>{
+  const basics = useArtboardStore((state) => state.resume.basics);
+  return(
+    <div className="mt-8">
+   <h4 className="mb-2 mt-10 pb-0.5 text-lg tracking-widest font-bold text">
+          <span className="pr-6 pl-2 pt-1 bg-[#ffcccc]">
+            <span className="relative bottom-3 ">
+            CONTACT
+            </span>
+          </span>
+        </h4>
+<div className="flex flex-col items-start flex-wrap justify-center gap-x-2 gap-y-4 text-sm">
+        {basics.location && (
+          <div className="flex items-center gap-x-1.5">
+            <i className="ph ph-bold ph-map-pin text-primary" />
+            <div>{basics.location}</div>
+          </div>
+        )}
+        {basics.phone && (
+          <div className="flex items-center gap-x-1.5">
+            <i className="ph ph-bold ph-phone text-primary" />
+            <a href={`tel:${basics.phone}`} target="_blank" rel="noreferrer">
+              {basics.phone}
+            </a>
+          </div>
+        )}
+        {basics.email && (
+          <div className="flex items-center gap-x-1.5">
+            <i className="ph ph-bold ph-at text-primary" />
+            <a href={`mailto:${basics.email}`} target="_blank" rel="noreferrer">
+              {basics.email}
+            </a>
+          </div>
+        )}
+        <Link url={basics.url} />
+        {basics.customFields.map((item) => (
+          <div key={item.id} className="flex items-center gap-x-1.5">
+            <i className={cn(`ph ph-bold ph-${item.icon}`, "text-primary")} />
+            <span>{[item.name, item.value].filter(Boolean).join(": ")}</span>
+          </div>
+        ))}
+        </div>
+        </div>
+  )
+}
 
 const Publications = () => {
   const section = useArtboardStore((state) => state.resume.sections.publications);
@@ -339,8 +390,7 @@ const Publications = () => {
             <div className="font-bold">{item.name}</div>
             <div>{item.publisher}</div>
           </div>
-
-          <div className="shrink-0 text-right group-[.sidebar]:text-left">
+          <div className="shrink-0 text-right">
             <div className="font-bold">{item.date}</div>
           </div>
         </div>
@@ -361,7 +411,7 @@ const Volunteer = () => {
             <div>{item.position}</div>
           </div>
 
-          <div className="shrink-0 text-right group-[.sidebar]:text-left">
+          <div className="shrink-0 text-right">
             <div className="font-bold">{item.date}</div>
             <div>{item.location}</div>
           </div>
@@ -377,7 +427,7 @@ const Languages = () => {
   return (
     <Section<Language> section={section} levelKey="level">
       {(item) => (
-        <div>
+        <div className="space-y-0.5">
           <div className="font-bold">{item.name}</div>
           <div>{item.description}</div>
         </div>
@@ -397,8 +447,7 @@ const Projects = () => {
             <div className="font-bold">{item.name}</div>
             <div>{item.description}</div>
           </div>
-
-          <div className="shrink-0 text-right group-[.sidebar]:text-left">
+          <div className="shrink-0 text-right">
             <div className="font-bold">{item.date}</div>
           </div>
         </div>
@@ -438,8 +487,7 @@ const Custom = ({ id }: { id: string }) => {
             <div className="font-bold">{item.name}</div>
             <div>{item.description}</div>
           </div>
-
-          <div className="shrink-0 text-right group-[.sidebar]:text-left">
+          <div className="shrink-0 text-right">
             <div className="font-bold">{item.date}</div>
             <div>{item.location}</div>
           </div>
@@ -456,7 +504,7 @@ const mapSectionToComponent = (section: SectionKey) => {
     case "summary":
       return <Summary />;
     case "experience":
-      return <WorkExperience />;
+      return <Experience />;
     case "education":
       return <Education />;
     case "awards":
@@ -484,24 +532,35 @@ const mapSectionToComponent = (section: SectionKey) => {
   }
 };
 
-export const Palette = ({ columns, isFirstPage = false }: TemplateProps) => {
+export const Nurture = ({ columns, isFirstPage = false }: TemplateProps) => {
   const [main, sidebar] = columns;
+  const margin = useArtboardStore((state) => state.resume.metadata.page.margin);
+  const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary);
+  const borderStyle = {
+    borderRight: "1px solid #000000", // Adjust color and thickness as needed
+  };
 
   return (
-    <div className="p-custom grid grid-cols-3 space-x-6">
-      <div className="sidebar bg-gray-100 ml-6 mt-4 p-6 group space-y-4 text-wrap max-w-full break-words overflow-wrap-anywhere">
+    <div className="bg-[#FDFCF8] min-h-[inherit]" >
+      <div style={{ margin: margin, color: primaryColor }}>
         {isFirstPage && <Header />}
-        {sidebar.map((section) => (
-          <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
-        ))}
-      </div>
+        <div className="grid grid-cols-3 bg-grey border shadow-2xl rounded-xl resize-none" style={{boxShadow:"15px 15px 5px black"}}>
+          <div className="main p-custom group col-span-2 space-y-4" style={borderStyle}>
+            {main.map((section) => (
+              <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
+            ))}
+          </div>
 
-      <div className="main group col-span-2 space-y-4 overflow-wrap-anywhere">
-        
-
-        {main.map((section) => (
-          <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
-        ))}
+          <div className="sidebar p-custom group h-full space-y-4">
+            {sidebar.map((section) => (
+              <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
+            ))}
+            <Contact/>
+            <div className="right-5 absolute bottom-0 ">
+            <img src='https://res.cloudinary.com/dd5l4yejk/image/upload/v1719067142/cxkowcbxw9easvlqjzwm.png' className="w-[300px]"/>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
