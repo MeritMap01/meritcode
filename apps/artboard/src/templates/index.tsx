@@ -23,10 +23,12 @@ import { Legacy } from "./legacy";
 import { Orion } from "./orion";
 import { Palette } from "./palette";
 import { Ignite } from "./ignite";
+import { Joyful } from "./joyful";
 import { Zenith } from "./zenith";
 import { Pinnacle } from "./pinnacle";
 import { Aurora } from "./aurora"
 import { Maven } from "./maven";
+
 
 export const getTemplate = (template: Template) => {
   switch (template) {
@@ -78,12 +80,14 @@ export const getTemplate = (template: Template) => {
       return Palette;
     case "ignite":
       return Ignite;
+    case "joyful":
+      return Joyful;
     case "pinnacle":
       return Pinnacle;
     case "aurora":
-      return Aurora
+      return Aurora;
     case "maven":
-      return Maven
+      return Maven;
     default:
       return Onyx;
   }

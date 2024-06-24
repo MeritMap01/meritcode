@@ -30,34 +30,31 @@ const Header = () => {
   const { name, headline, phone,picture,location,email,url } = useArtboardStore((state) => state.resume.basics);
   
   return (
-    <header className="flex flex-col items-center justify-between p-4  rounded-md">
-      <img src={picture.url} alt="Profile" className="w-24 h-24 rounded-full mr-4 m-1" />
-      <div className="flex items-center m-2">
-        
-        <div>
-          <h1 className="text-3xl font-bold">{name}</h1>
-          <h2 className="text-xl text-gray-600">{headline}</h2>
-        </div>
+    <header className="flex flex-col items-center justify-between p-4 rounded-md">
+    <img src={picture.url} alt="Profile" className="w-30 h-30 rounded-full m-1" />
+    <div className="flex flex-col items-center m-2">
+      <h1 className="text-3xl font-bold text-center">{name}</h1>
+      <h2 className="text-xl text-gray-600 text-center">{headline}</h2>
+    </div>
+    <div className="flex flex-col items-center m-2 space-y-2">
+      <div className="flex items-center space-x-2 max-w-full">
+        <i className="ph ph-bold ph-map-pin text-primary" style={{ color: "#454040" }} />
+        <p className="break-words text-center">{location}</p>
       </div>
-      <div className="content-end m-2">
-        <div className="flex items-center gap-x-1.5">
-          <i className="ph ph-bold ph-map-pin text-primary"  style={{ color : "#454040"}}/>
-          <p>{location}</p>
-        </div>
-        <div className="flex items-center gap-x-1.5">
-          <i className="ph ph-bold ph-phone text-primary" style={{ color : "#454040"}} />
-          <p>{phone}</p>
-        </div>
-        <div className="flex items-center gap-x-1.5">
-        <i className="ph ph-bold ph-at text-primary"  style={{ color : "#454040"}}/>
-          <p>{email}</p>
-        </div>
-        <div className="flex items-center gap-x-1.5">
-
-          <p>{url.href}</p>
-        </div>
+      <div className="flex items-center space-x-2 max-w-full">
+        <i className="ph ph-bold ph-phone text-primary" style={{ color: "#454040" }} />
+        <p className="break-words text-center">{phone}</p>
       </div>
-    </header>
+      <div className="flex items-center space-x-2 max-w-full">
+        <i className="ph ph-bold ph-at text-primary" style={{ color: "#454040" }} />
+        <p className="break-words text-center">{email}</p>
+      </div>
+      <div className="flex items-center space-x-2 max-w-full">
+        <p className="break-words text-center overflow-wrap-anywhere">{url.href}</p>
+      </div>
+    </div>
+  </header>
+  
   );
 };
 
@@ -148,11 +145,10 @@ const Section = <T,>({
   if (!section.visible || !section.items.length) return null;
 
   return (
-    <section id={section.id} className="grid">
-       <h3 className="text-lg font-sans border-b-0 font-semibold mb-2" style={{ color: '#454040' }}>{section.name.toUpperCase()}</h3>
-
+    <section id={section.id} className="grid text-wrap">
+       <h3 className="text-lg text-wrap font-sans border-b-2 font-semibold mb-2" style={{ color: '#454040' }}>{section.name.toUpperCase()}</h3>
       <div
-        className="grid gap-x-6 gap-y-3"
+        className="grid gap-x-6 text-wrap gap-y-3"
         style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
       >
         {section.items
@@ -493,15 +489,14 @@ export const Palette = ({ columns, isFirstPage = false }: TemplateProps) => {
 
   return (
     <div className="p-custom grid grid-cols-3 space-x-6">
-      <div className="sidebar bg-gray-100 m-6 p-6 group space-y-4">
+      <div className="sidebar bg-gray-100 ml-6 mt-4 p-6 group space-y-4 text-wrap max-w-full break-words overflow-wrap-anywhere">
         {isFirstPage && <Header />}
-
         {sidebar.map((section) => (
           <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
         ))}
       </div>
 
-      <div className="main group col-span-2 space-y-4">
+      <div className="main group col-span-2 space-y-4 overflow-wrap-anywhere">
         
 
         {main.map((section) => (

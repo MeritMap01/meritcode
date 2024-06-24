@@ -23,9 +23,10 @@ export const templatesList = [
   "orion",
   "palette",
   "ignite",
+  "joyful",
   "pinnacle",
   "aurora",
-  "maven"
+  "maven",
 ] as const;
 
 export type Template = (typeof templatesList)[number];
