@@ -5,6 +5,7 @@ import { Bronzor } from "./bronzor";
 import { Chikorita } from "./chikorita";
 import { Ditto } from "./ditto";
 import { Elevate } from "./elevate";
+import { Eternal } from "./eternal";
 import { Gengar } from "./gengar";
 import { Glalie } from "./glalie";
 import { Horizon } from "./horizon";
@@ -48,6 +49,8 @@ export const getTemplate = (template: Template) => {
       return Ditto;
     case "elevate":
       return Elevate;
+    case "eternal":
+      return Eternal;
     case "gengar":
       return Gengar;
     case "glalie":
