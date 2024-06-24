@@ -130,8 +130,8 @@ const Link = ({ url, icon, label, className }: LinkProps) => {
     if (!isUrl(url.href)) return null;
 
     return (
-        <div className="flex items-center gap-x-1.5">
-            {icon ?? <i className="ph ph-bold ph-link " />}
+        <div className="flex items-start gap-x-1.5">
+            {icon ?? <i className="ph ph-bold ph-link mt-1" />}
             <a
                 href={url.href}
                 target="_blank"
@@ -164,13 +164,14 @@ const Section = <T,>({
     keywordsKey,
 }: SectionProps<T>) => {
     if (!section.visible || !section.items.length) return null;
+    const alignChanges = section.id === "skills" ? "flex flex-wrap gap-x-5 gap-y-3 text-left -mx-2 group-[.main]:mb-4" : section.id === "interests" ? "flex flex-wrap gap-x-6 group-[.main]:mb-4" : "grid gap-x-6 gap-y-3 group-[.main]:mb-4"
 
     return (
         <section id={section.id} className="grid group-[.main]:border-b">
             <h4 className="mb-2 text-primary font-bold">{section.name}</h4>
 
             <div
-                className="grid gap-x-6 gap-y-3"
+                className={alignChanges}
                 style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
             >
                 {section.items
@@ -184,9 +185,9 @@ const Section = <T,>({
                         return (
                             <div
                                 key={item.id}
-                                className={cn("relative space-y-2 group-[.sidebar]:pl-0 ml-4", className)}
+                                className={cn("relative space-y-2 group-[.sidebar]:pl-0", className)}
                             >
-                                <div className="relative -ml-4 group-[.sidebar]:ml-0">
+                                <div className="relative  group-[.sidebar]:ml-0">
                                     <div className=" group-[.sidebar]:pl-0">
                                         {children?.(item as T)}
                                         {url !== undefined && <Link url={url} />}
@@ -202,7 +203,7 @@ const Section = <T,>({
                                 {level !== undefined && level > 0 && <Rating level={level} />}
 
                                 {keywords !== undefined && keywords.length > 0 && (
-                                    <p className="text-sm group-[.sidebar]:ml-4">{keywords.join(", ")}</p>
+                                    <p className="text-sm">{keywords.join(", ")}</p>
                                 )}
 
                                 <div className="absolute inset-y-0  group-[.sidebar]:hidden" />
@@ -226,7 +227,7 @@ const Profiles = () => {
                         <Link
                             url={item.url}
                             label={item.username}
-                            icon={
+                            icon={item.icon &&
                                 <img
                                     className="ph"
                                     width={fontSize}
@@ -343,11 +344,11 @@ const Skills = () => {
     const section = useArtboardStore((state) => state.resume.sections.skills);
 
     return (
-        <Section<Skill> section={section} levelKey="level" keywordsKey="keywords">
+        <Section<Skill> section={section} levelKey="level" keywordsKey="keywords" className="ml-5">
             {(item) => (
                 <div>
                     <div className="font-bold">{item.name}</div>
-                    <div className="ml-4">{item.description}</div>
+                    <div className="">{item.description}</div>
                 </div>
             )}
         </Section>
@@ -531,13 +532,13 @@ export const Genesis = ({ columns, isFirstPage = false }: TemplateProps) => {
                 </div>
             )}
 
-            <div className="p-custom grid grid-cols-4 p-6">
-                <div className="main p-custom group col-span-2 space-y-4">
+            <div className="p-custom grid grid-cols-5 p-6">
+                <div className="main p-custom group col-span-3 space-y-4 overflow-wrap-anywhere">
                     {main.map((section) => (
                         <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
                     ))}
                 </div>
-                <div className="sidebar p-custom col-span-2 group space-y-4">
+                <div className="sidebar p-custom col-span-2 group space-y-4 overflow-wrap-anywhere">
                     {sidebar.map((section) => (
                         <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
                     ))}

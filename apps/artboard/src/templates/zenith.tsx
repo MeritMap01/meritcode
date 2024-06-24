@@ -120,9 +120,9 @@ const Section = <T,>({
     keywordsKey,
 }: SectionProps<T>) => {
     if (!section.visible || !section.items.length) return null;
-    const gridChanges = section.name === "Skills" ? "flex flex-wrap px-2  text-left -mx-2" : "grid gap-x-6 gap-y-3"
+    const gridChanges = section.id === "skills" ? "flex flex-wrap px-2  text-left -mx-2" : "grid gap-x-6 gap-y-3"
 
-    const containerClass = section.name === "Skills" ? "flex flex-wrap px-1  text-left -mx-2" : "grid gap-x-6 gap-y-3";
+    const containerClass = section.id === "skills" ? "flex flex-wrap px-1 gap-x-4 gap-y-4 text-left -mx-2" : section.id === "interests" ? "flex flex-wrap px-1 text-left gap-x-5 group-[.sidebar]:gap-x-6  -mx-2" : "grid gap-x-6 gap-y-3";
     return (
         <section id={section.id} className="grid group-[.sidebar]:border-b">
             <h4 className="mb-2 pb-0.5 text-2xl font-bold">
@@ -224,9 +224,9 @@ const Profiles = () => {
                         <Link
                             url={item.url}
                             label={item.username}
-                            icon={
+                            icon={item.icon &&
                                 <img
-                                    className="ph"
+                                    className="ph mt-1"
                                     width={fontSize}
                                     height={fontSize}
                                     alt={item.network}
@@ -290,7 +290,7 @@ const Skills = () => {
     const section = useArtboardStore((state) => state.resume.sections.skills);
 
     return (
-        <Section<Skill> section={section} levelKey="level" keywordsKey="keywords" className=" group-[.main]:w-[50%] py-1">
+        <Section<Skill> section={section} levelKey="level" keywordsKey="keywords" className=" group-[.main]:w-[40%]">
             {(item) => (
                 <div >
                     <div className="">{item.name}</div>
@@ -305,7 +305,7 @@ const Interests = () => {
     const section = useArtboardStore((state) => state.resume.sections.interests);
 
     return (
-        <Section<Interest> section={section} keywordsKey="keywords" className="space-y-0.5">
+        <Section<Interest> section={section} keywordsKey="keywords" className="space-y-0.5 mb-2">
             {(item) => <div className="font-bold">{item.name}</div>}
         </Section>
     );
@@ -358,7 +358,7 @@ const Languages = () => {
     const section = useArtboardStore((state) => state.resume.sections.languages);
 
     return (
-        <Section<Language> section={section} levelKey="level">
+        <Section<Language> section={section} levelKey="level" className="mb-3">
             {(item) => (
                 <div className="space-y-0.5">
                     <div className="font-bold">{item.name}</div>
@@ -416,38 +416,14 @@ const Custom = ({ id }: { id: string }) => {
             keywordsKey="keywords"
         >
             {(item) => (
-                <div className="flex flex-col items-start gap-y-2 text-sm">
-                    {basics.location && (
-                        <div className="flex items-center gap-x-1.5">
-                            <i className="ph ph-bold ph-map-pin" />
-                            <div>{basics.location}</div>
-                        </div>
-                    )}
-                    {basics.phone && (
-                        <div className="flex items-center gap-x-1.5">
-                            <i className="ph ph-bold ph-phone" />
-                            <a href={`tel:${basics.phone}`} target="_blank" rel="noreferrer" className="no-underline">
-                                {basics.phone}
-                            </a>
-                        </div>
-                    )}
-                    {basics.email && (
-                        <div className="flex items-center gap-x-1.5">
-                            <i className="ph ph-bold ph-at" />
-                            <a href={`mailto:${basics.email}`} target="_blank" rel="noreferrer">
-                                {basics.email}
-                            </a>
-                        </div>
-                    )}
-                    {isUrl(basics.url.href) && <Link url={basics.url} />}
-                    {basics.customFields.map((item) => (
-                        <Fragment key={item.id}>
-                            <div className="flex items-center gap-x-1.5">
-                                <i className={cn(`ph ph-bold ph-${item.icon}`)} />
-                                <span>{[item.name, item.value].filter(Boolean).join(": ")}</span>
-                            </div>
-                        </Fragment>
-                    ))}
+                <div>
+                    <div>
+                        <div className="font-bold">{item.name}</div>
+                        <div>{item.description}</div>
+
+                        <div className="font-bold">{item.date}</div>
+                        <div>{item.location}</div>
+                    </div>
                 </div>
             )}
         </Section>
@@ -503,6 +479,45 @@ export const Zenith = ({ columns, isFirstPage = false }: TemplateProps) => {
                 <div className="sidebar group overflow-wrap-anywhere p-custom col-span-2 space-y-4"
                     style={{ backgroundColor: hexToRgb(primaryColor, 0.2) }}
                 >
+                    {
+                        isFirstPage &&
+                        <div className="flex flex-col">
+                            <h1 className="font-bold text-2xl mb-4">CONTACT</h1>
+                            <div className="flex flex-col items-start gap-y-2 text-sm">
+                                {basics.location && (
+                                    <div className="flex items-center gap-x-1.5">
+                                        <i className="ph ph-bold ph-map-pin" />
+                                        <div>{basics.location}</div>
+                                    </div>
+                                )}
+                                {basics.phone && (
+                                    <div className="flex items-center gap-x-1.5">
+                                        <i className="ph ph-bold ph-phone" />
+                                        <a href={`tel:${basics.phone}`} target="_blank" rel="noreferrer" className="no-underline">
+                                            {basics.phone}
+                                        </a>
+                                    </div>
+                                )}
+                                {basics.email && (
+                                    <div className="flex items-center gap-x-1.5">
+                                        <i className="ph ph-bold ph-at" />
+                                        <a href={`mailto:${basics.email}`} target="_blank" rel="noreferrer">
+                                            {basics.email}
+                                        </a>
+                                    </div>
+                                )}
+                                {isUrl(basics.url.href) && <Link url={basics.url} />}
+                                {basics.customFields.map((item) => (
+                                    <Fragment key={item.id}>
+                                        <div className="flex items-center gap-x-1.5">
+                                            <i className={cn(`ph ph-bold ph-${item.icon}`)} />
+                                            <span>{[item.name, item.value].filter(Boolean).join(": ")}</span>
+                                        </div>
+                                    </Fragment>
+                                ))}
+                            </div>
+                        </div>
+                    }
                     {sidebar.map((section) => (
                         <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
                     ))}
