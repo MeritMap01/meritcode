@@ -18,6 +18,7 @@ import { Rhyhorn } from "./rhyhorn";
 import { Genesis } from "./genesis";
 import { Naruto } from "./naruto";
 import { Nexus } from "./nexus";
+import { Nurture } from "./nurture";
 import { Legacy } from "./legacy";
 import { Orion } from "./orion";
 import { Palette } from "./palette";
@@ -61,6 +62,8 @@ export const getTemplate = (template: Template) => {
       return Naruto;
     case "nosepass":
       return Nosepass;
+    case "nurture":
+      return Nurture;
     case "onyx":
       return Onyx;
     case "pikachu":
