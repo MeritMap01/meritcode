@@ -13,21 +13,22 @@ export const Picture = ({ className }: PictureProps) => {
   if (!isUrl(picture.url) || picture.effects.hidden) return null;
 
   return (
-    <img
-      src={picture.url}
-      alt="Profile"
-      className={cn(
-        "relative z-20 object-cover",
-        picture.effects.border && "border-primary",
-        picture.effects.grayscale && "grayscale",
-        className,
-      )}
-      style={{
-        maxWidth: `${picture.size}px`,
-        aspectRatio: `${picture.aspectRatio}`,
-        borderRadius: `${picture.borderRadius}px`,
-        borderWidth: `${picture.effects.border ? fontSize / 3 : 0}px`,
-      }}
-    />
-  );
+  <img
+    src={picture.url}
+    alt="Profile"
+    className={cn(
+      "relative z-20 object-cover",
+      picture.effects.border && "border-primary",
+      picture.effects.grayscale && "grayscale",
+      className,
+    )}
+    style={{
+      maxWidth: `${picture.size}px`,
+      aspectRatio: `${picture.aspectRatio}`,
+      borderRadius: "50%", // Make the image round
+      borderWidth: `${picture.effects.border ? fontSize / 3 : 0}px`,
+    }}
+  />
+);
+
 };

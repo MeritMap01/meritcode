@@ -1,30 +1,37 @@
 export const templatesList = [
+  // Jai
+  "orion",
+  "legacy",
+  "palette",
+  "ignite",
+  "joyful",
+  // Vivek
+  "majestic",
+  "horizon",
+  "elevate",
+  "naruto",
+  "nurture",
+  // Vamsi
+  "genesis",
+  "nexus",
+  "zenith",
+  "pinnacle",
+  "aurora",
+  "maven",
+  // Old
   "azurill",
   "bronzor",
   "chikorita",
+  "developerx",
   "ditto",
-  "elevate",
   "gengar",
   "glalie",
-  "horizon",
   "kakuna",
   "leafish",
-  "majestic",
-  "naruto",
   "nosepass",
   "onyx",
   "pikachu",
   "rhyhorn",
-  "genesis",
-  "nexus",
-  "zenith",
-  "legacy",
-  "orion",
-  "palette",
-  "ignite",
-  "pinnacle",
-  "aurora",
-  "maven"
 ] as const;
 
 export type Template = (typeof templatesList)[number];

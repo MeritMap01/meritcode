@@ -30,19 +30,17 @@ const Header = () => {
 
   return (
     <div className="flex flex-col items-center justify-center p-4 bg-gray-100 text-center">
-      <div className="flex justify-between w-full max-w-4xl items-center p-4">
+      <div className="flex justify-between w-full max-w-4xl items-center p-4 overflow-wrap-anywhere">
         <h1 className="text-3xl font-bold" style={{ color: '#5baaab' }}>{basics.name}</h1>
-        
         <h2 className="text-xl text-gray-600">{basics.headline}</h2>
       </div>
-      <br /> <div style={{ height: '1px', width: '90%', backgroundColor: '#5baaab' }}></div>
-      <hr/>
-      <div className="flex flex-wrap justify-center mt-2 space-x-4">
-        {basics.email && <a href={`mailto:${basics.email}`} className="text-gray-600">{basics.email}</a>}
+      <div style={{ height: '1px', width: '90%', backgroundColor: '#5baaab' }}></div>
+      <div className="flex flex-wrap justify-center mt-2 space-x-12 overflow-wrap-anywhere">
+        {basics.email && <a href={`mailto:${basics.email}`} className="text-gray-600 overflow-wrap-anywhere">{basics.email}</a>}
         <div style={{ height: '20px', width: '1px', backgroundColor: '#5baaab' }}></div> {/* Vertical line */}
-        {basics.phone && <span className="text-gray-600">{basics.phone}</span>}
+        {basics.phone && <span className="text-gray-600 overflow-wrap-anywhere">{basics.phone}</span>}
         <div style={{ height: '20px', width: '1px', backgroundColor: '#5baaab' }}></div> {/* Vertical line */}
-        {basics.location && <span className="text-gray-600">{basics.location}</span>}
+        {basics.location && <span className="text-gray-600 overflow-wrap-anywhere">{basics.location}</span>}
       </div>
     </div>
   );
@@ -57,7 +55,10 @@ const ProfileSummary = () => {
 
   return (
    <div className="w-full"> <section className="mb-6 ">
-      <h3 className="text-lg font-semibold border-b-2 pb-2" style={{ borderColor: '#5baaab', color: '#5baaab' }}>Profile Summary</h3>
+      <div className="flex items-center space-x-8">
+        <h3 className="text-lg font-semibold text-[#5baaab]">Profile Summary</h3>
+        <div className="flex-grow border-t-2 border-[#5baaab]"></div>
+      </div>
       <div
         className="wysiwyg"
         style={{ columns: summary.columns }}
@@ -221,12 +222,18 @@ const WorkExperience = () => {
 
   return (
     <section className="mb-6">
-      <h3 className="text-lg font-semibold border-b-2 pb-2" style={{ borderColor: '#5baaab', color: '#5baaab' }}>Work Experience</h3>
+      <div className="flex items-center space-x-8">
+        <h3 className="text-lg font-semibold text-[#5baaab]">Work Experience</h3>
+        <div className="flex-grow border-t-2 border-[#5baaab]"></div>
+      </div>
+
       {experience.items.map((item) => (
-        <div key={item.id} className="mt-2">
-          <h4 className="font-bold">{item.position} - {item.company}, {item.location}</h4>
-          <div className="shrink-0 text-right">
-            <div className="font-bold">{item.date}</div>
+        <div key={item.id} className="">
+          <div className="flex items-center space-x-8">
+              <h4 className="font-bold overflow-wrap-anywhere">{item.position} - {item.company}, {item.location}</h4>
+              <div className="shrink-0 text-right overflow-wrap-anywhere">
+                  <div className="font-bold text-[#5baaab]">{item.date}</div>
+              </div>
           </div>
           <p className="mt-1" dangerouslySetInnerHTML={{ __html: item.summary }} />
         </div>
@@ -236,6 +243,7 @@ const WorkExperience = () => {
 };
 
 
+
 const Education = () => {
   const education = useArtboardStore((state) => state.resume.sections.education);
 
@@ -243,15 +251,22 @@ const Education = () => {
 
   return (
     <section className="mb-6">
-      <h3 className="text-lg font-semibold border-b-2 pb-2" style={{ borderColor: '#5baaab', color: '#5baaab' }}>Education</h3>
+      <div className="flex items-center space-x-8">
+        <h3 className="text-lg font-semibold text-[#5baaab]">Education</h3>
+        <div className="flex-grow border-t-2 border-[#5baaab]"></div>
+      </div>
       {education.items.map((item) => (
         <div key={item.id} className="mt-2">
-          <h4 className="font-bold">{item.institution}</h4>
-          <p className="italic">{item.area}</p>
-          <p>{item.studyType}</p>
-          <div className="shrink-0 text-right">
-            <div className="font-bold">{item.date}</div>
+          <div className="flex items-center space-x-12">
+              <h4 className="font-bold overflow-wrap-anywhere">{item.institution}</h4>
+              <div className="shrink-0 text-right overflow-wrap-anywhere">
+                  <div className="font-bold text-[#5baaab]">{item.date}</div>
+              </div>
           </div>
+          <p className="italic">{item.area}</p>
+          <p className="mt-1" dangerouslySetInnerHTML={{ __html: item.summary }} />
+          <p>{item.studyType}</p>
+          <p>{item.score}</p>
         </div>
       ))}
     </section>
@@ -264,14 +279,17 @@ const Awards = () => {
 
   return (
     <div>
-      <h3 className="text-lg font-semibold border-b-2 pb-2" style={{ borderColor: '#5baaab', color: '#5baaab' }}>Awards</h3>
+      <div className="flex items-center space-x-8">
+        <h3 className="text-lg font-semibold text-[#5baaab]">Awards</h3>
+        <div className="flex-grow border-t-2 border-[#5baaab]"></div>
+      </div>
     <Section<Award> section={section} urlKey="url" summaryKey="summary">
       {(item) => (
         <div>
           <div className="font-bold">{item.title}</div>
           <div>{item.awarder}</div>
           <div className="shrink-0 text-right">
-            <div className="font-bold">{item.date}</div>
+            <div className="font-bold text-[#5baaab]">{item.date}</div>
           </div>
         </div>
       )}
@@ -284,14 +302,17 @@ const Certifications = () => {
 
   return (
     <div>
-      <h3 className="text-lg font-semibold border-b-2 pb-2" style={{ borderColor: '#5baaab', color: '#5baaab' }}>Certifications</h3>
+      <div className="flex items-center space-x-8">
+        <h3 className="text-lg font-semibold text-[#5baaab]">Certifications</h3>
+        <div className="flex-grow border-t-2 border-[#5baaab]"></div>
+      </div>
     <Section<Certification> section={section} urlKey="url" summaryKey="summary">
       {(item) => (
         <div>
           <div className="font-bold">{item.name}</div>
           <div>{item.issuer}</div>
           <div className="shrink-0 text-right">
-            <div className="font-bold">{item.date}</div>
+            <div className="font-bold text-[#5baaab]">{item.date}</div>
           </div>
         </div>
       )}
@@ -306,11 +327,14 @@ const Skills = () => {
 
   return (
     <section className="mb-6">
-      <h3 className="text-lg font-semibold border-b-2 pb-2" style={{ borderColor: '#5baaab', color: '#5baaab' }}>Skills</h3>
+      <div className="flex items-center space-x-8">
+        <h3 className="text-lg font-semibold text-[#5baaab]">Skills</h3>
+        <div className="flex-grow border-t-2 border-[#5baaab]"></div>
+      </div>
       <ul className="mt-2 grid grid-cols-4 gap-2 list-disc list-inside">
         {skills.items.map((skill) => (
           <div key={skill.id} className="w-1/2">
-            <h4 className="font-bold">{skill.name}</h4>
+            <li key={skill.id}>{skill.name}</li>
             <p>{skill.description}</p>
           </div>
         ))}
@@ -327,7 +351,10 @@ const Interests = () => {
 
   return (
     <section className="mb-6">
-      <h3 className="text-lg font-semibold border-b-2 pb-2" style={{ borderColor: '#5baaab', color: '#5baaab' }}>Interests</h3>
+      <div className="flex items-center space-x-8">
+        <h3 className="text-lg font-semibold text-[#5baaab]">Interests</h3>
+        <div className="flex-grow border-t-2 border-[#5baaab]"></div>
+      </div>
       <ul className="grid grid-cols-3 list-disc list-inside">
         {interests.items.map((interest) => (
           <li key={interest.id}>{interest.name}</li>
@@ -343,14 +370,17 @@ const Publications = () => {
 
   return (
    <div> 
-    <h3 className="text-lg font-semibold border-b-2 pb-2" style={{ borderColor: '#5baaab', color: '#5baaab' }}>Publications</h3>
+    <div className="flex items-center space-x-8">
+        <h3 className="text-lg font-semibold text-[#5baaab]">Publications</h3>
+        <div className="flex-grow border-t-2 border-[#5baaab]"></div>
+      </div>
     <Section<Publication> section={section} urlKey="url" summaryKey="summary">
       {(item) => (
         <div>
           <div className="font-bold">{item.name}</div>
           <div>{item.publisher}</div>
           <div className="shrink-0 text-right">
-            <div className="font-bold">{item.date}</div>
+            <div className="font-bold text-[#5baaab]">{item.date}</div>
           </div>
         </div>
       )}
@@ -364,7 +394,10 @@ const Volunteer = () => {
 
   return (
     <div>
-       <h3 className="text-lg font-semibold border-b-2 pb-2" style={{ borderColor: '#5baaab', color: '#5baaab' }}>Volunteering</h3>
+       <div className="flex items-center space-x-8">
+        <h3 className="text-lg font-semibold text-[#5baaab]">Volunteer</h3>
+        <div className="flex-grow border-t-2 border-[#5baaab]"></div>
+      </div>
       <Section<Volunteer> section={section} urlKey="url" summaryKey="summary">
         {(item) => (
           <div>
@@ -372,7 +405,7 @@ const Volunteer = () => {
             <div>{item.position}</div>
             <div>{item.location}</div>
             <div className="shrink-0 text-right">
-            <div className="font-bold">{item.date}</div>
+            <div className="font-bold text-[#5baaab]">{item.date}</div>
           </div>
           </div>
         )}
@@ -386,7 +419,10 @@ const Languages = () => {
 
   return (
     <div >
-       <h3 className="text-lg font-sans font-semibold border-b-2 pb-2" style={{ borderColor: '#5baaab', color: '#5baaab' }}>Languages</h3>
+       <div className="flex items-center space-x-8">
+        <h3 className="text-lg font-semibold text-[#5baaab]">Languages</h3>
+        <div className="flex-grow border-t-2 border-[#5baaab]"></div>
+      </div>
         <Section<Language> section={section} levelKey="level" className="grid grid-cols-3">
         
           {(item) => (
@@ -408,12 +444,25 @@ const Projects = () => {
 
   return (
     <section className="mb-6">
-      <h3 className="text-lg font-semibold border-b-2 pb-2" style={{ borderColor: '#5baaab', color: '#5baaab' }}>Projects</h3>
+      <div className="flex items-center space-x-8">
+        <h3 className="text-lg font-semibold text-[#5baaab]">Projects</h3>
+        <div className="flex-grow border-t-2 border-[#5baaab]"></div>
+      </div>
       {projects.items.map((item) => (
         <div key={item.id} className="mt-2">
-          <h4 className="font-bold">{item.name}</h4>
-          <div className="text-sm italic">{item.date}</div>
-          <p className="mt-1">{item.description}</p>
+          <div className="flex items-center space-x-12 w-full">
+            <h4 className="font-bold overflow-wrap-anywhere flex-grow">{item.name}</h4>
+            <div className="shrink-0 text-right overflow-wrap-anywhere">
+              <div className="font-bold text-[#5baaab]">{item.date}</div>
+            </div>
+          </div>
+          <div className="flex items-center space-x-12 w-full">
+            <p className="font-bold overflow-wrap-anywhere flex-grow">{item.description}</p>
+            <div className="shrink-0 text-right overflow-wrap-anywhere">
+              <div className="font-bold text-[#5baaab]">{item.url.href}</div>
+            </div>
+          </div>
+          <p className="mt-1" dangerouslySetInnerHTML={{ __html: item.summary }} />
         </div>
       ))}
     </section>
@@ -428,7 +477,10 @@ const References = () => {
 
   return (
     <section className="mb-6">
-      <h3 className="text-lg font-semibold border-b-2 pb-2" style={{ borderColor: '#5baaab', color: '#5baaab' }}>References</h3>
+      <div className="flex items-center space-x-8">
+        <h3 className="text-lg font-semibold text-[#5baaab]">References</h3>
+        <div className="flex-grow border-t-2 border-[#5baaab]"></div>
+      </div>
       {references.items.map((item) => (
         <div key={item.id} className="mt-2">
           <h4 className="font-bold">{item.name}</h4>

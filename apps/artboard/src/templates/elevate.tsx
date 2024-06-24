@@ -359,6 +359,8 @@ import {
   const Certifications = () => {
     const section = useArtboardStore((state) => state.resume.sections.certifications);
     const bcolor = useArtboardStore((state)=>state.resume.metadata.theme.primary);
+    if (!section.visible || !section.items.length) return null;
+
   return(
     <div className="max-w-5xl mx-auto text-left">
 <div className="mb-2 font-bold text-primary  items-center flex ">

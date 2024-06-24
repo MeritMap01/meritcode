@@ -12,8 +12,8 @@
       "customFields": [],
       "picture": {
         "url": "https://i.imgur.com/HgwyOuJ.jpg",
-        "size": 120,
-        "aspectRatio": 1.2,
+        "size": 140,
+        "aspectRatio": 1,
         "borderRadius": 4,
         "effects": {
           "hidden": false,
@@ -144,7 +144,22 @@
         "columns": 1,
         "visible": true,
         "id": "languages",
-        "items": []
+        "items": [
+          {
+            "id": "ey0c353j3apepzqmyl8zd37c",
+            "visible": true,
+            "name": "English",
+            "description": "Native Speaker",
+            "level": 0
+          },
+          {
+            "id": "a4dnf32wyj5phgln2rx97qk2",
+            "visible": true,
+            "name": "Spanish",
+            "description": "Intermediate",
+            "level": 0
+          }
+        ]
       },
       "profiles": {
         "name": "Profiles",
@@ -173,12 +188,23 @@
               "label": "",
               "href": "https://github.com/johndoe"
             }
+          },
+          {
+            "id": "k97vdxzmssmgel79km48kxgg",
+            "visible": true,
+            "network": "StackOverflow",
+            "username": "johndoe",
+            "icon": "stackoverflow",
+            "url": {
+              "label": "",
+              "href": "https://stackoverflow.com/u/johndoe"
+            }
           }
         ]
       },
       "projects": {
         "name": "Projects",
-        "columns": 1,
+        "columns": 2,
         "visible": true,
         "id": "projects",
         "items": [
@@ -220,7 +246,7 @@
       "references": {
         "name": "References",
         "columns": 1,
-        "visible": false,
+        "visible": true,
         "id": "references",
         "items": [
           {
@@ -271,17 +297,17 @@
       "custom": {}
     },
     "metadata": {
-      "template": "elevate",
+      "template": "joyful",
       "layout": [
         [
-          ["summary", "experience", "education", "references"],
+          ["summary", "experience", "education", "projects"],
           [
             "profiles",
             "skills",
             "certifications",
-            "projects",
-            "interests",
             "languages",
+            "references",
+            "interests",
             "awards",
             "volunteer",
             "publications"
@@ -303,7 +329,7 @@
       "theme": {
         "background": "#ffffff",
         "text": "#000000",
-        "primary": "#ca8a04"
+        "primary": "#0891b2"
       },
       "typography": {
         "font": {

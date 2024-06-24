@@ -190,7 +190,7 @@ const Section = <T,>({
                                 {level !== undefined && level > 0 && <div className=""><Rating level={level} /></div>}
 
                                 {keywords !== undefined && keywords.length > 0 && (
-                                    <p className="text-sm">{keywords.join(", ")}</p>
+                                    <p className="text-sm ml-5">{keywords.join(", ")}</p>
                                 )}
                             </div>
                         );
