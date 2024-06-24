@@ -31,12 +31,13 @@ const Header = () => {
     const fontSize = useArtboardStore((state) => state.resume.metadata.typography.font.size);
     const picture = useArtboardStore((state) => state.resume.basics.picture);
     return (
-        <div className="flex flex-row space-x-4 justify-between pb-5">
+        <div className="grid grid-cols-[1.9fr_auto_3fr] space-x-4 pb-5">
+
             {picture.url && <img src={picture.url} className="h-72 w-72 text-center" />}
-            {picture.url && <div className="h-auto self-stretch w-0.5 bg-primary text-center"></div>}
+            {picture.url && <div className="w-0.5 bg-primary text-center"></div>}
             <div className="flex flex-col items-center gap-3 text-center w-[100%] justify-center">
                 <h1 className="text-5xl font-bold tracking-widest text-primary">{basics.name.toUpperCase()}</h1>
-                <p className="text-xl">{basics.headline}</p>
+                <p className="text-xl">{basics.headline.toUpperCase()}</p>
             </div>
         </div>
     );
@@ -82,8 +83,8 @@ const Link = ({ url, icon, label, className }: LinkProps) => {
     if (!isUrl(url.href)) return null;
 
     return (
-        <div className="flex items-center gap-x-1.5">
-            {icon ?? <i className="ph ph-bold ph-link text-primary group-[.sidebar]:text-background" />}
+        <div className="flex items-start gap-x-1.5">
+            {icon ?? <i className="ph ph-bold ph-link text-primary  mt-1 group-[.sidebar]:text-background" />}
             <a
                 href={url.href}
                 target="_blank"
@@ -119,7 +120,8 @@ const Section = <T,>({
 
     const nameChanges = section.name === "Experience" ? "WORK EXPERIENCE" : section.name
     const changeStyles = section.name === "Experience" && "group-[.main]:text-center"
-    const alignChanges = section.name === "Skills" ? "flex flex-wrap px-2  text-left -mx-2" : "grid gap-x-6 gap-y-3 pl-0 p-9 group-[.main]:pl-9"
+    const alignChanges = section.name === "Skills" ? "flex flex-wrap p-5 pl-7 text-left -mx-2" : "grid gap-x-6 gap-y-3 pl-0 p-5 group-[.main]:pl-9"
+    const listChanges = section.name === "Experience" ? "" : "wysiwyg"
 
     return (
         <section id={section.id} className="grid">
@@ -145,13 +147,13 @@ const Section = <T,>({
                                 </div>
 
                                 {summary !== undefined && !isEmptyString(summary) && (
-                                    <div className="" dangerouslySetInnerHTML={{ __html: summary }} />
+                                    <div className={listChanges} dangerouslySetInnerHTML={{ __html: summary }} />
                                 )}
 
-                                {level !== undefined && level > 0 && <Rating level={level} />}
+                                {level !== undefined && level > 0 && <div className="ml-5"><Rating level={level} /></div>}
 
                                 {keywords !== undefined && keywords.length > 0 && (
-                                    <p className="text-sm">{keywords.join(", ")}</p>
+                                    <p className="text-sm ml-5">{keywords.join(", ")}</p>
                                 )}
                             </div>
                         );
@@ -168,14 +170,14 @@ const Profiles = () => {
     return (
         <Section<Profile> section={section}>
             {(item) => (
-                <div>
+                <div className="flex items-center gap-2">
                     {isUrl(item.url.href) ? (
                         <Link
                             url={item.url}
                             label={item.username}
                             icon={
                                 <img
-                                    className="ph"
+                                    className="ph mt-1"
                                     width={fontSize}
                                     height={fontSize}
                                     alt={item.network}
@@ -200,8 +202,8 @@ const Experience = () => {
         <Section<Experience> section={section} summaryKey="summary">
             {(item) => (
                 <div className="flex flex-col justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
-                    <div className="flex justify-center">
-                        <div className="font-bold">{item.company}</div>
+                    <div className=" mb-3">
+                        <div className="font-bold">{item.company},</div>
                         <div>{item.position}</div>
                     </div>
 
@@ -284,14 +286,14 @@ const Skills = () => {
     const section = useArtboardStore((state) => state.resume.sections.skills);
 
     return (
-        <Section<Skill> section={section} levelKey="level" keywordsKey="keywords" className=" group-[.main]:w-[50%] px-2">
+        <Section<Skill> section={section} levelKey="level" keywordsKey="keywords" className="group-[.sidebar]:w-full group-[.main]:w-[50%] px-2 mb-2">
             {(item) => (
                 <div>
                     <div className="flex items-center gap-2">
                         <i className="ph ph-bold ph-check-circle"></i>
                         <div className="font-bold">{item.name}</div>
                     </div>
-                    <div>{item.description}</div>
+                    <div className="ml-5">{item.description}</div>
                 </div>
             )}
         </Section>
@@ -359,7 +361,7 @@ const Languages = () => {
             {(item) => (
                 <div>
                     <div className="font-bold">{item.name}</div>
-                    <div>{item.description}</div>
+                    <div className="ml-4">{item.description}</div>
                 </div>
             )}
         </Section>
@@ -491,15 +493,15 @@ export const Pinnacle = ({ columns, isFirstPage = false }: TemplateProps) => {
         <div className="p-custom space-y-3">
             {isFirstPage && <Header />}
 
-            <div className="grid grid-cols-[1fr_auto_2fr]">
-                <div className="sidebar group space-y-4">
+            <div className="grid grid-cols-[2fr_auto_3fr]">
+                <div className="sidebar group overflow-wrap-anywhere space-y-4">
                     {sidebar.map((section) => (
                         <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
                     ))}
                 </div>
                 <div className="w-0.5 bg-primary"></div>
 
-                <div className="main group space-y-4">
+                <div className="main group overflow-wrap-anywhere space-y-4">
                     {main.map((section) => (
                         <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
                     ))}

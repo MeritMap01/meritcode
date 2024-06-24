@@ -535,7 +535,7 @@ export const Aurora = ({ columns, isFirstPage = false }: TemplateProps) => {
   return (
     <div className="grid min-h-[inherit] grid-cols-5">
       <div
-        className="sidebar col-span-2 group py-6 space-y-4"
+        className="sidebar overflow-wrap-anywhere col-span-2 group py-6 space-y-4"
         style={{ backgroundColor: hexToRgb(primaryColor, 0.2) }}
       >
         {isFirstPage && picture.url && <div className="flex justify-center"><img src={picture.url} className="rounded-full h-72 w-72 text-center" /></div>}
@@ -546,7 +546,7 @@ export const Aurora = ({ columns, isFirstPage = false }: TemplateProps) => {
         ))}
       </div>
 
-      <div className="main p-custom group col-span-3 space-y-4">
+      <div className="main p-custom overflow-wrap-anywhere group col-span-3 space-y-4">
         {isFirstPage && <Header />}
         {main.map((section) => (
           <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
