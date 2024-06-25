@@ -33,12 +33,6 @@ const Header = () => {
       <div className="flex flex-col gap-3">
         <div className="text-5xl font-bold tracking-widest">{basics.name.toUpperCase()}</div>
         <div className="text-3xl text-primary">{basics.headline.toUpperCase()}</div>
-        <div className="flex flex-col items-center p-custom space-y-4 border-b text-center">
-          <div className="flex flex-col gap-3">
-            <div className="text-5xl font-bold tracking-widest">{basics.name.toUpperCase()}</div>
-            <div className="text-3xl text-primary">{basics.headline.toUpperCase()}</div>
-          </div>
-        </div>
       </div>
     </div>
   );
