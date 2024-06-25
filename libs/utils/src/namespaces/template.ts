@@ -28,6 +28,7 @@ export const templatesList = [
   "aurora",
   "maven",
   "professional",
+  "classic",
 ] as const;
 
 export type Template = (typeof templatesList)[number];

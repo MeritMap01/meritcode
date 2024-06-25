@@ -28,8 +28,8 @@ import { Zenith } from "./zenith";
 import { Pinnacle } from "./pinnacle";
 import { Aurora } from "./aurora"
 import { Maven } from "./maven";
-
 import { Professional } from "./professional";
+import {Classic} from "./classic";
 
 export const getTemplate = (template: Template) => {
   switch (template) {
@@ -91,6 +91,8 @@ export const getTemplate = (template: Template) => {
       return Maven;
     case "professional":
       return Professional;
+    case "classic":
+      return Classic;
     default:
       return Onyx;
   }
