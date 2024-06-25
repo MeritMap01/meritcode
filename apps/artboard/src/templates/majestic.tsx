@@ -33,7 +33,7 @@ import {
           <div className="text-base">{basics.headline}</div>
         </div>
   
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-sm">
+        <div className="flex flex-wrap justify-center items-center gap-x-2 gap-y-0.5 text-sm">
           {basics.location && (
             <div className="flex items-center gap-x-1.5">
               <i className="ph ph-bold ph-map-pin text-primary" />
@@ -231,7 +231,8 @@ import {
             <div className="flex flex-row justify-content-center items-center text-start">
               <div className="font-bold">{item.company}</div>
               <div> - {item.location} </div>
-              <div ><span className="pl-1"> (</span>{item.date}<span>)</span></div>
+              {item.date && (<div ><span className="pl-1"> (</span>{item.date}<span>)</span></div>)}
+              
             </div>
   
             <div className="shrink-0">
@@ -254,7 +255,8 @@ import {
               <div className="font-bold pr-2">{item.institution},</div>
               <div className="pr-2">{item.studyType},</div>
               <div>{item.score}</div>
-              <div><span>(</span>{item.date}<span>)</span></div>
+              {item.date && (<div><span>(</span>{item.date}<span>)</span></div>)}
+              
             </div>
           </div>
         )}

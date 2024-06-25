@@ -17,26 +17,23 @@ import {
     URL,
     Volunteer,
   } from "@reactive-resume/schema";
-  import { cn, isEmptyString, isUrl, linearTransform } from "@reactive-resume/utils";
+  import { cn, isEmptyString, isUrl } from "@reactive-resume/utils";
   import get from "lodash.get";
-  import React, { Fragment } from "react";
+  import { Fragment } from "react";
   
-//   import { Picture } from "../components/picture";
   import { useArtboardStore } from "../store/artboard";
   import { TemplateProps } from "../types/template";
-  
   const Header = () => {
     const basics = useArtboardStore((state) => state.resume.basics);
-    const color = useArtboardStore((state) => state.resume.metadata.theme.primary)
+  
     return (
-      <div className="flex flex-col items-center justify-center space-y-2 pb-2 text-center">
-        {/* <Picture /> */}
+      <div className="flex flex-col mb-4 items-center space-y-2 text-center">
         <div>
-          <div className="text-5xl tracking-widest font-bold mb-4" >{basics.name.toUpperCase()}</div>
-          <div className="text-md tracking-widest font-bold">{basics.headline.toUpperCase()}</div>
+          <div className="text-5xl mt-2 mb-3 font-bold">{basics.name.toUpperCase()}</div>
+          <div className="text-2xl">{basics.headline}</div>
         </div>
   
-        <div className="flex flex-wrap justify-center items-center gap-x-3 gap-y-0.5 text-sm">
+        <div className="flex flex-wrap justify-center items-center mt-3 mb-2 gap-x-2 gap-y-0.5 text-sm">
           {basics.location && (
             <div className="flex items-center gap-x-1.5">
               <i className="ph ph-bold ph-map-pin text-primary" />
@@ -78,24 +75,15 @@ import {
   
     return (
       <section id={section.id}>
-        
-  
-        <div className="mb-2 hidden items-center gap-x-2 text-center font-bold text-primary">
-          <div  />
-          <h4>{section.name}</h4>
-          <div  />
-        </div>
-  
-        {/* <main className={cn("relative space-y-2", "border-l border-primary pl-4")}>
-          <div className="absolute left-[-4.5px] top-[8px] hidden h-[8px] w-[8px] rounded-full bg-primary group-[.main]:block" />
-   */}
-          <div
-            className="wysiwyg"
-            style={{ columns: section.columns }}
-            dangerouslySetInnerHTML={{ __html: section.content }}
-          />
-
-        {/* </main> */}
+        <div className="flex items-center space-x-3 mt-5">
+        <h3 className="text-lg font-normal font-xl tracking-wider mb-3">{section.name.toUpperCase()}</h3>
+        <div className="flex-grow mb-3 border-t-2 border-[#7F7A7A] border-dashed "></div>
+      </div>   
+        <div
+          className="wysiwyg"
+          style={{ columns: section.columns }}
+          dangerouslySetInnerHTML={{ __html: section.content }}
+        />
       </section>
     );
   };
@@ -103,12 +91,13 @@ import {
   type RatingProps = { level: number };
   
   const Rating = ({ level }: RatingProps) => (
-    <div className="relative h-1 w-[128px]">
-      <div className="absolute inset-0 h-1 w-[128px] rounded bg-primary opacity-25" />
-      <div
-        className="absolute inset-0 h-1 rounded bg-primary"
-        style={{ width: linearTransform(level, 0, 5, 0, 128) }}
-      />
+    <div className="flex items-center gap-x-1.5">
+      {Array.from({ length: 5 }).map((_, index) => (
+        <div
+          key={index}
+          className={cn("h-2 w-2 rounded-full border border-primary", level > index && "bg-primary")}
+        />
+      ))}
     </div>
   );
   
@@ -159,18 +148,13 @@ import {
     if (!section.visible || !section.items.length) return null;
   
     return (
-      <section id={section.id} className="grid">
-        <div className="group-[.sidebar]:mt-2 mb-2 font-bold text-primary  items-center flex ">
-  <h4 className="tracking-widest flex-[1_1_0%]">{section.name.toUpperCase()}</h4>
-  <div className="flex-[4_1_0%]">
-    <hr className="border-t-2 border-primary"/>
-  </div>
-</div>
-
-
-  
+      <section id={section.id} className="mt-2  grid">
+        <div className="flex items-center space-x-3">
+        <h3 className="text-lg font-normal font-xl tracking-wider mb-3">{section.name.toUpperCase()}</h3>
+        <div className="flex-grow mb-3 border-t-2 border-[#7F7A7A] border-dashed "></div>
+      </div>  
         <div
-          className={cn("grid gap-x-6 gap-y-3 border-primary group-[.main]:border-l group-[.sidebar]:text-left",className)}
+          className="grid gap-x-2"
           style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
         >
           {section.items
@@ -182,16 +166,12 @@ import {
               const keywords = (keywordsKey && get(item, keywordsKey, [])) as string[] | undefined;
   
               return (
-                <div
-                  key={item.id}
-                  className={cn(
-                    "relative space-y-2",
-                    " group-[.main]:pl-4   ",
-                    className,
-                  )}
-                >
-                  <div>{children?.(item as T)}</div>
-                <div className="group-[.main]:col-span-4">
+                <div key={item.id} className={cn("space-y-2", className)}>
+                  <div>
+                    {children?.(item as T)}
+                    {url !== undefined && <Link url={url} />}
+                  </div>
+  
                   {summary !== undefined && !isEmptyString(summary) && (
                     <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: summary }} />
                   )}
@@ -201,12 +181,7 @@ import {
                   {keywords !== undefined && keywords.length > 0 && (
                     <p className="text-sm">{keywords.join(", ")}</p>
                   )}
-  
-                  {url !== undefined && <Link url={url} />}
-                    </div>
-                  <div className="absolute left-[-4.5px] top-px hidden h-[8px] w-[8px] rounded-full bg-primary group-[.main]:block" />
                 </div>
-                
               );
             })}
         </div>
@@ -214,56 +189,18 @@ import {
     );
   };
   
-  
-
-  // const Profiles = () => {
-  //   const section = useArtboardStore((state) => state.resume.sections.profiles);
-  //   const fontSize = useArtboardStore((state) => state.resume.metadata.typography.font.size);
-  
-  //   return (
-  //     <Section<Profile> section={section} className="grid grid-cols-3">
-  //       {(item) => (
-  //         <div className="grid col-span-1"> 
-  //           {isUrl(item.url.href) ? (
-  //             <Link
-  //               url={item.url}
-  //               label={item.username}
-  //               icon={
-  //                 <img
-  //                   className="ph"
-  //                   width={fontSize}
-  //                   height={fontSize}
-  //                   alt={item.network}
-  //                   src={`https://cdn.simpleicons.org/${item.icon}`}
-  //                 />
-  //               }
-  //             />
-  //           ) : (
-  //             <p>{item.username}</p>
-  //           )}
-  //           <p className="text-sm">{item.network}</p>
-  //         </div>
-  //       )}
-  //     </Section>
-    // );
-  // };
-  
   const Profiles = () => {
     const section = useArtboardStore((state) => state.resume.sections.profiles);
-    const bcolor = useArtboardStore((state)=>state.resume.metadata.theme.primary);
     const fontSize = useArtboardStore((state) => state.resume.metadata.typography.font.size);
     if (!section.visible || !section.items.length) return null;
     return (
-      <div className="mt-2 max-w-5xl mx-auto">
-<div className="mb-2 font-bold text-primary  items-center flex ">
-  <h4 className="tracking-widest flex-[1_1_0%]">{section.name.toUpperCase()}</h4>
-  <div className="flex-[4_1_0%]">
-    <hr className="border-t-2 border-primary"/>
-  </div>
-</div>        
-        <div className="grid grid-cols-3 gap-y-2">
+      <div className="max-w-5xl mx-auto">
+<div className="flex items-center space-x-3">
+        <h3 className="text-lg font-normal font-xl tracking-wider mb-3">{section.name.toUpperCase()}</h3>
+        <div className="flex-grow mb-3 border-t-2 border-[#7F7A7A] border-dashed "></div>
+      </div>        <div className="grid grid-cols-4 gap-y-2">
           {section.items.map((item) => (
-          <div className="col-span-1 ml-3">
+          <div className="col-span-1">
             {isUrl(item.url.href) ? (
               <Link
                 url={item.url}
@@ -288,18 +225,25 @@ import {
       </div>
     );
   };
-
+  
+  
   const Experience = () => {
     const section = useArtboardStore((state) => state.resume.sections.experience);
   
     return (
-      <Section<Experience> section={section} urlKey="url" summaryKey="summary" className="grid grid-cols-5">
+      <Section<Experience> section={section} urlKey="url" summaryKey="summary">
         {(item) => (
-          <div>
-            <div className="font-bold">{item.company}</div>
-            <div>{item.position}</div>
-            <div>{item.location}</div>
-            <div>{item.date}</div>
+          <div className="flex flex-col justify-content-center items-start">
+            <div className="flex flex-row justify-content-center items-center text-start">
+              <div className="font-bold">{item.company}</div>
+              <div> - {item.location} </div>
+              {item.date && (<div ><span className="pl-1"> (</span>{item.date}<span>)</span></div>)}
+              
+            </div>
+  
+            <div className="shrink-0">
+              <div>{item.position}</div>
+            </div>
           </div>
         )}
       </Section>
@@ -312,12 +256,14 @@ import {
     return (
       <Section<Education> section={section} urlKey="url" summaryKey="summary">
         {(item) => (
-          <div>
-            <div className="font-bold">{item.institution}</div>
-            <div>{item.area}</div>
-            <div>{item.score}</div>
-            <div>{item.studyType}</div>
-            <div className="font-bold">{item.date}</div>
+          <div className="flex items-left">
+            <div className="flex flex-row text-left">
+              <div className="font-bold pr-2">{item.institution},</div>
+              <div className="pr-2">{item.studyType},</div>
+              <div>{item.score}</div>
+              {item.date && (<div><span>(</span>{item.date}<span>)</span></div>)}
+              
+            </div>
           </div>
         )}
       </Section>
@@ -330,93 +276,54 @@ import {
     return (
       <Section<Award> section={section} urlKey="url" summaryKey="summary">
         {(item) => (
-          <div>
-            <div className="font-bold">{item.title}</div>
-            <div>{item.awarder}</div>
-            <div className="font-bold">{item.date}</div>
+          <div className="flex items-center justify-between">
+            <div className="text-left">
+              <div className="font-bold">{item.title}</div>
+              <div>{item.awarder}</div>
+            </div>
+  
+            <div className="shrink-0 text-right">
+              <div className="font-bold">{item.date}</div>
+            </div>
           </div>
         )}
       </Section>
     );
   };
   
-  // const Certifications = () => {
-  //   const section = useArtboardStore((state) => state.resume.sections.certifications);
-  
-  //   return (
-  //     <Section<Certification> section={section} urlKey="url" summaryKey="summary">
-  //       {(item) => (
-  //         <div>
-  //           <div className="font-bold">{item.name}</div>
-  //           <div>{item.issuer}</div>
-  //           <div className="font-bold">{item.date}</div>
-  //         </div>
-  //       )}
-  //     </Section>
-  //   );
-  // };
-  
   const Certifications = () => {
     const section = useArtboardStore((state) => state.resume.sections.certifications);
-    const bcolor = useArtboardStore((state)=>state.resume.metadata.theme.primary);
-    if (!section.visible || !section.items.length) return null;
-
-  return(
-    <div className="max-w-5xl mx-auto text-left">
-<div className="mb-2 font-bold text-primary  items-center flex ">
-  <h4 className="tracking-widest flex-[1_1_0%]">{section.name.toUpperCase()}</h4>
-  <div className="flex-[4_1_0%]">
-    <hr className="border-t-2 border-primary"/>
-  </div>
-</div>        <div className="grid grid-cols-3 gap-y-2">
-        {section.items.map((item) => 
-              <div key={item.id} className="col-span-1">
-                <div className="flex">
-                <span className="h-1 w-1 rounded-full bg-black mt-2 mr-2"></span>
-                <div>
-                <div className="font-bold">{item.name}</div>
+  
+    return (
+      <Section<Certification> section={section} urlKey="url" summaryKey="summary" className="flex flex-row">
+        {(item) => (
+          <div className="flex items-center justify-between">
+            <div className="text-left">
+              <div className="font-bold">{item.name}</div>
               <div>{item.issuer}</div>
-                <div className="font-bold">{item.date}</div>
-                </div>
-              </div>
-              </div>
-            )
-          }
-        </div>
-      </div>
+            </div>
+  
+            <div className="shrink-0 text-right">
+              <div className="font-bold">{item.date}</div>
+            </div>
+          </div>
+        )}
+      </Section>
     );
   };
-
-  // const Skills = () => {
-  //   const section = useArtboardStore((state) => state.resume.sections.skills);
-  
-  //   return (
-  //     <Section<Skill> section={section} levelKey="level" keywordsKey="keywords" className="grid grid-col-3">
-  //       {(item) => (
-  //         <div className="grid col-span-1">
-  //           <div className="font-bold">{item.name}</div>
-  //           <div>{item.description}</div>
-  //         </div>
-  //       )}
-  //     </Section>
-  //   );
-  // };
   
   const Skills = () => {
     const section = useArtboardStore((state) => state.resume.sections.skills);
-    const bcolor = useArtboardStore((state)=>state.resume.metadata.theme.primary);
-
+  
     if (!section.visible || !section.items.length) return null;
   
     return (
-      <div className="max-w-5xl mx-auto text-left mt-4">
-
-<div className="mb-2 font-bold text-primary  items-center flex ">
-  <h4 className="tracking-widest flex-[1_1_0%]">{section.name.toUpperCase()}</h4>
-  <div className="flex-[4_1_0%]">
-    <hr className="border-t-2 border-primary"/>
-  </div>
-</div>        <div className="grid grid-cols-3 gap-y-2">
+      <div className="max-w-5xl mx-auto">
+      <div className="flex items-center space-x-3">
+        <h3 className="text-lg font-normal font-xl tracking-wider mb-3">{section.name.toUpperCase()}</h3>
+        <div className="flex-grow mb-3 border-t-2 border-[#7F7A7A] border-dashed "></div>
+      </div> 
+              <div className="grid grid-cols-4 gap-y-2">
           {section.items.map((item) => {
             const keywords = get(item, "keywords", []) as string[] | undefined;
             return (
@@ -425,15 +332,12 @@ import {
                 <div className="flex flex-col ">
                   <div className="flex">
                   <span className="h-1 w-1 rounded-full bg-black mt-2 mr-2"></span>
-                  <div>
-                <div className="text-left pr-2 font-bold">{item.name}</div>
-               
-                <div >{item.description}</div>
-                {keywords !== undefined && keywords.length > 0 && (
-                  <p className="text-sm">{keywords.join(", ")}</p>
-                )}
-                 </div>
+                <div className="text-left pr-2 font-medium">{item.name}</div>
                 </div>
+                <div className="ml-4">{item.description}</div>
+                {keywords !== undefined && keywords.length > 0 && (
+                  <p className="text-sm ml-4">{keywords.join(", ")}</p>
+                )}
                 </div>
               </div>
             );
@@ -443,7 +347,7 @@ import {
     );
   };
   
-
+  
   const Interests = () => {
     const section = useArtboardStore((state) => state.resume.sections.interests);
   
@@ -460,10 +364,15 @@ import {
     return (
       <Section<Publication> section={section} urlKey="url" summaryKey="summary">
         {(item) => (
-          <div>
-            <div className="font-bold">{item.name}</div>
-            <div>{item.publisher}</div>
-            <div className="font-bold">{item.date}</div>
+          <div className="flex items-center justify-between">
+            <div className="text-left">
+              <div className="font-bold">{item.name}: <span className="font-normal"> {item.publisher}</span></div>
+             
+            </div>
+  
+            <div className="shrink-0 text-right">
+              <div className="font-bold">{item.date}</div>
+            </div>
           </div>
         )}
       </Section>
@@ -477,10 +386,12 @@ import {
       <Section<Volunteer> section={section} urlKey="url" summaryKey="summary">
         {(item) => (
           <div>
-            <div className="font-bold">{item.organization}</div>
-            <div>{item.position}</div>
-            <div>{item.location}</div>
-            <div className="font-bold">{item.date}</div>
+           
+              <div className="font-bold">{item.organization} <span className="font-normal">: {item.position}</span></div>
+              
+            
+              <div>{item.date}</div>
+              <div>{item.location}</div>
           </div>
         )}
       </Section>
@@ -491,9 +402,9 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.languages);
   
     return (
-      <Section<Language> section={section} levelKey="level">
+      <Section<Language> section={section}>
         {(item) => (
-          <div>
+          <div className="space-y-0.5">
             <div className="font-bold">{item.name}</div>
             <div>{item.description}</div>
           </div>
@@ -508,11 +419,13 @@ import {
     return (
       <Section<Project> section={section} urlKey="url" summaryKey="summary" keywordsKey="keywords">
         {(item) => (
-          <div>
-            <div>
+          <div className="flex items-center justify-between">
+            <div className="text-left">
               <div className="font-bold">{item.name}</div>
               <div>{item.description}</div>
+            </div>
   
+            <div className="shrink-0 text-right">
               <div className="font-bold">{item.date}</div>
             </div>
           </div>
@@ -547,11 +460,13 @@ import {
         keywordsKey="keywords"
       >
         {(item) => (
-          <div>
-            <div>
+          <div className="flex items-center justify-between">
+            <div className="text-left">
               <div className="font-bold">{item.name}</div>
               <div>{item.description}</div>
+            </div>
   
+            <div className="shrink-0 text-right">
               <div className="font-bold">{item.date}</div>
               <div>{item.location}</div>
             </div>
@@ -596,25 +511,20 @@ import {
     }
   };
   
-  export const Elevate = ({ columns, isFirstPage = false }: TemplateProps) => {
+  export const Eternal = ({ columns, isFirstPage = false }: TemplateProps) => {
     const [main, sidebar] = columns;
   
     return (
-      <div className="p-custom space-y-3">
+      <div className="p-custom space-y-4 m-10">
         {isFirstPage && <Header />}
   
-        <div>
-        <div className="main group space-y-4">
-            {main.map((section) => (
-              <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
-            ))}
-          </div>
-          <div className="sidebar group space-y-4">
-            {sidebar.map((section) => (
-              <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
-            ))}
-          </div>
-        </div>
+        {main.map((section) => (
+          <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
+        ))}
+  
+        {sidebar.map((section) => (
+          <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
+        ))}
       </div>
     );
   };

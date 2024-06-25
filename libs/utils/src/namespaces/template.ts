@@ -11,6 +11,7 @@ export const templatesList = [
   "elevate",
   "naruto",
   "nurture",
+  "eternal",
   // Vamsi
   "genesis",
   "nexus",
