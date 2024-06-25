@@ -12,9 +12,9 @@
         "customFields": [],
         "picture": {
             "url": "https://i.imgur.com/HgwyOuJ.jpg",
-            "size": 120,
+            "size": 140,
             "aspectRatio": 1,
-            "borderRadius": 0,
+            "borderRadius": 4,
             "effects": {
                 "hidden": false,
                 "border": false,
@@ -144,11 +144,26 @@
             "columns": 1,
             "visible": true,
             "id": "languages",
-            "items": []
+            "items": [
+                {
+                    "id": "ey0c353j3apepzqmyl8zd37c",
+                    "visible": true,
+                    "name": "English",
+                    "description": "Native Speaker",
+                    "level": 0
+                },
+                {
+                    "id": "a4dnf32wyj5phgln2rx97qk2",
+                    "visible": true,
+                    "name": "Spanish",
+                    "description": "Intermediate",
+                    "level": 0
+                }
+            ]
         },
         "profiles": {
             "name": "Profiles",
-            "columns": 1,
+            "columns": 3,
             "visible": true,
             "id": "profiles",
             "items": [
@@ -173,12 +188,23 @@
                         "label": "",
                         "href": "https://github.com/johndoe"
                     }
+                },
+                {
+                    "id": "k97vdxzmssmgel79km48kxgg",
+                    "visible": true,
+                    "network": "StackOverflow",
+                    "username": "johndoe",
+                    "icon": "stackoverflow",
+                    "url": {
+                        "label": "",
+                        "href": "https://stackoverflow.com/u/johndoe"
+                    }
                 }
             ]
         },
         "projects": {
             "name": "Projects",
-            "columns": 1,
+            "columns": 2,
             "visible": true,
             "id": "projects",
             "items": [
@@ -220,7 +246,7 @@
         "references": {
             "name": "References",
             "columns": 1,
-            "visible": false,
+            "visible": true,
             "id": "references",
             "items": [
                 {
@@ -288,30 +314,26 @@
         "custom": {}
     },
     "metadata": {
-        "template": "genesis",
+        "template": "maven",
         "layout": [
             [
                 [
+                    "profiles",
                     "summary",
                     "experience",
                     "education",
-                    "projects",
-                    "references"
+                    "projects"
                 ],
                 [
-                    "profiles",
                     "skills",
                     "certifications",
-                    "interests",
                     "languages",
+                    "references",
+                    "interests",
                     "awards",
                     "volunteer",
                     "publications"
                 ]
-            ],
-            [
-                [],
-                []
             ]
         ],
         "css": {
@@ -329,18 +351,18 @@
         "theme": {
             "background": "#ffffff",
             "text": "#000000",
-            "primary": "#0891b2"
+            "primary": "#059669"
         },
         "typography": {
             "font": {
-                "family": "IBM Plex Serif",
+                "family": "Merriweather",
                 "subset": "latin",
                 "variants": [
                     "regular"
                 ],
                 "size": 13
             },
-            "lineHeight": 1.6,
+            "lineHeight": 1.5,
             "hideIcons": false,
             "underlineLinks": true
         },

@@ -17,22 +17,30 @@ import { Pikachu } from "./pikachu";
 import { Rhyhorn } from "./rhyhorn";
 import { Genesis } from "./genesis";
 import { Naruto } from "./naruto";
-// import { Nexus } from "./nexus";
-import {Orion} from "./orion";
+import { Nexus } from "./nexus";
+import { Nurture } from "./nurture";
 import { Legacy } from "./legacy";
+import { Orion } from "./orion";
 import { Palette } from "./palette";
 import { Ignite } from "./ignite";
 import { Joyful } from "./joyful";
+import { Zenith } from "./zenith";
+import { Pinnacle } from "./pinnacle";
+import { Aurora } from "./aurora"
+import { Maven } from "./maven";
+
 import { Professional } from "./professional";
 
 export const getTemplate = (template: Template) => {
   switch (template) {
     case "azurill":
       return Azurill;
-    // case "nexus":
-    //   return Nexus;
+    case "nexus":
+      return Nexus;
     case "genesis":
       return Genesis;
+    case "zenith":
+      return Zenith;
     case "bronzor":
       return Bronzor;
     case "chikorita":
@@ -57,6 +65,8 @@ export const getTemplate = (template: Template) => {
       return Naruto;
     case "nosepass":
       return Nosepass;
+    case "nurture":
+      return Nurture;
     case "onyx":
       return Onyx;
     case "pikachu":
@@ -73,6 +83,12 @@ export const getTemplate = (template: Template) => {
       return Ignite;
     case "joyful":
       return Joyful;
+    case "pinnacle":
+      return Pinnacle;
+    case "aurora":
+      return Aurora;
+    case "maven":
+      return Maven;
     case "professional":
       return Professional;
     default:

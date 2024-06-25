@@ -27,12 +27,15 @@ module.exports = {
       spacing: { custom: "var(--margin)" },
     },
   },
-  plugins: [require("@tailwindcss/typography"),function ({ addUtilities }) {
+
+  plugins: [require("@tailwindcss/typography"),
+  function ({ addUtilities }) {
     addUtilities({
       '.overflow-wrap-anywhere': {
         'overflow-wrap': 'anywhere',
-      },
-      })
-    }],
+      },
+    })
+  }
+  ],
 };
 

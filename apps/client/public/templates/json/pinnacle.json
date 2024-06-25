@@ -12,9 +12,9 @@
         "customFields": [],
         "picture": {
             "url": "https://i.imgur.com/HgwyOuJ.jpg",
-            "size": 120,
+            "size": 140,
             "aspectRatio": 1,
-            "borderRadius": 0,
+            "borderRadius": 4,
             "effects": {
                 "hidden": false,
                 "border": false,
@@ -144,7 +144,22 @@
             "columns": 1,
             "visible": true,
             "id": "languages",
-            "items": []
+            "items": [
+                {
+                    "id": "ey0c353j3apepzqmyl8zd37c",
+                    "visible": true,
+                    "name": "English",
+                    "description": "Native Speaker",
+                    "level": 0
+                },
+                {
+                    "id": "a4dnf32wyj5phgln2rx97qk2",
+                    "visible": true,
+                    "name": "Spanish",
+                    "description": "Intermediate",
+                    "level": 0
+                }
+            ]
         },
         "profiles": {
             "name": "Profiles",
@@ -172,6 +187,17 @@
                     "url": {
                         "label": "",
                         "href": "https://github.com/johndoe"
+                    }
+                },
+                {
+                    "id": "k97vdxzmssmgel79km48kxgg",
+                    "visible": true,
+                    "network": "StackOverflow",
+                    "username": "johndoe",
+                    "icon": "stackoverflow",
+                    "url": {
+                        "label": "",
+                        "href": "https://stackoverflow.com/u/johndoe"
                     }
                 }
             ]
@@ -220,7 +246,7 @@
         "references": {
             "name": "References",
             "columns": 1,
-            "visible": false,
+            "visible": true,
             "id": "references",
             "items": [
                 {
@@ -288,30 +314,26 @@
         "custom": {}
     },
     "metadata": {
-        "template": "genesis",
+        "template": "pinnacle",
         "layout": [
             [
                 [
                     "summary",
                     "experience",
                     "education",
-                    "projects",
-                    "references"
+                    "projects"
                 ],
                 [
                     "profiles",
                     "skills",
                     "certifications",
-                    "interests",
                     "languages",
+                    "references",
+                    "interests",
                     "awards",
                     "volunteer",
                     "publications"
                 ]
-            ],
-            [
-                [],
-                []
             ]
         ],
         "css": {
@@ -329,20 +351,20 @@
         "theme": {
             "background": "#ffffff",
             "text": "#000000",
-            "primary": "#0891b2"
+            "primary": "#ca8a04"
         },
         "typography": {
             "font": {
-                "family": "IBM Plex Serif",
+                "family": "Titillium Web",
                 "subset": "latin",
                 "variants": [
                     "regular"
                 ],
-                "size": 13
+                "size": 13.8
             },
-            "lineHeight": 1.6,
+            "lineHeight": 1.5,
             "hideIcons": false,
-            "underlineLinks": true
+            "underlineLinks": false
         },
         "notes": ""
     }

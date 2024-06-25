@@ -53,20 +53,22 @@ import {
     if (!section.visible || isEmptyString(section.content)) return null;
   
     return (
+
       <div>
         <section className="p-4 text-lg font-serif" id={section.id}>
-        
         <div
           className="text-lg font-serif "
           style={{ columns: section.columns }}
           dangerouslySetInnerHTML={{ __html: section.content }}
         />
+
        </section>
        <div className="flex justify-between">
             <div className="w-1/5 border-t-2 border-[#9c9b97]"></div>
             <div className="w-1/5 border-t-2 border-[#9c9b97]"></div>
           </div>
       </div>
+      </section>
     );
   };
   
@@ -466,22 +468,21 @@ import {
     return (
         <div className=" bg-[#ecebe6] group min-h-[inherit] flex flex-col">
           <div className="ml-8 mt-8 pr-4 overflow-wrap-anywhere">{isFirstPage && <Header />}
-          <div className="w-1/5 border-t-2 border-[#9c9b97]"></div>
-          {isFirstPage && <Summary />}
-          
-          <div className="flex flex-1 overflow-wrap-anywhere">
-          <div className="flex-1 p-4 space-y-4 max-w-full break-words overflow-wrap-anywhere">
-            {main.map((section) => (
-              <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
-            ))}
-          </div>
-          <div className="w-1/3 p-4 space-y-4 max-w-full break-words overflow-wrap-anywhere">
-            {sidebar.map((section) => (
-              <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
-            ))}
-          </div>
-        </div>
-          </div>
+            <div className="w-1/5 border-t-2 border-[#9c9b97]"></div>
+            {isFirstPage && <Summary />}   
+              <div className="flex flex-1 overflow-wrap-anywhere">
+                <div className="flex-1 p-4 space-y-4 max-w-full break-words overflow-wrap-anywhere">
+                  {main.map((section) => (
+                    <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
+                  ))}
+                </div>
+                <div className="w-1/3 p-4 space-y-4 max-w-full break-words overflow-wrap-anywhere">
+                  {sidebar.map((section) => (
+                    <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
+                  ))}
+                </div>
+              </div>
+           </div>
         </div>
       );
     };

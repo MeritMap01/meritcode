@@ -17,11 +17,16 @@ export const templatesList = [
   "rhyhorn",
   "genesis",
   "nexus",
+  "nurture",
+  "zenith",
   "legacy",
   "orion",
   "palette",
   "ignite",
   "joyful",
+  "pinnacle",
+  "aurora",
+  "maven",
   "professional",
 ] as const;
 
