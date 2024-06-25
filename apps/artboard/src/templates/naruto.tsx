@@ -36,7 +36,7 @@ import {
     return (
       <div className="flex flex-col items-center space-y-2 text-center">
         {/* <Picture /> */}
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-sm">
+        <div className="flex flex-wrap justify-center items-center gap-x-2 gap-y-0.5 text-sm">
           {basics.location && (
             <div className="flex items-center gap-x-1.5">
               <i className="ph ph-bold ph-map-pin text-primary" />
@@ -68,13 +68,14 @@ import {
           ))}
         </div>
         <div>
-        <div className="text-5xl font-[100] tracking-widest">
+        <div className="text-5xl font-[100] tracking-widest mb-4">
       {/* Apply primaryColor to the first word */}
       <span style={{ color: primaryColor }}>{firstName.toUpperCase()}</span>
       {/* The rest of the name without special styling */}
       <span>{restOfName && ` ${restOfName.toUpperCase()}`}</span>
-    </div>          <div className="text-extrabold tracking-widest" style={{color:primaryColor}}>{basics.headline.toUpperCase()}</div>
-        </div>
+      </div>      
+      <div className="text-extrabold tracking-widest" style={{color:primaryColor}}>{basics.headline.toUpperCase()}</div>
+      </div>
   
        
       </div>
