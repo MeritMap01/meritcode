@@ -68,7 +68,6 @@ import {
             <div className="w-1/5 border-t-2 border-[#9c9b97]"></div>
           </div>
       </div>
-      
     );
   };
   

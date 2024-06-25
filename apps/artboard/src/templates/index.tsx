@@ -5,6 +5,7 @@ import { Bronzor } from "./bronzor";
 import { Chikorita } from "./chikorita";
 import { Ditto } from "./ditto";
 import { Elevate } from "./elevate";
+import { Eternal } from "./eternal";
 import { Gengar } from "./gengar";
 import { Glalie } from "./glalie";
 import { Horizon } from "./horizon";
@@ -28,8 +29,8 @@ import { Zenith } from "./zenith";
 import { Pinnacle } from "./pinnacle";
 import { Aurora } from "./aurora"
 import { Maven } from "./maven";
-
 import { Professional } from "./professional";
+
 
 export const getTemplate = (template: Template) => {
   switch (template) {
@@ -49,6 +50,8 @@ export const getTemplate = (template: Template) => {
       return Ditto;
     case "elevate":
       return Elevate;
+    case "eternal":
+      return Eternal;
     case "gengar":
       return Gengar;
     case "glalie":
