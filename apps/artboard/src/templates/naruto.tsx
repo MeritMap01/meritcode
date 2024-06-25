@@ -533,7 +533,7 @@ import {
       <div className="p-custom space-y-4">
         {isFirstPage && <Header />}
   
-        <div className="space-y-4">
+        <div className="space-y-4 overflow-wrap-anywhere">
           {main.map((section) => (
             <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
           ))}
