@@ -42,7 +42,7 @@ msgstr "<0>אין לי ספק שהיישום רחוק מלהיות מושלם א
 msgid "<0>Note: </0>By utilizing the OpenAI API, you acknowledge and accept the <1>terms of use</1> and <2>privacy policy</2> outlined by OpenAI. Please note that Reactive Resume bears no responsibility for any improper or unauthorized utilization of the service, and any resulting repercussions or liabilities solely rest on the user."
 msgstr "<0>לתשומת ליבך: </0>עצם השימוש ב־API של OpenAI מהווה הכרה והסכמה ל<1>תנאי השימוש</1> ול<2>מדיניות הפרטיות</2> שנקבעו על ידי OpenAI. נא לשים לב ש־Reactive Resume אינו אחראי במקרים של שימוש לא הולם או לא מורשה בשירות, לרבות השלכות נגזרות או התחייבויות שחלות באופן בלעדי על המשתמש."
 
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:90
+#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:71
 msgid "<0>The community has spent a lot of time writing the documentation for Reactive Resume, and I'm sure it will help you get started with the app.</0><1>There are also a lot of examples to help you get started, and features that you might not know about which could help you build your perfect resume.</1>"
 msgstr "<0>הקהילה השקיעה זמן רב בכתיבת התיעוד של Reactive Resume ואני משוכנע שהוא יסייע לך להתחיל את דרכך עם היישום.</0><1>יש גם דוגמאות רבות שיסייעו לך להיכנס לעניינים ויכולות שאולי לא הכרת ועשויות לסייע לך לבנות קורות חיים מושקעים.</1>"
 
@@ -68,10 +68,6 @@ msgstr "בונה קורות חיים חינמי בקוד פתוח שמפשט א�
 #: apps/client/src/pages/builder/sidebars/right/sections/sharing.tsx:29
 msgid "A link has been copied to your clipboard."
 msgstr "קישור הועתק ללוח הגזירים שלך."
-
-#: apps/client/src/components/copyright.tsx:29
-msgid "A passion project by <0>Amruth Pillai</0>"
-msgstr "מיזם שמונע מהתשוקה של <0>אמרות׳ פילאי</0>"
 
 #: apps/client/src/pages/auth/forgot-password/page.tsx:57
 msgid "A password reset link should have been sent to your inbox, if an account existed with the email you provided."
@@ -230,7 +226,6 @@ msgstr "רדיוס מסגרת"
 msgid "Built with"
 msgstr "נבנה עם"
 
-#: apps/client/src/components/copyright.tsx:27
 #: apps/client/src/pages/home/sections/contributors/index.tsx:20
 msgid "By the community, for the community."
 msgstr "על ידי הקהילה ועבורה."
@@ -425,7 +420,7 @@ msgstr "השבתת האימות הדו־שלבי"
 msgid "Discard"
 msgstr "התעלמות"
 
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:110
+#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:91
 msgid "Documentation"
 msgstr "תיעוד"
 
@@ -433,7 +428,7 @@ msgstr "תיעוד"
 msgid "Don't have an account?"
 msgstr "אין לך חשבון?"
 
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:88
+#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:69
 msgid "Don't know where to begin? Hit the docs!"
 msgstr "לא ברור לך מאיפה מתחילים? כדאי לבקר בתיעוד!"
 
@@ -522,7 +517,7 @@ msgstr "נא למלא את כתובת הדוא״ל שלך ואנו נשלח לך
 msgid "Errors"
 msgstr "שגיאות"
 
-#: apps/client/src/pages/home/sections/support/index.tsx:78
+#: apps/client/src/pages/home/sections/support/index.tsx:60
 msgid "Even if you're not in a position to contribute financially, you can still make a difference by giving the GitHub repository a star, spreading the word to your friends, or dropping a quick message to let me know how Reactive Resume has helped you. Your feedback and support are always welcome and much appreciated!"
 msgstr "אפילו אם אין לך יכולת לתרום כלכלית, עדיין אפשר לחולל שינוי על ידי הענקת כוכב למאגר ב־GitHub, הפצת המיזם בקרב חבריך או שליחת הודעה אליי כדי לספר לי איך Reactive Resume סייע לך. המשוב והתמיכה שלך תמיד מחממים את הלב ומאוד מוערכים!"
 
@@ -691,14 +686,14 @@ msgid "Icon"
 msgstr "סמל"
 
 #: apps/client/src/pages/home/sections/logo-cloud/index.tsx:47
-msgid "If this app has helped you with your job hunt, let me know by reaching out through <0>this contact form</0>."
-msgstr "אם היישום הזה עזר לך בחיפוש העבודה שלך, אפשר ליצור איתי קשר דרך <0>הטופס הזה</0> ולספר לי על כך."
+msgid "If this app has helped you with your job hunt, let me know by reaching out through ."
+msgstr ""
 
 #: apps/client/src/pages/dashboard/settings/_dialogs/two-factor.tsx:126
 msgid "If you disable two-factor authentication, you will no longer be required to enter a verification code when logging in."
 msgstr "השבתת אימות דו־שלבי תייתר את מילוי קוד האימות בעת הכניסה למערכת."
 
-#: apps/client/src/pages/home/sections/support/index.tsx:59
+#: apps/client/src/pages/home/sections/support/index.tsx:41
 msgid "If you're multilingual, we'd love your help in bringing the app to more languages and communities. Don't worry if you don't see your language on the list - just give me a shout-out on GitHub, and I'll make sure to include it. Ready to get started? Jump into translation over at Crowdin by clicking the link below."
 msgstr "איך האנגלית שלך? ושפות נוספות? נשמח לקבל את עזרתך בתרגום היישום לשפות וקהילות נוספות. אין מה לדאוג אם השפה שלך לא מופיעה ברשימה - כל שצריך לעשות הוא לפנות אלי ב־GitHub ואוודא שהיא תתווסף. אפשר להתחיל? ניתן לגשת למלאכת התרגום ב־Crowdin בלחיצה על הקישור שלהלן."
 
@@ -729,7 +724,7 @@ msgid "In this section, you can delete your account and all the data associated 
 msgstr "בסעיף הזה, אפשר למחוק את החשבון שלך ואת כל הנתונים שמשויכים למשתמש שלך, אך נא לשים לב ש<0>זאת פעולה בלתי הפיכה</0>."
 
 #: apps/client/src/pages/builder/sidebars/right/index.tsx:83
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:122
+#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:103
 msgid "Information"
 msgstr "מידע"
 
@@ -826,10 +821,6 @@ msgstr "מכתב"
 #: apps/client/src/pages/builder/sidebars/left/dialogs/skills.tsx:69
 msgid "Level"
 msgstr "רמה"
-
-#: apps/client/src/components/copyright.tsx:16
-msgid "Licensed under <0>MIT</0>"
-msgstr "כפוף לרישיון <0>MIT</0>"
 
 #: apps/client/src/pages/dashboard/settings/_sections/profile.tsx:81
 msgid "Light"
@@ -1097,11 +1088,6 @@ msgstr "ציבורי"
 msgid "Publisher"
 msgstr "מוציא לאור"
 
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:69
-msgid "Raise an issue"
-msgstr "דיווח על בעיה"
-
-#: apps/client/src/components/copyright.tsx:38
 #: apps/client/src/pages/auth/backup-otp/page.tsx:52
 #: apps/client/src/pages/auth/forgot-password/page.tsx:49
 #: apps/client/src/pages/auth/login/page.tsx:55
@@ -1241,10 +1227,6 @@ msgstr "אירוח עצמי עם Docker"
 #: apps/client/src/pages/auth/forgot-password/page.tsx:98
 msgid "Send Email"
 msgstr "שליחת דוא״ל"
-
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:79
-msgid "Send me a message"
-msgstr "שליחה הודעה אליי"
 
 #: apps/client/src/components/user-options.tsx:28
 #: apps/client/src/pages/dashboard/_components/sidebar.tsx:92
@@ -1688,4 +1670,3 @@ msgstr "התקרבות"
 #: apps/client/src/pages/builder/_components/toolbar.tsx:86
 msgid "Zoom Out"
 msgstr "התרחקות"
-

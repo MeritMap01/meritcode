@@ -42,7 +42,7 @@ msgstr "<0>Jeg er sikker på, at appen ikke er perfekt, men det er mit mål.</0>
 msgid "<0>Note: </0>By utilizing the OpenAI API, you acknowledge and accept the <1>terms of use</1> and <2>privacy policy</2> outlined by OpenAI. Please note that Reactive Resume bears no responsibility for any improper or unauthorized utilization of the service, and any resulting repercussions or liabilities solely rest on the user."
 msgstr "<0>Bemærk:</0> Ved at bruge OpenAI API'en anerkender og accepterer du <1>brugsbetingelserne</1> og <2>privatlivspolitik</2> skitseret af OpenAI. Bemærk venligst at Reactive Resume ikke bærer noget ansvar for ukorrekt eller uautoriseret brug af tjenesten, og eventuelle følgevirkninger eller ansvar påhviler udelukkende brugeren."
 
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:90
+#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:71
 msgid "<0>The community has spent a lot of time writing the documentation for Reactive Resume, and I'm sure it will help you get started with the app.</0><1>There are also a lot of examples to help you get started, and features that you might not know about which could help you build your perfect resume.</1>"
 msgstr "<0>Fællesskabet har brugt meget tid på at skrive dokumentationen til Reactive Resume, og jeg er sikker på, at det vil hjælpe dig i gang med appen.</0> <1>Der er også en masse eksempler til at hjælpe dig i gang, og funktioner, som du måske ikke kender til, som kan hjælpe dig med at opbygge dit perfekte CV.</1>"
 
@@ -68,10 +68,6 @@ msgstr "En gratis og open-source CV-bygger, der forenkler processen med at opret
 #: apps/client/src/pages/builder/sidebars/right/sections/sharing.tsx:29
 msgid "A link has been copied to your clipboard."
 msgstr "Linket er blevet kopieret til udklipsholder."
-
-#: apps/client/src/components/copyright.tsx:29
-msgid "A passion project by <0>Amruth Pillai</0>"
-msgstr "Et passionsprojekt af <0>Amruth Pillai</0>"
 
 #: apps/client/src/pages/auth/forgot-password/page.tsx:57
 msgid "A password reset link should have been sent to your inbox, if an account existed with the email you provided."
@@ -230,7 +226,6 @@ msgstr "Kantradius"
 msgid "Built with"
 msgstr "Lavet med"
 
-#: apps/client/src/components/copyright.tsx:27
 #: apps/client/src/pages/home/sections/contributors/index.tsx:20
 msgid "By the community, for the community."
 msgstr "Af fællesskabet, for fællesskabet."
@@ -425,7 +420,7 @@ msgstr "Deaktivér 2FA"
 msgid "Discard"
 msgstr "Kassér"
 
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:110
+#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:91
 msgid "Documentation"
 msgstr "Dokumentation"
 
@@ -433,7 +428,7 @@ msgstr "Dokumentation"
 msgid "Don't have an account?"
 msgstr "Har du ikke en konto?"
 
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:88
+#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:69
 msgid "Don't know where to begin? Hit the docs!"
 msgstr "Ved du ikke, hvor du skal begynde? Tryk på dokumenterne!"
 
@@ -522,7 +517,7 @@ msgstr "Indtast din e-mailadresse, og vi sender dig et link til at nulstille din
 msgid "Errors"
 msgstr "Fejl"
 
-#: apps/client/src/pages/home/sections/support/index.tsx:78
+#: apps/client/src/pages/home/sections/support/index.tsx:60
 msgid "Even if you're not in a position to contribute financially, you can still make a difference by giving the GitHub repository a star, spreading the word to your friends, or dropping a quick message to let me know how Reactive Resume has helped you. Your feedback and support are always welcome and much appreciated!"
 msgstr "Selvom du ikke er i stand til at bidrage økonomisk, kan du stadig gøre en forskel ved at give GitHub-lageret en stjerne, sprede budskabet til dine venner eller sende en hurtig besked for at fortælle mig, hvordan Reactive Resume har hjulpet dig. Din feedback og støtte er altid velkommen og meget værdsat!"
 
@@ -691,14 +686,14 @@ msgid "Icon"
 msgstr "Ikon"
 
 #: apps/client/src/pages/home/sections/logo-cloud/index.tsx:47
-msgid "If this app has helped you with your job hunt, let me know by reaching out through <0>this contact form</0>."
-msgstr "Hvis denne app har hjulpet dig med din jobsøgning, så lad mig det vide ved at kontakte mig via <0>denne kontaktformular</0>."
+msgid "If this app has helped you with your job hunt, let me know by reaching out through ."
+msgstr ""
 
 #: apps/client/src/pages/dashboard/settings/_dialogs/two-factor.tsx:126
 msgid "If you disable two-factor authentication, you will no longer be required to enter a verification code when logging in."
 msgstr "Hvis du deaktiverer to-faktor godkendelse, skal du ikke længere indtaste en bekræftelseskode, når du logger ind."
 
-#: apps/client/src/pages/home/sections/support/index.tsx:59
+#: apps/client/src/pages/home/sections/support/index.tsx:41
 msgid "If you're multilingual, we'd love your help in bringing the app to more languages and communities. Don't worry if you don't see your language on the list - just give me a shout-out on GitHub, and I'll make sure to include it. Ready to get started? Jump into translation over at Crowdin by clicking the link below."
 msgstr "Hvis du er flersproget, vil vi meget gerne have din hjælp til at bringe appen til flere sprog og samfund. Bare rolig, hvis du ikke kan se dit sprog på listen - bare giv mig besked på GitHub, så sørger jeg for at få det med. Er du klar til at komme i gang? Hop ind i oversættelse arbejdet hos Crowdin ved at klikke på linket nedenfor."
 
@@ -729,7 +724,7 @@ msgid "In this section, you can delete your account and all the data associated 
 msgstr "I dette afsnit kan du slette din konto og alle de data, der er knyttet til din bruger, men husk, at <0>denne handling er uigenkaldelig</0>."
 
 #: apps/client/src/pages/builder/sidebars/right/index.tsx:83
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:122
+#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:103
 msgid "Information"
 msgstr "Information"
 
@@ -826,10 +821,6 @@ msgstr "Brev"
 #: apps/client/src/pages/builder/sidebars/left/dialogs/skills.tsx:69
 msgid "Level"
 msgstr "Niveau"
-
-#: apps/client/src/components/copyright.tsx:16
-msgid "Licensed under <0>MIT</0>"
-msgstr "Licenseret under <0>MIT</0>"
 
 #: apps/client/src/pages/dashboard/settings/_sections/profile.tsx:81
 msgid "Light"
@@ -1097,11 +1088,6 @@ msgstr "Offentlig"
 msgid "Publisher"
 msgstr "Udgiver"
 
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:69
-msgid "Raise an issue"
-msgstr "Løft et problem"
-
-#: apps/client/src/components/copyright.tsx:38
 #: apps/client/src/pages/auth/backup-otp/page.tsx:52
 #: apps/client/src/pages/auth/forgot-password/page.tsx:49
 #: apps/client/src/pages/auth/login/page.tsx:55
@@ -1241,10 +1227,6 @@ msgstr "Selv-host med Docker"
 #: apps/client/src/pages/auth/forgot-password/page.tsx:98
 msgid "Send Email"
 msgstr "Send e-mail"
-
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:79
-msgid "Send me a message"
-msgstr "Send mig en besked"
 
 #: apps/client/src/components/user-options.tsx:28
 #: apps/client/src/pages/dashboard/_components/sidebar.tsx:92
@@ -1688,4 +1670,3 @@ msgstr "Zoom ind"
 #: apps/client/src/pages/builder/_components/toolbar.tsx:86
 msgid "Zoom Out"
 msgstr "Zoom ud"
-

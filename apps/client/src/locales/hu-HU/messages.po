@@ -42,7 +42,7 @@ msgstr ""
 msgid "<0>Note: </0>By utilizing the OpenAI API, you acknowledge and accept the <1>terms of use</1> and <2>privacy policy</2> outlined by OpenAI. Please note that Reactive Resume bears no responsibility for any improper or unauthorized utilization of the service, and any resulting repercussions or liabilities solely rest on the user."
 msgstr ""
 
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:90
+#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:71
 msgid "<0>The community has spent a lot of time writing the documentation for Reactive Resume, and I'm sure it will help you get started with the app.</0><1>There are also a lot of examples to help you get started, and features that you might not know about which could help you build your perfect resume.</1>"
 msgstr ""
 
@@ -67,10 +67,6 @@ msgstr ""
 #: apps/client/src/pages/builder/_components/toolbar.tsx:53
 #: apps/client/src/pages/builder/sidebars/right/sections/sharing.tsx:29
 msgid "A link has been copied to your clipboard."
-msgstr ""
-
-#: apps/client/src/components/copyright.tsx:29
-msgid "A passion project by <0>Amruth Pillai</0>"
 msgstr ""
 
 #: apps/client/src/pages/auth/forgot-password/page.tsx:57
@@ -230,7 +226,6 @@ msgstr "Szegély sugár"
 msgid "Built with"
 msgstr "Készült"
 
-#: apps/client/src/components/copyright.tsx:27
 #: apps/client/src/pages/home/sections/contributors/index.tsx:20
 msgid "By the community, for the community."
 msgstr "A közösség által, a közösségért."
@@ -425,7 +420,7 @@ msgstr "2FA Kikapcsolása"
 msgid "Discard"
 msgstr "Elvetés"
 
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:110
+#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:91
 msgid "Documentation"
 msgstr "Dokumentáció"
 
@@ -433,7 +428,7 @@ msgstr "Dokumentáció"
 msgid "Don't have an account?"
 msgstr "Nincs fiókod?"
 
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:88
+#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:69
 msgid "Don't know where to begin? Hit the docs!"
 msgstr "Nem tudod, hol kezd? Nézd meg a dokumentációt!"
 
@@ -522,7 +517,7 @@ msgstr "Adja meg e-mail címét, és küldünk egy linket a jelszó visszaállí
 msgid "Errors"
 msgstr "Hibák"
 
-#: apps/client/src/pages/home/sections/support/index.tsx:78
+#: apps/client/src/pages/home/sections/support/index.tsx:60
 msgid "Even if you're not in a position to contribute financially, you can still make a difference by giving the GitHub repository a star, spreading the word to your friends, or dropping a quick message to let me know how Reactive Resume has helped you. Your feedback and support are always welcome and much appreciated!"
 msgstr ""
 
@@ -691,14 +686,14 @@ msgid "Icon"
 msgstr ""
 
 #: apps/client/src/pages/home/sections/logo-cloud/index.tsx:47
-msgid "If this app has helped you with your job hunt, let me know by reaching out through <0>this contact form</0>."
+msgid "If this app has helped you with your job hunt, let me know by reaching out through ."
 msgstr ""
 
 #: apps/client/src/pages/dashboard/settings/_dialogs/two-factor.tsx:126
 msgid "If you disable two-factor authentication, you will no longer be required to enter a verification code when logging in."
 msgstr ""
 
-#: apps/client/src/pages/home/sections/support/index.tsx:59
+#: apps/client/src/pages/home/sections/support/index.tsx:41
 msgid "If you're multilingual, we'd love your help in bringing the app to more languages and communities. Don't worry if you don't see your language on the list - just give me a shout-out on GitHub, and I'll make sure to include it. Ready to get started? Jump into translation over at Crowdin by clicking the link below."
 msgstr ""
 
@@ -729,7 +724,7 @@ msgid "In this section, you can delete your account and all the data associated 
 msgstr ""
 
 #: apps/client/src/pages/builder/sidebars/right/index.tsx:83
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:122
+#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:103
 msgid "Information"
 msgstr ""
 
@@ -825,10 +820,6 @@ msgstr ""
 #: apps/client/src/pages/builder/sidebars/left/dialogs/languages.tsx:64
 #: apps/client/src/pages/builder/sidebars/left/dialogs/skills.tsx:69
 msgid "Level"
-msgstr ""
-
-#: apps/client/src/components/copyright.tsx:16
-msgid "Licensed under <0>MIT</0>"
 msgstr ""
 
 #: apps/client/src/pages/dashboard/settings/_sections/profile.tsx:81
@@ -1097,11 +1088,6 @@ msgstr ""
 msgid "Publisher"
 msgstr ""
 
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:69
-msgid "Raise an issue"
-msgstr ""
-
-#: apps/client/src/components/copyright.tsx:38
 #: apps/client/src/pages/auth/backup-otp/page.tsx:52
 #: apps/client/src/pages/auth/forgot-password/page.tsx:49
 #: apps/client/src/pages/auth/login/page.tsx:55
@@ -1240,10 +1226,6 @@ msgstr ""
 
 #: apps/client/src/pages/auth/forgot-password/page.tsx:98
 msgid "Send Email"
-msgstr ""
-
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:79
-msgid "Send me a message"
 msgstr ""
 
 #: apps/client/src/components/user-options.tsx:28
@@ -1688,4 +1670,3 @@ msgstr ""
 #: apps/client/src/pages/builder/_components/toolbar.tsx:86
 msgid "Zoom Out"
 msgstr ""
-
