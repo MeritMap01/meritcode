@@ -23,6 +23,7 @@ import { Legacy } from "./legacy";
 import { Palette } from "./palette";
 import { Ignite } from "./ignite";
 import { Joyful } from "./joyful";
+import { Professional } from "./professional";
 
 export const getTemplate = (template: Template) => {
   switch (template) {
@@ -72,6 +73,8 @@ export const getTemplate = (template: Template) => {
       return Ignite;
     case "joyful":
       return Joyful;
+    case "professional":
+      return Professional;
     default:
       return Onyx;
   }

@@ -29,56 +29,76 @@ import {
     const basics = useArtboardStore((state) => state.resume.basics);
   
     return (
-        <div className="relative bg-teal-400 text-white text-wrap  p-6">
-        <div className="flex items-center space-x-12">
-          <div className="relative">
-            <div className="transform rotate-6 bg-yellow-300 p-2">
-              <Picture />
+        <div className="text-center border-b-2 border-gray-400 p-6 pt-10 space-y-4">
+      <h1 className="text-5xl font-bold tracking-widest">{basics.name}</h1>
+      <div className="text-xl text-center text-gray-600 overflow-wrap-anywhere tracking-widest">{basics.headline}</div>
+    </div>
+    );
+  };
+
+  const Contact = () => {
+    const basics = useArtboardStore((state) => state.resume.basics);
+  
+    return (
+      <section className="m-2 mt-0 p-2 space-y-2">
+        <h2 className="font-bold border-b-2 border-gray-400 tracking-widest">CONTACT</h2>
+        <div className="space-y-1 text-sm">
+          {
+            basics.phone && 
+            <div className="flex items-center space-x-4 overflow-wrap-anywhere">
+                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width="10" height="10">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+                 </svg>
+                 <div>{basics.phone}</div> 
             </div>
-          </div>
-          <div  className="overflow-wrap-anywhere">
-            <h1 className="text-4xl font-bold break-all">{basics.name}</h1>
-            <h2 className="text-2xl break-word">{basics.headline}</h2>
-          </div>
-          <div className="overflow-wrap-anywhere">
-             <h3 className="text-xl font-bold text-yellow-300">Get In Touch</h3>
-             <p>Email: {basics.email}</p>
-             <p>Website: {basics.url.href}</p>
-             <p>Contact: {basics.phone}</p>
-             <p>Address: {basics.location}</p></div>
-        </div>
-        <div className="absolute bottom-0 left-0 w-full">
-          <svg viewBox="0 0 500 150" preserveAspectRatio="none" className="w-full h-10">
-            <path
-              d="M0.00,49.98 
-              C20.83,100 41.67,0 62.50,49.98 
-              C83.33,100 104.17,0 125.00,49.98 
-              C145.83,100 166.67,0 187.50,49.98 
-              C208.33,100 229.17,0 250.00,49.98 
-              C270.83,100 291.67,0 312.50,49.98 
-              C333.33,100 354.17,0 375.00,49.98 
-              C395.83,100 416.67,0 437.50,49.98 
-              C458.33,100 479.17,0 500.00,49.98 
-              L500.00,150.00 L0.00,150.00 Z"
-              style={{ fill: 'white' }}
-            />
+          }
+          {basics.email && 
+          <div className="flex items-center space-x-4 overflow-wrap-anywhere">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width="20" height="20">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 13.5h3.86a2.25 2.25 0 0 1 2.012 1.244l.256.512a2.25 2.25 0 0 0 2.013 1.244h3.218a2.25 2.25 0 0 0 2.013-1.244l.256-.512a2.25 2.25 0 0 1 2.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 0 0-2.15-1.588H6.911a2.25 2.25 0 0 0-2.15 1.588L2.35 13.177a2.25 2.25 0 0 0-.1.661Z" />
+            </svg>
+            <div>{basics.email}</div>
+            </div>
+            }
+          {basics.location &&
+          <div className="flex items-center space-x-4 overflow-wrap-anywhere">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width="20" height="20">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
           </svg>
+
+          <div>{basics.location}</div>
+          </div>}
+          {basics.url.href && 
+          (
+            <div className="flex items-center space-x-4 overflow-wrap-anywhere">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width="20" height="20">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+              </svg>
+
+              <a href={basics.url.href} target="_blank" rel="noreferrer">
+                {basics.url.href}
+              </a>
+            </div>
+          )}
         </div>
-      </div>
+      </section>
     );
   };
   
+
   const Summary = () => {
     const section = useArtboardStore((state) => state.resume.sections.summary);
   
     if (!section.visible || isEmptyString(section.content)) return null;
   
     return (
-        <section className="p-6">
-        <h3 className="text-xl font-bold text-teal-400">Professional Bio</h3>
-        <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: section.content }} />
-        
-      </section>
+        <section className="m-4">
+            <h2 className="font-bold border-b-2 border-gray-400 tracking-widest">PROFESSIONAL SUMMARY</h2>
+            <div
+            className="wysiwyg overflow-wrap-anywhere"
+            dangerouslySetInnerHTML={{ __html: section.content }} />
+        </section>
     );
   };
   
@@ -142,8 +162,8 @@ import {
   
     return (
       <section id={section.id} className="grid ml-4">
-        <div className="mb-2 ml-4 font-bold text-teal-400 group-[.main]:block">
-          <h4>{section.name.toUpperCase()}</h4>
+        <div className="m-2 ml-0 font-bold  group-[.main]:block">
+          <h4 className="tracking-widest border-b-2 border-gray-400">{section.name.toUpperCase()}</h4>
         </div>
   
         <div className="mx-auto mb-2 ml-4 hidden items-center gap-x-2 text-center font-bold text-primary group-[.sidebar]:flex">
@@ -233,17 +253,20 @@ import {
   
     return (
         <section className="p-4 overflow-wrap-anywhere">
-        <h3 className="text-xl font-bold text-teal-400">Employment History</h3>
+        <h4 className="font-bold border-b-2 border-gray-400 tracking-widest">EXPERIENCE</h4>
         {section.items.map((item) => (
           <div key={item.id} className="mb-4">
-            <h4 className="font-bold text-yellow-300">{item.position}</h4>
             <div className="flex items-center space-x-12">
-              <h4 className="font-bold overflow-wrap-anywhere">{item.company}</h4>
+                <h4 className="font-bold overflow-wrap-anywhere">{item.company}</h4>
+                <p className="overflow-wrap-anywhere">{item.location}</p>
+            </div>
+            <div className="flex items-center space-x-12">
+            <h4 className="font-bold ">{item.position}</h4>
               <div className="shrink-0 text-right overflow-wrap-anywhere">
                   <div className="font-bold">{item.date}</div>
               </div>
             </div>
-            <p className="overflow-wrap-anywhere">{item.location}  {item.url.href}</p>
+            <p className="overflow-wrap-anywhere text-left"> {item.url.href}</p>
             <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: item.summary }} />
           </div>
         ))}
@@ -256,16 +279,12 @@ import {
   
     return (
         <section className="p-4">
-        <h3 className="text-xl font-bold text-teal-400">Academic Profile</h3>
+        <h4 className="font-bold border-b-2 border-gray-400 tracking-widest">EDUCATION</h4>
         {section.items.map((item) => (
           <div key={item.id} className="mb-4">
-            <h4 className="font-bold text-yellow-300">{item.institution}</h4>
-            <div className="flex items-center space-x-12">
-              <h4 className="font-bold overflow-wrap-anywhere">{item.studyType}</h4>
-              <div className="shrink-0 text-right overflow-wrap-anywhere">
-                  <div className="font-bold">{item.date}</div>
-              </div>
-            </div>
+            <h4 className="text-l">{item.institution}</h4>
+            <h4 className="text-l overflow-wrap-anywhere ">{item.studyType}</h4>
+            <div className="text-l shrink-0 text-left overflow-wrap-anywhere">{item.date}</div>          
             <p>{item.area}</p>
             <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: item.summary }} />
           </div>
@@ -322,11 +341,16 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.skills);
   
     return (
-<section className="p-6">
-      <h3 className="text-xl font-bold text-teal-400">Skills and Abilities</h3>
-      <ul className="mt-2 grid grid-cols-1 gap-2 list-disc list-inside">
+    <section className="p-4">
+      <h4 className="font-bold border-b-2 border-gray-400 tracking-widest">EXPERTISE</h4>
+      <ul className=" grid grid-cols-1 gap-2 fas fa-caret-right list-inside">
         {section.items.map((item) => (
-          <li key={item.id}>{item.name}</li>
+          <div className="flex items-center space-x-8">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="20" height="20">
+                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+            </svg>
+            <li  key={item.id}>{item.name}</li>
+            </div>
         ))}
       </ul>
     </section>
@@ -338,9 +362,9 @@ import {
   
     return (
       <Section<Interest> section={section} keywordsKey="keywords" className="space-y-0.5">
-        {(item) => <ul className="list-disc overflow-wrap-anywhere">
+        {(item) => <ul className="list-disc space-x-4 overflow-wrap-anywhere">
                         <li className="font-bold">{item.name}</li>
-                   </ul>}
+                  </ul>}
       </Section>
     );
   };
@@ -397,7 +421,7 @@ import {
       <Section<Language> section={section} levelKey="level">
         {(item) => (
           <div>
-            <div className="font-bold text-yellow-300">{item.name}</div>
+            <div className="font-bold">{item.name}</div>
             <div>{item.description}</div>
           </div>
         )}
@@ -435,9 +459,9 @@ import {
       <Section<Reference> section={section} urlKey="url" summaryKey="summary">
         {(item) => (
           <div>
-            <div className="font-bold text-yellow-300">{item.name}</div>
+            <div className="font-bold">{item.name}</div>
             <div>{item.description}</div>
-            <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: item.summary }} />
+            
           </div>
         )}
       </Section>
@@ -509,7 +533,7 @@ import {
     }
   };
   
-  export const Joyful = ({ columns, isFirstPage = false }: TemplateProps) => {
+  export const Professional = ({ columns, isFirstPage = false }: TemplateProps) => {
     const [main, sidebar] = columns;
   
     return (
@@ -518,11 +542,13 @@ import {
   
         <div className="flex flex-1 overflow-wrap ">
           
-          <div className="w-2/5 p-4 space-y-2 max-w-full break-words overflow-wrap-anywhere">
+          <div className="w-1/3 p-4 space-y-2 max-w-full break-words overflow-wrap-anywhere">
+            {isFirstPage && <Contact/>}
             {sidebar.map((section) => (
               <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
             ))}
           </div>
+          <div className="mt-8 mb-8"style={{width: '1px', backgroundColor: 'rgb(156 163 175)' }}></div>
           <div className="flex-1 p-2 space-y-0 max-w-full break-words overflow-wrap-anywhere">
             {main.map((section) => (
               <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
