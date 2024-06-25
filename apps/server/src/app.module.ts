@@ -45,6 +45,30 @@ import { UtilsModule } from "./utils/utils.module";
       rootPath: join(__dirname, "..", "artboard"),
     }),
     ServeStaticModule.forRoot({
+      renderPath: "/home",
+      rootPath: join(__dirname, "../../..", "staticHtml/home"),
+    }),
+    ServeStaticModule.forRoot({
+      renderPath: "/blog",
+      rootPath: join(__dirname, "../../..", "staticHtml/blog"),
+    }),
+    ServeStaticModule.forRoot({
+      renderPath: "/pricing",
+      rootPath: join(__dirname, "../../..", "staticHtml/pricing"),
+    }),
+    ServeStaticModule.forRoot({
+      renderPath: "/contactus",
+      rootPath: join(__dirname, "../../..", "staticHtml/contactus"),
+    }),
+    ServeStaticModule.forRoot({
+      renderPath: "/features",
+      rootPath: join(__dirname, "../../..", "staticHtml/features"),
+    }),
+    ServeStaticModule.forRoot({
+      renderPath: "/article",
+      rootPath: join(__dirname, "../../..", "staticHtml/article"),
+    }),
+    ServeStaticModule.forRoot({
       renderPath: "/*",
       rootPath: join(__dirname, "..", "client"),
     }),
