@@ -172,7 +172,7 @@ const Section = <T,>({
       </div>
 
       <div
-        className={alignChanges}
+        className={cn(section.id === "skills" ? "flex flex-wrap p-5 pl-7 gap-x-6 gap-y-5 ml-5 text-left -mx-2" : section.id === "interests" ? "flex flex-wrap  pl-10 gap-x-5 gap-y-3 p-5" : "grid gap-x-6 gap-y-3 p-10 group-[.sidebar]:pl-14 py-0")}
         style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
       >
         {section.items
