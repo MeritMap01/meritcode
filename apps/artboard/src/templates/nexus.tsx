@@ -144,19 +144,16 @@ const Section = <T,>({
   keywordsKey,
 }: SectionProps<T>) => {
   if (!section.visible || !section.items.length) return null;
-
-  const gridChanges = section.id === "skills" ? "flex flex-wrap gap-x-6 -mx-2" : section.id === "interests" ? "flex flex-wrap -mx-2 gap-x-6 gap-y-4" : "grid gap-x-6 gap-y-3"
   const borderChanges = section.id === "education" ? "border-b-0" : section.id === "interests" ? "border-b-0" : section.id === "certifications" ? "border-b-0" : "border-b"
-  const nameHidden = section.id === "certifications" ? "hidden" : "font-bold text-primary tracking-widest mb-3 text-xl"
 
   return (
     <section id={section.id} className={`grid ${borderChanges} pt-2 pb-3`}>
-      <h4 className={nameHidden}>{
+      <h4 className={cn(section.id === "certifications" ? "hidden" : "font-bold text-primary tracking-widest mb-3 text-xl")}>{
         section.name.toUpperCase()
       }</h4>
 
       <div
-        className={gridChanges}
+        className={cn(section.id === "skills" ? "flex flex-wrap gap-x-6 -mx-2" : section.id === "interests" ? "flex flex-wrap -mx-2 gap-x-6 gap-y-4" : "grid gap-x-6 gap-y-3")}
 
         style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
       >
@@ -218,14 +215,16 @@ const EducationAndCertification = () => {
   const section = useArtboardStore((state) => state.resume.sections.education);
   const sectionC = useArtboardStore((state) => state.resume.sections.certifications);
   const sectionI = useArtboardStore((state) => state.resume.sections.interests);
+  const widthChanges = sectionI.items.length > 0 ? "w-[45%]" : "w-full"
+  const interestsItemsLength = sectionI.items.length
   return (
     <div className="flex justify-between">
-      <div className="w-[45%] text-left">
+      <div className={`${widthChanges} text-left`}>
         <Section<Education> section={section} urlKey="url" summaryKey="summary">
           {(item) => (
-            <div className="">
+            <div className={interestsItemsLength <= 0 ? "flex flex-row items-center justify-between" : ""}>
               <div className="">
-                <div className="flex ">
+                <div className="flex">
                   <div className="font-bold">{item.institution}</div>
                   <div>,{item.area}</div>
                 </div>
@@ -237,7 +236,7 @@ const EducationAndCertification = () => {
               </div>
 
               <div className="">
-                <div className="">{item.date}</div>
+                <div className={interestsItemsLength > 0 ? "" : "font-bold"}>{item.date}</div>
 
               </div>
             </div>
@@ -258,8 +257,9 @@ const EducationAndCertification = () => {
           )}
         </Section>
       </div>
-      <div className="h-auto self-stretch w-0.5 bg-primary text-center"></div>
-      <div className="w-[45%]">
+      {sectionI.items.length > 0 && <div className="h-auto self-stretch border-l bg-black text-center"></div>}
+
+      <div className={interestsItemsLength > 0 ? "w-[45%]" : ""}>
         <Section<Interest> section={sectionI} keywordsKey="keywords" className="ml-3">
           {(item) => (
             <div>

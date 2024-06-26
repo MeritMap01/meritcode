@@ -42,11 +42,11 @@ const Summary = () => {
   const section = useArtboardStore((state) => state.resume.sections.summary);
 
   if (!section.visible || isEmptyString(section.content)) return null;
-  const changeName = section.name === "Summary" ? "EXPERTISE" : section.name
+
 
   return (
     <section id={section.id} className="group-[.sidebar]:border-b">
-      <h4 className="mb-2 pb-0.5 text-2xl font-bold">{changeName}</h4>
+      <h4 className="mb-2 pb-0.5 text-2xl font-bold">{section.name.toUpperCase()}</h4>
 
       <div
         className="wysiwyg"
@@ -121,8 +121,6 @@ const Section = <T,>({
 }: SectionProps<T>) => {
   if (!section.visible || !section.items.length) return null;
   const gridChanges = section.id === "skills" ? "flex flex-wrap px-2  text-left -mx-2" : "grid gap-x-6 gap-y-3"
-
-  const containerClass = section.id === "skills" ? "flex flex-wrap px-1 gap-x-4 gap-y-4 text-left -mx-2" : section.id === "interests" ? "flex flex-wrap px-1 text-left gap-x-5 group-[.sidebar]:gap-x-6  -mx-2" : "grid gap-x-6 gap-y-3";
   return (
     <section id={section.id} className="grid group-[.sidebar]:border-b">
       <h4 className="mb-2 pb-0.5 text-2xl font-bold">
@@ -130,7 +128,7 @@ const Section = <T,>({
       </h4>
 
       <div
-        className={containerClass}
+        className={cn(section.id === "skills" ? "flex flex-wrap px-1 gap-x-5 mb-4 gap-y-4 text-left -mx-2" : section.id === "interests" ? "flex flex-wrap px-1 text-left gap-x-5 group-[.sidebar]:gap-x-6  -mx-2" : "grid gap-x-6 gap-y-3")}
         style={{ gridTemplateColumns: !gridChanges ? `repeat(${section.columns}, 1fr)` : undefined }}
       >
         {section.items
@@ -472,11 +470,11 @@ export const Zenith = ({ columns, isFirstPage = false }: TemplateProps) => {
   const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary);
 
   return (
-    <div className="p-custom ">
+    <div className="p-custom grid min-h-[inherit] text-text">
       {isFirstPage && <Header />}
 
       <div className="grid grid-cols-5 gap-x-4 ">
-        <div className="sidebar group overflow-wrap-anywhere p-custom col-span-2 space-y-4"
+        <div className="sidebar min-h-[inherit] group overflow-wrap-anywhere p-custom col-span-2 space-y-4"
           style={{ backgroundColor: hexToRgb(primaryColor, 0.2) }}
         >
           {

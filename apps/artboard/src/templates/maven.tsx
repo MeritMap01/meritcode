@@ -156,14 +156,12 @@ const Section = <T,>({
 }: SectionProps<T>) => {
     if (!section.visible || !section.items.length) return null;
 
-    const alignChanges = section.id === "skills" ? "flex flex-wrap gap-x-8 gap-y-4 pl-3 text-left -mx-2" : section.id === "interests" ? "flex flex-wrap text-left gap-x-6 gap-y-4" : "grid gap-x-6 gap-y-3"
-
     return (
         <section id={section.id} className="grid">
             <h4 className="mb-2 border-b pb-0.5 text-xl font-bold tracking-[4px] self-stretch">{section.name}</h4>
 
             <div
-                className={alignChanges}
+                className={cn(section.id === "skills" ? "flex flex-wrap gap-x-8 gap-y-4 pl-3 text-left -mx-2" : section.id === "interests" ? "flex flex-wrap text-left gap-x-6 gap-y-4" : "grid gap-x-6 gap-y-3")}
                 style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
             >
                 {section.items
@@ -502,7 +500,7 @@ export const Maven = ({ columns, isFirstPage = false }: TemplateProps) => {
     const [main, sidebar] = columns;
 
     return (
-        <div className="p-custom space-y-4 overflow-wrap-anywhere">
+        <div className="p-custom space-y-4 overflow-wrap-anywhere text-text">
             {isFirstPage && <Header />}
 
             {main.map((section) => (

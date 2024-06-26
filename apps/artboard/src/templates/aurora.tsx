@@ -146,8 +146,6 @@ const Section = <T,>({
     }
   }
 
-  const alignChanges = section.id === "skills" ? "flex flex-wrap p-5 pl-7 gap-x-6 gap-y-5 ml-5 text-left -mx-2" : section.id === "interests" ? "flex flex-wrap gap-y-2 pl-10 gap-x-4 gap-x-5 gap-y-3 p-5" : "grid gap-x-6 gap-y-3 p-10 group-[.sidebar]:pl-14 py-0"
-
   return (
     <section id={section.id} className="grid">
       <div className="group-[.main]:flex group-[.main]:gap-3 items-center mb-5">
@@ -162,7 +160,7 @@ const Section = <T,>({
       </div>
 
       <div
-        className={alignChanges}
+        className={cn(section.id === "skills" ? "flex flex-wrap p-5 pl-7 gap-x-6 gap-y-5 ml-5 text-left -mx-2" : section.id === "interests" ? "flex flex-wrap  pl-10 gap-x-5 gap-y-3 p-5" : "grid gap-x-6 gap-y-3 p-10 group-[.sidebar]:pl-14 py-0")}
         style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
       >
         {section.items
@@ -532,7 +530,7 @@ export const Aurora = ({ columns, isFirstPage = false }: TemplateProps) => {
   const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary);
   const basics = useArtboardStore((state) => state.resume.basics);
   return (
-    <div className="grid min-h-[inherit] grid-cols-5">
+    <div className="grid min-h-[inherit] grid-cols-5 text-text">
       <div
         className="sidebar overflow-wrap-anywhere col-span-2 group py-6 space-y-4"
         style={{ backgroundColor: hexToRgb(primaryColor, 0.2) }}

@@ -155,17 +155,12 @@ const Section = <T,>({
 }: SectionProps<T>) => {
     if (!section.visible || !section.items.length) return null;
 
-
-    const changeStyles = section.id === "experience" && "group-[.main]:text-center"
-    const alignChanges = section.id === "skills" ? "flex flex-wrap p-5 pl-7 text-left -mx-2" : section.id === "interests" ? "flex flex-wrap gap-y-2 gap-x-4 group-[.main]:gap-x-5 group-[.main]:gap-y-3 p-5" : "grid gap-x-6 gap-y-3 pl-0 p-5 group-[.main]:pl-9"
-    const listChanges = section.id === "experience" ? "" : "wysiwyg"
-
     return (
         <section id={section.id} className="grid">
             <h4 className="mb-2 border-b border-t tracking-widest text-xl p-6 text-center border-primary font-bold text-primary">{section.name.toUpperCase()}</h4>
 
             <div
-                className={`${changeStyles} ${alignChanges}`}
+                className={cn(section.id === "experience" && "group-[.main]:text-center", section.id === "skills" ? "flex flex-wrap p-5 pl-7 text-left -mx-2" : section.id === "interests" ? "flex flex-wrap gap-y-2 gap-x-4 group-[.main]:gap-x-5 group-[.main]:gap-y-3 p-5" : "grid gap-x-6 gap-y-3 pl-0 p-5 group-[.main]:pl-9")}
                 style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
             >
                 {section.items
@@ -184,7 +179,7 @@ const Section = <T,>({
                                 </div>
 
                                 {summary !== undefined && !isEmptyString(summary) && (
-                                    <div className={listChanges} dangerouslySetInnerHTML={{ __html: summary }} />
+                                    <div className={cn(section.id === "experience" ? "" : "wysiwyg")} dangerouslySetInnerHTML={{ __html: summary }} />
                                 )}
 
                                 {level !== undefined && level > 0 && <div className=""><Rating level={level} /></div>}
@@ -528,7 +523,7 @@ export const Pinnacle = ({ columns, isFirstPage = false }: TemplateProps) => {
     const basics = useArtboardStore((state) => state.resume.basics);
 
     return (
-        <div className="p-custom space-y-3 overflow-wrap-anywhere">
+        <div className="p-custom space-y-3 grid min-h-[inherit] overflow-wrap-anywhere">
             {isFirstPage && <Header />}
 
             <div className="grid grid-cols-[2fr_auto_3fr]">
