@@ -30,14 +30,51 @@ const Header = () => {
     const profiles = useArtboardStore((state) => state.resume.sections.profiles);
     const fontSize = useArtboardStore((state) => state.resume.metadata.typography.font.size);
     const picture = useArtboardStore((state) => state.resume.basics.picture);
+
+    const headerAlign = picture.url ? "grid grid-cols-[2fr_auto_3fr]" : "space-x-4 pb-5"
     return (
-        <div className="grid grid-cols-[1.9fr_auto_3fr] space-x-4 pb-5">
+        <div className={headerAlign}>
 
             {picture.url && <img src={picture.url} className="h-72 w-72 text-center" />}
             {picture.url && <div className="w-0.5 bg-primary text-center"></div>}
-            <div className="flex flex-col items-center gap-3 text-center w-[100%] justify-center">
+            <div className="flex flex-col items-center gap-3 text-center w-full justify-center">
                 <h1 className="text-5xl font-bold tracking-widest text-primary">{basics.name.toUpperCase()}</h1>
                 <p className="text-xl">{basics.headline.toUpperCase()}</p>
+
+                <div className="flex flex-wrap gap-x-10 pl-20 items-start gap-y-2 text-sm">
+                    {basics.location && (
+                        <div className="flex items-center gap-x-1.5">
+                            <i className="ph ph-bold ph-map-pin" />
+                            <div>{basics.location}</div>
+                        </div>
+                    )}
+                    {basics.phone && (
+                        <div className="flex items-center gap-x-1.5">
+                            <i className="ph ph-bold ph-phone" />
+                            <a href={`tel:${basics.phone}`} target="_blank" rel="noreferrer" className="no-underline">
+                                {basics.phone}
+                            </a>
+                        </div>
+                    )}
+                    {basics.email && (
+                        <div className="flex items-center gap-x-1.5">
+                            <i className="ph ph-bold ph-at" />
+                            <a href={`mailto:${basics.email}`} target="_blank" rel="noreferrer">
+                                {basics.email}
+                            </a>
+                        </div>
+                    )}
+                    {isUrl(basics.url.href) && <Link url={basics.url} />}
+                    {basics.customFields.map((item) => (
+                        <Fragment key={item.id}>
+                            <div className="flex items-center gap-x-1.5">
+                                <i className={cn(`ph ph-bold ph-${item.icon}`)} />
+                                <span>{[item.name, item.value].filter(Boolean).join(": ")}</span>
+                            </div>
+                        </Fragment>
+                    ))}
+
+                </div>
             </div>
         </div>
     );
@@ -118,17 +155,12 @@ const Section = <T,>({
 }: SectionProps<T>) => {
     if (!section.visible || !section.items.length) return null;
 
-    const nameChanges = section.name === "Experience" ? "WORK EXPERIENCE" : section.name
-    const changeStyles = section.name === "Experience" && "group-[.main]:text-center"
-    const alignChanges = section.name === "Skills" ? "flex flex-wrap p-5 pl-7 text-left -mx-2" : "grid gap-x-6 gap-y-3 pl-0 p-5 group-[.main]:pl-9"
-    const listChanges = section.name === "Experience" ? "" : "wysiwyg"
-
     return (
         <section id={section.id} className="grid">
-            <h4 className="mb-2 border-b border-t tracking-widest text-xl p-6 text-center border-primary font-bold text-primary">{nameChanges.toUpperCase()}</h4>
+            <h4 className="mb-2 border-b border-t tracking-widest text-xl p-6 text-center border-primary font-bold text-primary">{section.name.toUpperCase()}</h4>
 
             <div
-                className={`${changeStyles} ${alignChanges}`}
+                className={cn(section.id === "experience" && "group-[.main]:text-center", section.id === "skills" ? "flex flex-wrap p-5 pl-7 text-left -mx-2" : section.id === "interests" ? "flex flex-wrap gap-y-2 gap-x-4 group-[.main]:gap-x-5 group-[.main]:gap-y-3 p-5" : "grid gap-x-6 gap-y-3 pl-0 p-5 group-[.main]:pl-9")}
                 style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
             >
                 {section.items
@@ -147,10 +179,10 @@ const Section = <T,>({
                                 </div>
 
                                 {summary !== undefined && !isEmptyString(summary) && (
-                                    <div className={listChanges} dangerouslySetInnerHTML={{ __html: summary }} />
+                                    <div className={cn(section.id === "experience" ? "" : "wysiwyg")} dangerouslySetInnerHTML={{ __html: summary }} />
                                 )}
 
-                                {level !== undefined && level > 0 && <div className="ml-5"><Rating level={level} /></div>}
+                                {level !== undefined && level > 0 && <div className=""><Rating level={level} /></div>}
 
                                 {keywords !== undefined && keywords.length > 0 && (
                                     <p className="text-sm ml-5">{keywords.join(", ")}</p>
@@ -175,7 +207,7 @@ const Profiles = () => {
                         <Link
                             url={item.url}
                             label={item.username}
-                            icon={
+                            icon={item.icon &&
                                 <img
                                     className="ph mt-1"
                                     width={fontSize}
@@ -293,7 +325,7 @@ const Skills = () => {
                         <i className="ph ph-bold ph-check-circle"></i>
                         <div className="font-bold">{item.name}</div>
                     </div>
-                    <div className="ml-5">{item.description}</div>
+                    <div className="">{item.description}</div>
                 </div>
             )}
         </Section>
@@ -361,7 +393,7 @@ const Languages = () => {
             {(item) => (
                 <div>
                     <div className="font-bold">{item.name}</div>
-                    <div className="ml-4">{item.description}</div>
+                    <div className="">{item.description}</div>
                 </div>
             )}
         </Section>
@@ -488,15 +520,19 @@ const mapSectionToComponent = (section: SectionKey) => {
 
 export const Pinnacle = ({ columns, isFirstPage = false }: TemplateProps) => {
     const [main, sidebar] = columns;
+    const basics = useArtboardStore((state) => state.resume.basics);
 
     return (
-        <div className="p-custom space-y-3">
+        <div className="p-custom space-y-3 grid min-h-[inherit] overflow-wrap-anywhere">
             {isFirstPage && <Header />}
 
             <div className="grid grid-cols-[2fr_auto_3fr]">
+
                 <div className="sidebar group overflow-wrap-anywhere space-y-4">
                     {sidebar.map((section) => (
-                        <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
+                        <Fragment key={section}>
+                            {mapSectionToComponent(section)}
+                        </Fragment>
                     ))}
                 </div>
                 <div className="w-0.5 bg-primary"></div>

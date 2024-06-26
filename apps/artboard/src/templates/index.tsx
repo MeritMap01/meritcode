@@ -29,6 +29,9 @@ import { Zenith } from "./zenith";
 import { Pinnacle } from "./pinnacle";
 import { Aurora } from "./aurora"
 import { Maven } from "./maven";
+import { Vintage } from "./vintage";
+import { Sleek } from "./sleek";
+
 
 
 export const getTemplate = (template: Template) => {
@@ -91,6 +94,10 @@ export const getTemplate = (template: Template) => {
       return Aurora;
     case "maven":
       return Maven;
+    case "vintage":
+      return Vintage;
+    case "sleek":
+      return Sleek;
     default:
       return Onyx;
   }

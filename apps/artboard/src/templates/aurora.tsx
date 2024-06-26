@@ -47,7 +47,6 @@ const Summary = () => {
 
   return (
     <section id={section.id}>
-      {/* <h4 className="mb-2 border-b pb-0.5 text-sm font-bold">{section.name}</h4> */}
 
       <div
         className="wysiwyg group-[.sidebar]:px-10"
@@ -124,46 +123,44 @@ const Section = <T,>({
   if (!section.visible || !section.items.length) return null;
   const forIcons = (icon: string) => {
     switch (icon) {
-      case "Education":
+      case "education":
         return <i className="ph-fill ph-graduation-cap "></i>
-      case "Experience":
+      case "experience":
         return <i className="ph-fill ph-briefcase "></i>
-      case "Projects":
+      case "projects":
         return <i className="ph-fill ph-calendar-check "></i>
-      case "Profiles":
+      case "profiles":
         return <i className="ph-fill ph-users"></i>
-      case "Certifications":
+      case "certifications":
         return <i className="ph-fill ph-certificate"></i>
-      case "Skills":
+      case "skills":
         return <i className="ph-fill ph-code-simple"></i>
-      case "Interests":
+      case "interests":
         return <i className="ph-fill ph-game-controller"></i>
-      case "References":
+      case "references":
         return <i className="ph-fill ph-sliders"></i>
-      case "Awards":
+      case "awards":
         return <i className="ph-fill ph-medal"></i>
       default:
         return <i className="ph-fill ph-read-cv-logo"></i>
     }
   }
 
-  const nameChanges = section.name === "Education" ? "Education background" : section.name === "Experience" ? "Work Experience" : section.name
-
   return (
     <section id={section.id} className="grid">
       <div className="group-[.main]:flex group-[.main]:gap-3 items-center mb-5">
-        <span className=" rounded-full bg-[#000] flex items-center px-2 py-2 text-[#fff] group-[.sidebar]:hidden">{forIcons(section.name)}</span>
+        <span className=" rounded-full bg-[#000] flex items-center px-2 py-2 text-[#fff] group-[.sidebar]:hidden">{forIcons(section.id)}</span>
 
         <div className="flex flex-col w-full group-[.sidebar]:pl-10">
           <h4 className="tracking-[6px] p-0 m-0 self-stretch text-sm font-bold w-[90%] group-[.sidebar]:text-primary -mb-1">
-            {nameChanges.toUpperCase()}
+            {section.name.toUpperCase()}
           </h4>
           <hr className="border-primary mt-2 w-[90%] group-[.sidebar]:w-full m-0 p-0" />
         </div>
       </div>
 
       <div
-        className="grid gap-x-6 gap-y-3 p-10 group-[.sidebar]:pl-14   py-0"
+        className={cn(section.id === "skills" ? "flex flex-wrap p-5 pl-7 gap-x-6 gap-y-5 ml-5 text-left -mx-2" : section.id === "interests" ? "flex flex-wrap  pl-10 gap-x-5 gap-y-3 p-5" : "grid gap-x-6 gap-y-3 p-10 group-[.sidebar]:pl-14 py-0")}
         style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
       >
         {section.items
@@ -262,7 +259,7 @@ const Profiles = () => {
             <Link
               url={item.url}
               label={item.username}
-              icon={
+              icon={item.icon &&
                 <img
                   className="ph"
                   width={fontSize}
@@ -275,7 +272,7 @@ const Profiles = () => {
           ) : (
             <p>{item.username}</p>
           )}
-          <p className="text-sm">{item.network}</p>
+          <p className="text-sm align-middle">{item.network}</p>
         </div>
       )}
     </Section>
@@ -531,16 +528,55 @@ export const Aurora = ({ columns, isFirstPage = false }: TemplateProps) => {
   const [main, sidebar] = columns;
   const picture = useArtboardStore((state) => state.resume.basics.picture);
   const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary);
-
+  const basics = useArtboardStore((state) => state.resume.basics);
   return (
-    <div className="grid min-h-[inherit] grid-cols-5">
+    <div className="grid min-h-[inherit] grid-cols-5 text-text">
       <div
         className="sidebar overflow-wrap-anywhere col-span-2 group py-6 space-y-4"
         style={{ backgroundColor: hexToRgb(primaryColor, 0.2) }}
       >
         {isFirstPage && picture.url && <div className="flex justify-center"><img src={picture.url} className="rounded-full h-72 w-72 text-center" /></div>}
 
-
+        {
+          isFirstPage &&
+          <div className=" flex flex-col w-full group-[.sidebar]:pl-10">
+            <h1 className="font-bold text-base tracking-[6px] text-primary">CONTACT</h1>
+            <hr className="border-primary mb-2 w-[90%] group-[.sidebar]:w-full m-0 p-0" />
+            <div className="flex flex-col items-start gap-y-2 pr-9 text-sm">
+              {basics.location && (
+                <div className="flex items-center gap-x-1.5">
+                  <i className="ph ph-bold ph-map-pin" />
+                  <div>{basics.location}</div>
+                </div>
+              )}
+              {basics.phone && (
+                <div className="flex items-center gap-x-1.5">
+                  <i className="ph ph-bold ph-phone" />
+                  <a href={`tel:${basics.phone}`} target="_blank" rel="noreferrer" className="no-underline">
+                    {basics.phone}
+                  </a>
+                </div>
+              )}
+              {basics.email && (
+                <div className="flex items-center gap-x-1.5">
+                  <i className="ph ph-bold ph-at" />
+                  <a href={`mailto:${basics.email}`} target="_blank" rel="noreferrer">
+                    {basics.email}
+                  </a>
+                </div>
+              )}
+              {isUrl(basics.url.href) && <Link url={basics.url} />}
+              {basics.customFields.map((item) => (
+                <Fragment key={item.id}>
+                  <div className="flex items-center gap-x-1.5">
+                    <i className={cn(`ph ph-bold ph-${item.icon}`)} />
+                    <span>{[item.name, item.value].filter(Boolean).join(": ")}</span>
+                  </div>
+                </Fragment>
+              ))}
+            </div>
+          </div>
+        }
         {sidebar.map((section) => (
           <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
         ))}

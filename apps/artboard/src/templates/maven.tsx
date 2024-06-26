@@ -30,7 +30,7 @@ const Header = () => {
     const basics = useArtboardStore((state) => state.resume.basics);
 
     return (
-        <div className="flex flex-col items-center space-x-4">
+        <div className="flex flex-col items-start space-x-4">
 
             <div className="flex flex-col w-full">
                 <div className="flex justify-between items-center">
@@ -73,49 +73,6 @@ const Header = () => {
                     </div>
                 ))}
             </div>
-
-
-            {/* <Picture /> */}
-
-            {/* <div className="space-y-0.5">
-                <div className="text-2xl font-bold">{basics.name}</div>
-                <div className="text-base">{basics.headline}</div>
-
-                <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-sm">
-                    {basics.location && (
-                        <div className="flex items-center gap-x-1.5 border-r pr-2 last:border-r-0 last:pr-0">
-                            <i className="ph ph-bold ph-map-pin text-primary" />
-                            <div>{basics.location}</div>
-                        </div>
-                    )}
-                    {basics.phone && (
-                        <div className="flex items-center gap-x-1.5 border-r pr-2 last:border-r-0 last:pr-0">
-                            <i className="ph ph-bold ph-phone text-primary" />
-                            <a href={`tel:${basics.phone}`} target="_blank" rel="noreferrer">
-                                {basics.phone}
-                            </a>
-                        </div>
-                    )}
-                    {basics.email && (
-                        <div className="flex items-center gap-x-1.5 border-r pr-2 last:border-r-0 last:pr-0">
-                            <i className="ph ph-bold ph-at text-primary" />
-                            <a href={`mailto:${basics.email}`} target="_blank" rel="noreferrer">
-                                {basics.email}
-                            </a>
-                        </div>
-                    )}
-                    <Link url={basics.url} />
-                    {basics.customFields.map((item) => (
-                        <div
-                            key={item.id}
-                            className="flex items-center gap-x-1.5 border-r pr-2 last:border-r-0 last:pr-0"
-                        >
-                            <i className={cn(`ph ph-bold ph-${item.icon}`, "text-primary")} />
-                            <span>{[item.name, item.value].filter(Boolean).join(": ")}</span>
-                        </div>
-                    ))}
-                </div>
-            </div> */}
         </div>
     );
 };
@@ -199,14 +156,12 @@ const Section = <T,>({
 }: SectionProps<T>) => {
     if (!section.visible || !section.items.length) return null;
 
-    const nameChanges = section.name === "Skills" ? "Key Skills" : section.name === "Experience" ? "Professional Experience" : section.name
-    const alignChanges = section.name === "Skills" ? "flex flex-wrap pl-3 text-left -mx-2" : "grid gap-x-6 gap-y-3"
     return (
         <section id={section.id} className="grid">
-            <h4 className="mb-2 border-b pb-0.5 text-xl font-bold tracking-[4px] self-stretch">{nameChanges.toUpperCase()}</h4>
+            <h4 className="mb-2 border-b pb-0.5 text-xl font-bold tracking-[4px] self-stretch">{section.name}</h4>
 
             <div
-                className={alignChanges}
+                className={cn(section.id === "skills" ? "flex flex-wrap gap-x-8 gap-y-4 pl-3 text-left -mx-2" : section.id === "interests" ? "flex flex-wrap text-left gap-x-6 gap-y-4" : "grid gap-x-6 gap-y-3")}
                 style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
             >
                 {section.items
@@ -248,12 +203,12 @@ const Profiles = () => {
     return (
         <Section<Profile> section={section}>
             {(item) => (
-                <div>
+                <div className="flex gap-2 items-center">
                     {isUrl(item.url.href) ? (
                         <Link
                             url={item.url}
                             label={item.username}
-                            icon={
+                            icon={item.icon &&
                                 <img
                                     className="ph"
                                     width={fontSize}
@@ -364,7 +319,7 @@ const Skills = () => {
     const section = useArtboardStore((state) => state.resume.sections.skills);
 
     return (
-        <Section<Skill> section={section} levelKey="level" keywordsKey="keywords" className="w-[50%] mb-2">
+        <Section<Skill> section={section} levelKey="level" keywordsKey="keywords" className=" mb-2">
             {(item) => (
                 <div>
                     <div className="font-bold">{item.name}</div>
@@ -545,7 +500,7 @@ export const Maven = ({ columns, isFirstPage = false }: TemplateProps) => {
     const [main, sidebar] = columns;
 
     return (
-        <div className="p-custom space-y-4 overflow-wrap-anywhere">
+        <div className="p-custom space-y-4 overflow-wrap-anywhere text-text">
             {isFirstPage && <Header />}
 
             {main.map((section) => (

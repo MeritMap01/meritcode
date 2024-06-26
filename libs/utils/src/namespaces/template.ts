@@ -19,6 +19,8 @@ export const templatesList = [
   "pinnacle",
   "aurora",
   "maven",
+  "vintage",
+  "sleek",
   // Old
   "azurill",
   "bronzor",
