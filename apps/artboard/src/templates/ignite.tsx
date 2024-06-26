@@ -1,61 +1,61 @@
 import {
-  Award,
-  Certification,
-  CustomSection,
-  CustomSectionGroup,
-  // Education,
-  // Experience,
-  Interest,
-  Language,
-  Profile,
-  Project,
-  Publication,
-  Reference,
-  SectionKey,
-  SectionWithItem,
-  Skill,
-  URL,
-  Volunteer,
-} from "@reactive-resume/schema";
-import { cn, isEmptyString, isUrl } from "@reactive-resume/utils";
-import get from "lodash.get";
-import { Fragment } from "react";
+    Award,
+    Certification,
+    CustomSection,
+    CustomSectionGroup,
+    // Education,
+    // Experience,
+    Interest,
+    Language,
+    Profile,
+    Project,
+    Publication,
+    Reference,
+    SectionKey,
+    SectionWithItem,
+    Skill,
+    URL,
+    Volunteer,
+  } from "@reactive-resume/schema";
+  import { cn, isEmptyString, isUrl } from "@reactive-resume/utils";
+  import get from "lodash.get";
+  import { Fragment } from "react";
+  
+  import { Picture } from "../components/picture";
+  import { useArtboardStore } from "../store/artboard";
+  import { TemplateProps } from "../types/template";
+  
+  const Header = () => {
+    const basics = useArtboardStore((state) => state.resume.basics);
+    const { name, headline, phone } = useArtboardStore((state) => state.resume.basics);
+    return (
+        <header className="flex flex-col text-wrap items-left text-left p-6 mb-1">
+        <h1 className="text-4xl text-left font-bold mb-1 overflow-wrap-anywhere tracking-widest">{name}</h1>
+        <div className="flex justify-start space-x-10 text-sm text-gray-600 mt-2 mb-4">
+         {<span>•</span>}
+          <p className="overflow-wrap-anywhere ">{basics.email}</p>
+          <span>•</span>
+          <p className="overflow-wrap-anywhere">{basics.location}</p>
+          <span>•</span>
+          <p>{phone}</p>
+          <p className="overflow-wrap-anywhere">{basics.url.href}</p>
+        </div>
+        <div className="text-lg text-gray-600">
+          <p>{headline}</p>
+        </div>
+      </header>
+    );
+  };
+  
+  const Summary = () => {
+    const section = useArtboardStore((state) => state.resume.sections.summary);
+  
+    if (!section.visible || isEmptyString(section.content)) return null;
+  
+    return (
 
-import { Picture } from "../components/picture";
-import { useArtboardStore } from "../store/artboard";
-import { TemplateProps } from "../types/template";
-
-const Header = () => {
-  const basics = useArtboardStore((state) => state.resume.basics);
-  const { name, headline, phone } = useArtboardStore((state) => state.resume.basics);
-  return (
-    <header className="flex flex-col text-wrap items-left text-left p-6 mb-1">
-      <h1 className="text-4xl text-left font-bold mb-1 overflow-wrap-anywhere">{name}</h1>
-      <div className="flex justify-start space-x-10 text-sm text-gray-600 mt-2 mb-4">
-        {<span>•</span>}
-        <p className="overflow-wrap-anywhere ">{basics.email}</p>
-        <span>•</span>
-        <p className="overflow-wrap-anywhere">{basics.location}</p>
-        <span>•</span>
-        <p>{phone}</p>
-        <p className="overflow-wrap-anywhere">{basics.url.href}</p>
-      </div>
-      <div className="text-lg text-gray-600">
-        <p>{headline}</p>
-      </div>
-    </header>
-  );
-};
-
-const Summary = () => {
-  const section = useArtboardStore((state) => state.resume.sections.summary);
-
-  if (!section.visible || isEmptyString(section.content)) return null;
-
-  return (
-
-    <div>
-      <section className="p-4 text-lg font-serif" id={section.id}>
+      <div>
+        <section className="p-4 text-lg font-serif" id={section.id}>
         <div
           className="text-lg font-serif "
           style={{ columns: section.columns }}

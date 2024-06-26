@@ -35,6 +35,20 @@ export const templatesList = [
   "onyx",
   "pikachu",
   "rhyhorn",
+  "genesis",
+  "nexus",
+  "nurture",
+  "zenith",
+  "legacy",
+  "orion",
+  "palette",
+  "ignite",
+  "joyful",
+  "pinnacle",
+  "aurora",
+  "maven",
+  "professional",
+  "classic",
 ] as const;
 
 export type Template = (typeof templatesList)[number];
