@@ -506,7 +506,7 @@ import {
     const [main, sidebar] = columns;
   
     return (
-      <div className="p-custom space-y-4 m-10">
+      <div className="flex flex-col overflow-wrap-anywhere p-custom space-y-4 m-10">
         {isFirstPage && <Header />}
   
         {main.map((section) => (
