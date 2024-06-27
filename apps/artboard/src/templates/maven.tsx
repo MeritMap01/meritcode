@@ -156,12 +156,23 @@ const Section = <T,>({
 }: SectionProps<T>) => {
     if (!section.visible || !section.items.length) return null;
 
+    let alignChanges
+
+    if (section.id === "skills") {
+        alignChanges = "flex flex-wrap gap-x-8 gap-y-4 pl-3 text-left -mx-2"
+    }
+    else if (section.id === "interests") {
+        alignChanges = "flex flex-wrap text-left gap-x-6 gap-y-4"
+    } else {
+        alignChanges = "grid gap-x-6 gap-y-3"
+    }
+
     return (
         <section id={section.id} className="grid">
             <h4 className="mb-2 border-b pb-0.5 text-xl font-bold tracking-[4px] self-stretch">{section.name}</h4>
 
             <div
-                className={cn(section.id === "skills" && "flex flex-wrap gap-x-8 gap-y-4 pl-3 text-left -mx-2", section.id === "interests" && "flex flex-wrap text-left gap-x-6 gap-y-4", section.id !== "skills" && section.id !== "interests" && "grid gap-x-6 gap-y-3")}
+                className={alignChanges}
                 style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
             >
                 {section.items

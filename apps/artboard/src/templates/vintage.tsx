@@ -149,6 +149,18 @@ const Section = <T,>({
   keywordsKey,
 }: SectionProps<T>) => {
   if (!section.visible || !section.items.length) return null;
+
+  let alignChanges
+
+  if (section.id === "skills") {
+    alignChanges = "flex flex-wrap gap-x-9 gap-y-6 col-span-4 mb-4"
+  }
+  else if (section.id === "interests") {
+    alignChanges = "flex flex-wrap gap-x-9 gap-y-6 col-span-4 mb-4"
+  } else {
+    alignChanges = "col-span-4 grid gap-x-6 gap-y-3 mb-4"
+  }
+
   return (
     <section id={section.id} className="grid grid-cols-5 border-b pt-2.5">
       <div>
@@ -156,7 +168,7 @@ const Section = <T,>({
       </div>
 
       <div
-        className={cn(section.id === "skills" && "flex flex-wrap gap-x-9 gap-y-6 col-span-4 mb-4", section.id === "interests" && "flex flex-wrap gap-x-9 gap-y-6 col-span-4 mb-4", section.id !== "skills" && section.id !== "interests" && "col-span-4 grid gap-x-6 gap-y-3 mb-4")}
+        className={alignChanges}
         style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
       >
         {section.items

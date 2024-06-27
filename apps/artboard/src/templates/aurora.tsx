@@ -146,6 +146,19 @@ const Section = <T,>({
     }
   }
 
+  let alignChanges;
+
+  section.id === "skills" ? "flex flex-wrap p-5 pl-7 gap-x-6 gap-y-5 ml-5 text-left -mx-2" : section.id === "interests" ? "flex flex-wrap  pl-10 gap-x-5 gap-y-3 p-5" : "grid gap-x-6 gap-y-3 p-10 group-[.sidebar]:pl-14 py-0"
+
+  if (section.id === "skills") {
+    alignChanges = "flex flex-wrap p-5 pl-7 gap-x-6 gap-y-5 ml-5 text-left -mx-2"
+  }
+  else if (section.id === "interests") {
+    alignChanges = "flex flex-wrap  pl-10 gap-x-5 gap-y-3 p-5"
+  } else {
+    alignChanges = "grid gap-x-6 gap-y-3 p-10 group-[.sidebar]:pl-14 py-0"
+  }
+
   return (
     <section id={section.id} className="grid">
       <div className="group-[.main]:flex group-[.main]:gap-3 items-center mb-5">
@@ -160,7 +173,7 @@ const Section = <T,>({
       </div>
 
       <div
-        className={cn(section.id === "skills" && "flex flex-wrap pl-10 gap-x-6 gap-y-5 ml-6 text-left -mx-2", section.id === "interests" && "flex flex-wrap pl-10 gap-x-5 gap-y-3 ml-6 p-5", section.id !== "skills" && section.id !== "interests" && "grid gap-x-6 gap-y-3 p-10 group-[.sidebar]:pl-14 py-0")}
+        className={alignChanges}
         style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
       >
         {section.items
