@@ -153,11 +153,7 @@ const Section = <T,>({
       }</h4>
 
       <div
-<<<<<<< HEAD
         className={cn(section.id === "skills" && "flex flex-wrap gap-x-6 -mx-2", section.id === "interests" && "flex flex-wrap -mx-2 gap-x-6 gap-y-4", section.id !== "skills" && section.id !== "interests" && "grid gap-x-6 gap-y-3")}
-=======
-        className={cn(section.id === "skills" ? "flex flex-wrap gap-x-6 -mx-2" : section.id === "interests" ? "flex flex-wrap -mx-2 gap-x-6 gap-y-4" : "grid gap-x-6 gap-y-3")}
->>>>>>> origin/main
 
         style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
       >
