@@ -128,7 +128,7 @@ const Section = <T,>({
       </h4>
 
       <div
-        className={cn(section.id === "skills" ? "flex flex-wrap px-1 gap-x-5 mb-4 gap-y-4 text-left -mx-2" : section.id === "interests" ? "flex flex-wrap px-1 text-left gap-x-5 group-[.sidebar]:gap-x-6  -mx-2" : "grid gap-x-6 gap-y-3")}
+        className={cn(section.id === "skills" && "flex flex-wrap px-1 gap-x-5 mb-4 gap-y-4 text-left -mx-2", section.id === "interests" && "flex flex-wrap px-1 text-left gap-x-5 group-[.sidebar]:gap-x-6  -mx-2", section.id !== "skills" && section.id !== "interests" && "grid gap-x-6 gap-y-3")}
         style={{ gridTemplateColumns: !gridChanges ? `repeat(${section.columns}, 1fr)` : undefined }}
       >
         {section.items

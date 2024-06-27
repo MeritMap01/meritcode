@@ -154,7 +154,6 @@ const Section = <T,>({
   if (!section.visible || !section.items.length) return null;
   const gridChanges = section.id === "skills" ? "flex flex-wrap px-2 mb-4 text-left -mx-2" : "grid gap-x-6 gap-y-3"
 
-  const containerClass = section.id === "skills" ? "flex flex-wrap px-1 gap-x-4 mb-4 gap-y-4 text-left -mx-2" : section.id === "interests" ? "flex flex-wrap px-1 text-left gap-x-5 group-[.sidebar]:gap-x-6  -mx-2" : "grid gap-x-6 gap-y-3";
   return (
     <section id={section.id} className="grid">
       <h4 className="mb-2 pb-0.5 text-base font-bold border-b tracking-[2px]">
@@ -162,7 +161,7 @@ const Section = <T,>({
       </h4>
 
       <div
-        className={cn(section.id === "skills" ? "flex flex-wrap px-1 gap-x-4 mb-4 gap-y-4 text-left -mx-2" : section.id === "interests" ? "flex flex-wrap px-1 text-left gap-x-5 group-[.sidebar]:gap-x-6  -mx-2" : "grid gap-x-6 gap-y-3")}
+        className={cn(section.id === "skills" && "flex flex-wrap px-1 gap-x-4 mb-4 gap-y-4 text-left -mx-2", section.id === "interests" && "flex flex-wrap px-1 text-left gap-x-5 group-[.sidebar]:gap-x-6  -mx-2", section.id !== "skills" && section.id !== "interests" && "grid gap-x-6 gap-y-3")}
         style={{ gridTemplateColumns: !gridChanges ? `repeat(${section.columns}, 1fr)` : undefined }}
       >
         {section.items

@@ -156,7 +156,7 @@ const Section = <T,>({
       </div>
 
       <div
-        className={cn(section.id === "skills" || section.id === "interests" ? "flex flex-wrap gap-x-9 gap-y-6 col-span-4 mb-4" : "col-span-4 grid gap-x-6 gap-y-3 mb-4")}
+        className={cn(section.id === "skills" && "flex flex-wrap gap-x-9 gap-y-6 col-span-4 mb-4", section.id === "interests" && "flex flex-wrap gap-x-9 gap-y-6 col-span-4 mb-4", section.id !== "skills" && section.id !== "interests" && "col-span-4 grid gap-x-6 gap-y-3 mb-4")}
         style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
       >
         {section.items

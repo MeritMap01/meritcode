@@ -160,7 +160,7 @@ const Section = <T,>({
             <h4 className="mb-2 border-b border-t tracking-widest text-xl p-6 text-center border-primary font-bold text-primary">{section.name.toUpperCase()}</h4>
 
             <div
-                className={cn(section.id === "experience" && "group-[.main]:text-center", section.id === "skills" ? "flex flex-wrap p-5 pl-7 text-left -mx-2" : section.id === "interests" ? "flex flex-wrap gap-y-2 gap-x-4 group-[.main]:gap-x-5 group-[.main]:gap-y-3 p-5" : "grid gap-x-6 gap-y-3 pl-0 p-5 group-[.main]:pl-9")}
+                className={cn(section.id === "experience" && "group-[.main]:text-center", section.id === "skills" && "flex flex-wrap p-5 pl-7 text-left -mx-2", section.id === "interests" && "flex flex-wrap gap-y-2 gap-x-4 group-[.main]:gap-x-5 group-[.main]:gap-y-3 p-5", section.id !== "skills" && section.id !== "interests" && "grid gap-x-6 gap-y-3 pl-0 p-5 group-[.main]:pl-9")}
                 style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
             >
                 {section.items

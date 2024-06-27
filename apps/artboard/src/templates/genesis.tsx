@@ -169,7 +169,7 @@ const Section = <T,>({
       <h4 className="mb-2 text-primary font-bold">{section.name}</h4>
 
       <div
-        className={cn(section.id === "skills" ? "flex flex-wrap gap-x-5 gap-y-3 text-left -mx-2 group-[.main]:mb-4" : section.id === "interests" ? "flex flex-wrap gap-x-6 group-[.main]:mb-4" : "grid gap-x-6 gap-y-3 group-[.main]:mb-4")}
+        className={cn(section.id === "skills" && "flex flex-wrap gap-x-5 gap-y-3 text-left -mx-2 group-[.main]:mb-4", section.id === "interests" && "flex flex-wrap gap-x-6 group-[.main]:mb-4", section.id !== "skills" && section.id !== "interests" && "grid gap-x-6 gap-y-3 group-[.main]:mb-4")}
         style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
       >
         {section.items
@@ -530,7 +530,7 @@ export const Genesis = ({ columns, isFirstPage = false }: TemplateProps) => {
         </div>
       )}
 
-      <div className="p-custom grid grid-cols-5 p-6">
+      <div className="p-custom grid grid-cols-5">
         <div className="main p-custom group col-span-3 space-y-4 overflow-wrap-anywhere">
           {main.map((section) => (
             <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
