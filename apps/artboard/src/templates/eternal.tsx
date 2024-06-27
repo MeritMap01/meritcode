@@ -194,7 +194,7 @@ import {
     const fontSize = useArtboardStore((state) => state.resume.metadata.typography.font.size);
     if (!section.visible || !section.items.length) return null;
     return (
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-5xl ">
 <div className="flex items-center space-x-3">
         <h3 className="text-lg font-normal font-xl tracking-wider mb-3">{section.name.toUpperCase()}</h3>
         <div className="flex-grow mb-3 border-t-2 border-[#7F7A7A] border-dashed "></div>
@@ -515,7 +515,7 @@ import {
     const [main, sidebar] = columns;
   
     return (
-      <div className="p-custom space-y-4 m-10">
+      <div className="p-custom space-y-4 m-10 flex flex-col overflow-wrap-anywhere">
         {isFirstPage && <Header />}
   
         {main.map((section) => (

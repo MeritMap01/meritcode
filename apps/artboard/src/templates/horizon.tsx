@@ -474,12 +474,12 @@ import {
         {isFirstPage && <Summary/>}
 
         <div className="p-custom grid grid-cols-6 items-start space-x-6">
-          <div className="grid gap-y-4 col-span-2">
+          <div className="grid gap-y-4 col-span-2 overflow-wrap-anywhere">
             {sidebar.map((section) => (
               <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
             ))}
           </div>
-          <div className="grid gap-y-4 col-span-4">
+          <div className="grid gap-y-4 col-span-4 overflow-wrap-anywhere">
             {main.map((section) => (
               <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
             ))}

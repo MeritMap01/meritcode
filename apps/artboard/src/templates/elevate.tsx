@@ -604,12 +604,12 @@ import {
         {isFirstPage && <Header />}
   
         <div>
-        <div className="main group space-y-4">
+        <div className="main group space-y-4 overflow-wrap-anywhere">
             {main.map((section) => (
               <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
             ))}
           </div>
-          <div className="sidebar group space-y-4">
+          <div className="sidebar group space-y-4 overflow-wrap-anywhere">
             {sidebar.map((section) => (
               <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
             ))}

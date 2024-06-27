@@ -265,13 +265,19 @@ const Awards = () => {
     <Section<Award> section={section} urlKey="url" summaryKey="summary">
       {(item) => (
         <div className="flex items-center justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
-          <div className="text-left">
+          <div className="flex text-left">
+          <div className="flex">
+          <span className="h-1 w-1 rounded-full bg-black mr-2 mt-3"></span>
+          </div>
+          <div className="flex flex-col items-start">
             <div className="font-bold">{item.title}</div>
             <div>{item.awarder}</div>
-          </div>
+         
 
           <div className="shrink-0 text-right">
             <div className="font-bold">{item.date}</div>
+          </div>
+          </div>
           </div>
         </div>
       )}
@@ -309,12 +315,10 @@ const Skills = () => {
     <Section<Skill> section={section} levelKey="level" keywordsKey="keywords">
       {(item) => (
         <div className="flex flex-col ">
-        <div className="flex">
-        <span className="h-1 w-1 rounded-full bg-black mt-2 mr-1"></span>
+        <div className="flex ">
+        <span className="h-1 w-1 rounded-full bg-black mr-2 mt-3"></span>
         <div>
       <div className="text-left pr-1 font-bold">{item.name}</div>
-     
-      <div >{item.description}</div>
        </div>
       </div>
       </div>
@@ -328,7 +332,13 @@ const Interests = () => {
 
   return (
     <Section<Interest> section={section} keywordsKey="keywords" className="space-y-0.5">
-      {(item) => <div className="font-bold">{item.name}</div>}
+      {(item) => 
+      <div className="flex">
+      <div className="flex">
+      <span className="h-1 w-1 rounded-full bg-black mr-2 mt-3 "></span>
+      </div>
+      <div className="font-bold">{item.name}</div>
+      </div>}
     </Section>
   );
 };
@@ -336,8 +346,8 @@ const Interests = () => {
 const Contact = () =>{
   const basics = useArtboardStore((state) => state.resume.basics);
   return(
-    <div className="mt-8">
-   <h4 className="mb-2 mt-10 pb-0.5 text-lg tracking-widest font-bold text">
+    <div className="mb-6">
+   <h4 className="pb-0.5 text-lg tracking-widest font-bold text">
           <span className="pr-6 pl-2 pt-1 bg-[#ffcccc]">
             <span className="relative bottom-3 ">
             CONTACT
@@ -545,20 +555,20 @@ export const Nurture = ({ columns, isFirstPage = false }: TemplateProps) => {
       <div style={{ margin: margin, color: primaryColor }}>
         {isFirstPage && <Header />}
         <div className="grid grid-cols-3 bg-grey border shadow-2xl rounded-xl resize-none" style={{boxShadow:"15px 15px 5px black"}}>
-          <div className="main p-custom group col-span-2 space-y-4" style={borderStyle}>
+          <div className="main p-custom group col-span-2 space-y-4 overflow-wrap-anywhere" style={borderStyle}>
             {main.map((section) => (
               <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
             ))}
           </div>
 
-          <div className="sidebar p-custom group h-full space-y-4">
+          <div className="sidebar p-custom group h-full space-y-4 overflow-wrap-anywhere">
+            <Contact/>
             {sidebar.map((section) => (
               <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
             ))}
-            <Contact/>
-            <div className="right-5 absolute bottom-0 ">
+            {/* <div className="right-5 absolute bottom-0 ">
             <img src='https://res.cloudinary.com/dd5l4yejk/image/upload/v1719067142/cxkowcbxw9easvlqjzwm.png' className="w-[300px]"/>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

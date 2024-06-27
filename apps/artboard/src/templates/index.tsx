@@ -31,6 +31,10 @@ import { Aurora } from "./aurora"
 import { Maven } from "./maven";
 import { Professional } from "./professional";
 import {Classic} from "./classic";
+import { Vintage } from "./vintage";
+import { Sleek } from "./sleek";
+
+
 
 
 export const getTemplate = (template: Template) => {
@@ -97,6 +101,10 @@ export const getTemplate = (template: Template) => {
       return Professional;
     case "classic":
       return Classic;
+    case "vintage":
+      return Vintage;
+    case "sleek":
+      return Sleek;
     default:
       return Onyx;
   }
