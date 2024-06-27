@@ -36,7 +36,7 @@ import {
           <div className="text-md tracking-widest font-bold">{basics.headline.toUpperCase()}</div>
         </div>
   
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-sm">
+        <div className="flex flex-wrap justify-center items-center gap-x-3 gap-y-0.5 text-sm">
           {basics.location && (
             <div className="flex items-center gap-x-1.5">
               <i className="ph ph-bold ph-map-pin text-primary" />
@@ -604,12 +604,12 @@ import {
         {isFirstPage && <Header />}
   
         <div>
-        <div className="main group space-y-4">
+        <div className="main group space-y-4 overflow-wrap-anywhere">
             {main.map((section) => (
               <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
             ))}
           </div>
-          <div className="sidebar group space-y-4">
+          <div className="sidebar group space-y-4 overflow-wrap-anywhere">
             {sidebar.map((section) => (
               <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
             ))}

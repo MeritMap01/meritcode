@@ -256,18 +256,19 @@ const Education = () => {
         <div className="flex-grow border-t-2 border-[#5baaab]"></div>
       </div>
       {education.items.map((item) => (
-        <div key={item.id} className="mt-2">
-          <div className="flex items-center space-x-12">
-              <h4 className="font-bold overflow-wrap-anywhere">{item.institution}</h4>
-              <div className="shrink-0 text-right overflow-wrap-anywhere">
-                  <div className="font-bold text-[#5baaab]">{item.date}</div>
-              </div>
-          </div>
-          <p className="italic">{item.area}</p>
+        <div className="flex items-center justify-between overflow-wrap-anywhere">
+        <div className="text-left">
+          <div className="font-bold">{item.institution}</div>
+          <div>{item.studyType}</div>
+          <div>{item.area}</div>
+          <div>{item.score}</div>
           <p className="mt-1" dangerouslySetInnerHTML={{ __html: item.summary }} />
-          <p>{item.studyType}</p>
-          <p>{item.score}</p>
         </div>
+
+        <div className="shrink-0 text-right overflow-wrap-anywhere">
+          <div className="font-bold text-[#5baaab]">{item.date}</div>         
+        </div>
+      </div>
       ))}
     </section>
   );
@@ -331,7 +332,7 @@ const Skills = () => {
         <h3 className="text-lg font-semibold text-[#5baaab]">Skills</h3>
         <div className="flex-grow border-t-2 border-[#5baaab]"></div>
       </div>
-      <ul className="mt-2 grid grid-cols-4 gap-2 list-disc list-inside">
+      <ul className="m-2 grid grid-cols-4 list-disc list-outside">
         {skills.items.map((skill) => (
           <div key={skill.id} className="w-1/2">
             <li key={skill.id}>{skill.name}</li>

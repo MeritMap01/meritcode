@@ -66,13 +66,13 @@ import {
         <div className="p-custom space-y-3 col-span-3 pl-4" style={{ backgroundColor: hexToRgb(primaryColor, 0.4) }}>
           <div className="flex flex-col flex-wrap items-start gap-x-3 gap-y-0.5 text-sm">
             {basics.location && (
-              <div className="flex items-center gap-x-1.5">
+              <div className="flex flex-wrap items-center gap-x-1.5">
                 <i className="ph ph-bold ph-map-pin text-primary"  style={{ color : "white"}}/>
                 <div>{basics.location}</div>
               </div>
             )}
             {basics.phone && (
-              <div className="flex items-center gap-x-1.5">
+              <div className="flex items-center flex-wrap gap-x-1.5">
                 <i className="ph ph-bold ph-phone text-primary" style={{ color : "white"}} />
                 <a href={`tel:${basics.phone}`} target="_blank" rel="noreferrer">
                   {basics.phone}
@@ -80,7 +80,7 @@ import {
               </div>
             )}
             {basics.email && (
-              <div className="flex items-center gap-x-1.5">
+              <div className="flex items-center flex-wrap gap-x-1.5">
                 <i className="ph ph-bold ph-at text-primary"  style={{ color : "white"}}/>
                 <a href={`mailto:${basics.email}`} target="_blank" rel="noreferrer">
                   {basics.email}
@@ -89,7 +89,7 @@ import {
             )}
             <Link url={basics.url} />
             {basics.customFields.map((item) => (
-              <div key={item.id} className="flex items-center gap-x-1.5">
+              <div key={item.id} className="flex flex-wrap items-center gap-x-1.5">
                 <i className={cn(`ph ph-bold ph-${item.icon}`, "text-primary")}  style={{ color : "white"}}/>
                 <span>{[item.name, item.value].filter(Boolean).join(": ")}</span>
               </div>
@@ -473,13 +473,13 @@ import {
         {isFirstPage && <Header />}
         {isFirstPage && <Summary/>}
 
-        <div className="p-custom grid grid-cols-5 items-start space-x-6">
-          <div className="grid gap-y-4 col-span-2">
+        <div className="p-custom grid grid-cols-6 items-start space-x-6">
+          <div className="grid gap-y-4 col-span-2 overflow-wrap-anywhere">
             {sidebar.map((section) => (
               <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
             ))}
           </div>
-          <div className="grid gap-y-4 col-span-3">
+          <div className="grid gap-y-4 col-span-4 overflow-wrap-anywhere">
             {main.map((section) => (
               <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
             ))}

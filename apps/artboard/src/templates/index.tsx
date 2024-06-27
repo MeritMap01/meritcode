@@ -5,6 +5,7 @@ import { Bronzor } from "./bronzor";
 import { Chikorita } from "./chikorita";
 import { Ditto } from "./ditto";
 import { Elevate } from "./elevate";
+import { Eternal } from "./eternal";
 import { Gengar } from "./gengar";
 import { Glalie } from "./glalie";
 import { Horizon } from "./horizon";
@@ -28,8 +29,11 @@ import { Zenith } from "./zenith";
 import { Pinnacle } from "./pinnacle";
 import { Aurora } from "./aurora"
 import { Maven } from "./maven";
+import { Professional } from "./professional";
+import { Classic } from "./classic";
 import { Vintage } from "./vintage";
 import { Sleek } from "./sleek";
+
 
 
 
@@ -51,6 +55,8 @@ export const getTemplate = (template: Template) => {
       return Ditto;
     case "elevate":
       return Elevate;
+    case "eternal":
+      return Eternal;
     case "gengar":
       return Gengar;
     case "glalie":
@@ -91,6 +97,10 @@ export const getTemplate = (template: Template) => {
       return Aurora;
     case "maven":
       return Maven;
+    case "professional":
+      return Professional;
+    case "classic":
+      return Classic;
     case "vintage":
       return Vintage;
     case "sleek":

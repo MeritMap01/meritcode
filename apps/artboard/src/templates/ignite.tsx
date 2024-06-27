@@ -30,7 +30,7 @@ const Header = () => {
   const { name, headline, phone } = useArtboardStore((state) => state.resume.basics);
   return (
     <header className="flex flex-col text-wrap items-left text-left p-6 mb-1">
-      <h1 className="text-4xl text-left font-bold mb-1 overflow-wrap-anywhere">{name}</h1>
+      <h1 className="text-4xl text-left font-bold mb-1 overflow-wrap-anywhere tracking-widest">{name}</h1>
       <div className="flex justify-start space-x-10 text-sm text-gray-600 mt-2 mb-4">
         {<span>•</span>}
         <p className="overflow-wrap-anywhere ">{basics.email}</p>

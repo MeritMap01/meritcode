@@ -6,5 +6,33 @@
   "/artboard": {
     "target": "http://localhost:6173",
     "secure": false
+  },
+  "/blog": {
+    "target": "http://localhost:3000",
+    "secure": false
+  },
+  "/assets": {
+    "target": "http://localhost:3000",
+    "secure": false
+  },
+  "/home": {
+    "target": "http://localhost:3000",
+    "secure": false
+  },
+  "/pricing": {
+    "target": "http://localhost:3000",
+    "secure": false
+  },
+  "/contactus": {
+    "target": "http://localhost:3000",
+    "secure": false
+  },
+  "/features": {
+    "target": "http://localhost:3000",
+    "secure": false
+  },
+  "/article": {
+    "target": "http://localhost:3000",
+    "secure": false
   }
 }

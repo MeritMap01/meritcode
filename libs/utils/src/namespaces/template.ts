@@ -5,12 +5,15 @@ export const templatesList = [
   "palette",
   "ignite",
   "joyful",
+  "professional",
+  "classic",
   // Vivek
   "majestic",
   "horizon",
   "elevate",
   "naruto",
   "nurture",
+  "eternal",
   // Vamsi
   "genesis",
   "nexus",

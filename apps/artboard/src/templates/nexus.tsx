@@ -148,12 +148,16 @@ const Section = <T,>({
 
   return (
     <section id={section.id} className={`grid ${borderChanges} pt-2 pb-3`}>
-      <h4 className={cn(section.id === "certifications" ? "hidden" : "font-bold text-primary tracking-widest mb-3 text-xl")}>{
+      <h4 className={cn(section.id === "certifications" && "hidden", section.id !== "certificates" && "font-bold text-primary tracking-widest mb-3 text-xl")}>{
         section.name.toUpperCase()
       }</h4>
 
       <div
+<<<<<<< HEAD
         className={cn(section.id === "skills" && "flex flex-wrap gap-x-6 -mx-2", section.id === "interests" && "flex flex-wrap -mx-2 gap-x-6 gap-y-4", section.id !== "skills" && section.id !== "interests" && "grid gap-x-6 gap-y-3")}
+=======
+        className={cn(section.id === "skills" ? "flex flex-wrap gap-x-6 -mx-2" : section.id === "interests" ? "flex flex-wrap -mx-2 gap-x-6 gap-y-4" : "grid gap-x-6 gap-y-3")}
+>>>>>>> origin/main
 
         style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
       >
