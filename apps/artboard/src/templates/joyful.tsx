@@ -324,10 +324,9 @@ import {
     return (
 <section className="p-6">
       <h3 className="text-xl font-bold text-teal-400">Skills and Abilities</h3>
-      <ul>
+      <ul className="mt-2 grid grid-cols-1 gap-2 list-disc list-inside">
         {section.items.map((item) => (
-         <> <li key={item.id}>{item.name}</li>
-          <li key={item.id}>{item.description}</li></>
+          <li key={item.id}>{item.name}</li>
         ))}
       </ul>
     </section>
@@ -339,7 +338,9 @@ import {
   
     return (
       <Section<Interest> section={section} keywordsKey="keywords" className="space-y-0.5">
-        {(item) => <div className="font-bold">{item.name}</div>}
+        {(item) => <ul className="list-disc overflow-wrap-anywhere">
+                        <li className="font-bold">{item.name}</li>
+                   </ul>}
       </Section>
     );
   };

@@ -42,7 +42,7 @@ msgstr "<0>Tenho noção de que a aplicação não é perfeita, mas gostaria que
 msgid "<0>Note: </0>By utilizing the OpenAI API, you acknowledge and accept the <1>terms of use</1> and <2>privacy policy</2> outlined by OpenAI. Please note that Reactive Resume bears no responsibility for any improper or unauthorized utilization of the service, and any resulting repercussions or liabilities solely rest on the user."
 msgstr "<0>Nota: </0>Ao utilizar a API da OpenAI, reconhece e aceita os <1>termos de utilização</1> e <2>a política de privacidade</2> delineados pela OpenAI. Tenha em atenção que a Reactive Resume não assume qualquer responsabilidade por qualquer utilização imprópria ou não autorizada do serviço, e quaisquer repercussões ou responsabilidades resultantes recaem exclusivamente sobre o utilizador."
 
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:90
+#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:71
 msgid "<0>The community has spent a lot of time writing the documentation for Reactive Resume, and I'm sure it will help you get started with the app.</0><1>There are also a lot of examples to help you get started, and features that you might not know about which could help you build your perfect resume.</1>"
 msgstr "<0>A comunidade passou muito tempo a escrever a documentação do Reactive Resume e tenho a certeza de que isso o ajudará a começar a usar o aplicação.</0> <1>Também há muitos exemplos para ajudá-lo a começar e recursos que você talvez não conheça e que podem ajudá-lo a construir o currículo perfeito.</1>"
 
@@ -68,10 +68,6 @@ msgstr "Um criador de currículos gratuito e de código aberto que simplifica o 
 #: apps/client/src/pages/builder/sidebars/right/sections/sharing.tsx:29
 msgid "A link has been copied to your clipboard."
 msgstr "O link foi copiado para a sua área de transferência."
-
-#: apps/client/src/components/copyright.tsx:29
-msgid "A passion project by <0>Amruth Pillai</0>"
-msgstr "Um projeto de paixão de <0>Amruth Pillai</0>"
 
 #: apps/client/src/pages/auth/forgot-password/page.tsx:57
 msgid "A password reset link should have been sent to your inbox, if an account existed with the email you provided."
@@ -230,7 +226,6 @@ msgstr "Raio de canto da borda"
 msgid "Built with"
 msgstr "Construído com"
 
-#: apps/client/src/components/copyright.tsx:27
 #: apps/client/src/pages/home/sections/contributors/index.tsx:20
 msgid "By the community, for the community."
 msgstr "Pela comunidade, para a comunidade."
@@ -425,7 +420,7 @@ msgstr "Desabilitar 2FA"
 msgid "Discard"
 msgstr "Descartar"
 
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:110
+#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:91
 msgid "Documentation"
 msgstr "Documentação"
 
@@ -433,7 +428,7 @@ msgstr "Documentação"
 msgid "Don't have an account?"
 msgstr "Não tem uma conta?"
 
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:88
+#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:69
 msgid "Don't know where to begin? Hit the docs!"
 msgstr "Não sabe por onde começar? Consulte a documentação!"
 
@@ -522,7 +517,7 @@ msgstr "Introduza o seu endereço de e-mail e enviar-lhe-emos um link para redef
 msgid "Errors"
 msgstr "Erros"
 
-#: apps/client/src/pages/home/sections/support/index.tsx:78
+#: apps/client/src/pages/home/sections/support/index.tsx:60
 msgid "Even if you're not in a position to contribute financially, you can still make a difference by giving the GitHub repository a star, spreading the word to your friends, or dropping a quick message to let me know how Reactive Resume has helped you. Your feedback and support are always welcome and much appreciated!"
 msgstr "Mesmo que não consiga contribuir financeiramente, pode fazer a diferença dando uma estrela ao repositório GitHub, divulgando junto dos seus amigos ou enviando-me uma mensagem sobre como o Reactive Resume o ajudou. O seu feedback e apoio são sempre bem-vindos e muito apreciados!"
 
@@ -691,14 +686,14 @@ msgid "Icon"
 msgstr "Ícone"
 
 #: apps/client/src/pages/home/sections/logo-cloud/index.tsx:47
-msgid "If this app has helped you with your job hunt, let me know by reaching out through <0>this contact form</0>."
-msgstr "Se esta aplicação o ajudou na sua procura de emprego, informe-me através <0>deste formulário de contacto</0>."
+msgid "If this app has helped you with your job hunt, let me know by reaching out through ."
+msgstr ""
 
 #: apps/client/src/pages/dashboard/settings/_dialogs/two-factor.tsx:126
 msgid "If you disable two-factor authentication, you will no longer be required to enter a verification code when logging in."
 msgstr "Se você desativar a autenticação de dois fatores, não será mais necessário inserir um código de verificação ao fazer login."
 
-#: apps/client/src/pages/home/sections/support/index.tsx:59
+#: apps/client/src/pages/home/sections/support/index.tsx:41
 msgid "If you're multilingual, we'd love your help in bringing the app to more languages and communities. Don't worry if you don't see your language on the list - just give me a shout-out on GitHub, and I'll make sure to include it. Ready to get started? Jump into translation over at Crowdin by clicking the link below."
 msgstr "Se é multilingue, gostaríamos de contar com a sua ajuda para levar a aplicação a mais línguas e comunidades. Não se preocupe se não vir o seu idioma na lista - basta dizer-me no GitHub, e eu certificar-me-ei de que o incluo. Está pronto para começar? Entre na tradução no Crowdin clicando no link abaixo."
 
@@ -729,7 +724,7 @@ msgid "In this section, you can delete your account and all the data associated 
 msgstr "Nesta secção pode excluir a sua conta e todos os dados associados ao seu utilizador, mas lembre-se de que <0>esta ação é irreversível</0>."
 
 #: apps/client/src/pages/builder/sidebars/right/index.tsx:83
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:122
+#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:103
 msgid "Information"
 msgstr "Informação"
 
@@ -826,10 +821,6 @@ msgstr "Carta"
 #: apps/client/src/pages/builder/sidebars/left/dialogs/skills.tsx:69
 msgid "Level"
 msgstr "Nível"
-
-#: apps/client/src/components/copyright.tsx:16
-msgid "Licensed under <0>MIT</0>"
-msgstr "Licenciado sob <0>MIT</0>"
 
 #: apps/client/src/pages/dashboard/settings/_sections/profile.tsx:81
 msgid "Light"
@@ -1097,11 +1088,6 @@ msgstr "Público"
 msgid "Publisher"
 msgstr "Editora"
 
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:69
-msgid "Raise an issue"
-msgstr "Reportar problema"
-
-#: apps/client/src/components/copyright.tsx:38
 #: apps/client/src/pages/auth/backup-otp/page.tsx:52
 #: apps/client/src/pages/auth/forgot-password/page.tsx:49
 #: apps/client/src/pages/auth/login/page.tsx:55
@@ -1241,10 +1227,6 @@ msgstr "Faça auto-hospedagem com o Docker"
 #: apps/client/src/pages/auth/forgot-password/page.tsx:98
 msgid "Send Email"
 msgstr "Enviar e-mail"
-
-#: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:79
-msgid "Send me a message"
-msgstr "Envie-me uma mensagem"
 
 #: apps/client/src/components/user-options.tsx:28
 #: apps/client/src/pages/dashboard/_components/sidebar.tsx:92
@@ -1688,4 +1670,3 @@ msgstr "Ampliar"
 #: apps/client/src/pages/builder/_components/toolbar.tsx:86
 msgid "Zoom Out"
 msgstr "Afastar"
-
