@@ -31,7 +31,12 @@ const Header = () => {
     const fontSize = useArtboardStore((state) => state.resume.metadata.typography.font.size);
     const picture = useArtboardStore((state) => state.resume.basics.picture);
 
-    const headerAlign = picture.url ? "grid grid-cols-[2fr_auto_3fr]" : "space-x-4 pb-5"
+    let headerAlign
+    if (picture.url) {
+        headerAlign = "grid grid-cols-[2fr_auto_3fr]"
+    } else {
+        headerAlign = "space-x-4 pb-5"
+    }
     return (
         <div className={headerAlign}>
 

@@ -120,8 +120,6 @@ const Section = <T,>({
   keywordsKey,
 }: SectionProps<T>) => {
   if (!section.visible || !section.items.length) return null;
-  const gridChanges = section.id === "skills" ? "flex flex-wrap px-2  text-left -mx-2" : "grid gap-x-6 gap-y-3"
-
   let alignChanges
 
   if (section.id === "skills") {
@@ -141,7 +139,7 @@ const Section = <T,>({
 
       <div
         className={alignChanges}
-        style={{ gridTemplateColumns: !gridChanges ? `repeat(${section.columns}, 1fr)` : undefined }}
+        style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
       >
         {section.items
           .filter((item) => item.visible)

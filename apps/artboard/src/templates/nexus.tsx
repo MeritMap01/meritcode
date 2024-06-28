@@ -111,7 +111,7 @@ const Link = ({ url, icon, label, className }: LinkProps) => {
 
   return (
     <div className="flex items-center gap-x-1.5">
-      {/* {icon ?? <i className="ph ph-bold ph-link text-primary" />} */}
+
       <a
         href={url.href}
         target="_blank"
@@ -144,8 +144,6 @@ const Section = <T,>({
   keywordsKey,
 }: SectionProps<T>) => {
   if (!section.visible || !section.items.length) return null;
-  const borderChanges = section.id === "education" ? "border-b-0" : section.id === "interests" ? "border-b-0" : section.id === "certifications" ? "border-b-0" : "border-b"
-
   let alignChanges;
 
   let textHidden;
@@ -155,6 +153,7 @@ const Section = <T,>({
   } else {
     textHidden = "font-bold text-primary tracking-widest mb-3 text-xl"
   }
+
 
   if (section.id === "skills") {
     alignChanges = "flex flex-wrap gap-x-6 -mx-2"
@@ -166,7 +165,7 @@ const Section = <T,>({
   }
 
   return (
-    <section id={section.id} className={`grid ${borderChanges} pt-2 pb-3`}>
+    <section id={section.id} className={`grid border-b-0 pt-2 pb-3`}>
       <h4 className={textHidden}>{
         section.name.toUpperCase()
       }</h4>

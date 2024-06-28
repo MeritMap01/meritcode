@@ -28,12 +28,13 @@ const Header = () => {
   const basics = useArtboardStore((state) => state.resume.basics);
 
   return (
-    <div className="flex flex-col space-y-4 mb-9">
-
+    <div className="mb-9 flex flex-col space-y-4">
       <div className="space-y-4">
         <div className="flex flex-col gap-3">
-          <div className="font-bold text-7xl">{basics.name.toUpperCase()}</div>
-          <div className="tracking-[10px] self-stretch font-bold text-xl">{basics.headline.toUpperCase()}</div>
+          <div className="text-7xl font-bold">{basics.name.toUpperCase()}</div>
+          <div className="self-stretch text-xl font-bold tracking-widest">
+            {basics.headline.toUpperCase()}
+          </div>
         </div>
       </div>
     </div>
@@ -47,7 +48,6 @@ const Summary = () => {
 
   return (
     <section id={section.id}>
-
       <div
         className="wysiwyg group-[.sidebar]:px-10"
         style={{ columns: section.columns }}
@@ -124,51 +124,50 @@ const Section = <T,>({
   const forIcons = (icon: string) => {
     switch (icon) {
       case "education":
-        return <i className="ph-fill ph-graduation-cap "></i>
+        return <i className="ph-fill ph-graduation-cap "></i>;
       case "experience":
-        return <i className="ph-fill ph-briefcase "></i>
+        return <i className="ph-fill ph-briefcase "></i>;
       case "projects":
-        return <i className="ph-fill ph-calendar-check "></i>
+        return <i className="ph-fill ph-calendar-check "></i>;
       case "profiles":
-        return <i className="ph-fill ph-users"></i>
+        return <i className="ph-fill ph-users"></i>;
       case "certifications":
-        return <i className="ph-fill ph-certificate"></i>
+        return <i className="ph-fill ph-certificate"></i>;
       case "skills":
-        return <i className="ph-fill ph-code-simple"></i>
+        return <i className="ph-fill ph-code-simple"></i>;
       case "interests":
-        return <i className="ph-fill ph-game-controller"></i>
+        return <i className="ph-fill ph-game-controller"></i>;
       case "references":
-        return <i className="ph-fill ph-sliders"></i>
+        return <i className="ph-fill ph-sliders"></i>;
       case "awards":
-        return <i className="ph-fill ph-medal"></i>
+        return <i className="ph-fill ph-medal"></i>;
       default:
-        return <i className="ph-fill ph-read-cv-logo"></i>
+        return <i className="ph-fill ph-read-cv-logo"></i>;
     }
-  }
+  };
 
   let alignChanges;
 
-  section.id === "skills" ? "flex flex-wrap p-5 pl-7 gap-x-6 gap-y-5 ml-5 text-left -mx-2" : section.id === "interests" ? "flex flex-wrap  pl-10 gap-x-5 gap-y-3 p-5" : "grid gap-x-6 gap-y-3 p-10 group-[.sidebar]:pl-14 py-0"
-
   if (section.id === "skills") {
-    alignChanges = "flex flex-wrap p-5 pl-7 gap-x-6 gap-y-5 ml-5 text-left -mx-2"
-  }
-  else if (section.id === "interests") {
-    alignChanges = "flex flex-wrap  pl-10 gap-x-5 gap-y-3 p-5"
+    alignChanges = "flex flex-wrap p-5 pl-7 gap-x-6 gap-y-5 ml-5 text-left -mx-2";
+  } else if (section.id === "interests") {
+    alignChanges = "flex flex-wrap  pl-10 gap-x-5 gap-y-3 p-5";
   } else {
-    alignChanges = "grid gap-x-6 gap-y-3 p-10 group-[.sidebar]:pl-14 py-0"
+    alignChanges = "grid gap-x-6 gap-y-3 p-10 group-[.sidebar]:pl-14 py-0";
   }
 
   return (
     <section id={section.id} className="grid">
-      <div className="group-[.main]:flex group-[.main]:gap-3 items-center mb-5">
-        <span className=" rounded-full bg-[#000] flex items-center px-2 py-2 text-[#fff] group-[.sidebar]:hidden">{forIcons(section.id)}</span>
+      <div className="mb-5 items-center group-[.main]:flex group-[.main]:gap-3">
+        <span className=" flex items-center rounded-full bg-[#000] p-2 text-[#fff] group-[.sidebar]:hidden">
+          {forIcons(section.id)}
+        </span>
 
-        <div className="flex flex-col w-full group-[.sidebar]:pl-10">
-          <h4 className="tracking-[6px] p-0 m-0 self-stretch text-sm font-bold w-[90%] group-[.sidebar]:text-primary -mb-1">
+        <div className="flex w-full flex-col group-[.sidebar]:pl-10">
+          <h4 className="m-0 -mb-1 w-[90%] self-stretch p-0 text-sm font-bold tracking-[6px] group-[.sidebar]:text-primary">
             {section.name.toUpperCase()}
           </h4>
-          <hr className="border-primary mt-2 w-[90%] group-[.sidebar]:w-full m-0 p-0" />
+          <hr className="m-0 mt-2 w-[90%] border-primary p-0 group-[.sidebar]:w-full" />
         </div>
       </div>
 
@@ -185,8 +184,15 @@ const Section = <T,>({
             const keywords = (keywordsKey && get(item, keywordsKey, [])) as string[] | undefined;
 
             return (
-              <div key={item.id} className={cn("relative space-y-2", "border-primary group-[.main]:border-l  group-[.main]:pl-4", className)}>
-                <div className="absolute top-0 left-[-4.5px] group-[.main]:h-[8px] w-[8px] rounded-full bg-primary group-[.main]:block" />
+              <div
+                key={item.id}
+                className={cn(
+                  "relative space-y-2",
+                  "border-primary group-[.main]:border-l  group-[.main]:pl-4",
+                  className,
+                )}
+              >
+                <div className="absolute left-[-4.5px] top-0 w-[8px] rounded-full bg-primary group-[.main]:block group-[.main]:h-[8px]" />
                 <div>
                   {children?.(item as T)}
                   {url !== undefined && <Link url={url} />}
@@ -201,11 +207,10 @@ const Section = <T,>({
                 {keywords !== undefined && keywords.length > 0 && (
                   <p className="text-sm">{keywords.join(", ")}</p>
                 )}
-                <div className="absolute bottom-0 left-[-4.5px] group-[.main]:h-[8px] w-[8px] rounded-full bg-primary group-[.main]:block" />
+                <div className="absolute bottom-0 left-[-4.5px] w-[8px] rounded-full bg-primary group-[.main]:block group-[.main]:h-[8px]" />
               </div>
             );
           })}
-
       </div>
     </section>
   );
@@ -243,11 +248,10 @@ const Education = () => {
           <div className="">
             <div className="font-bold">{item.institution}</div>
             <div>{item.area}</div>
-
           </div>
 
           <div className="">
-            <div className="flex gap-20 items-center">
+            <div className="flex items-center gap-20">
               <div className="font-bold">{item.date}</div>
               <div className="font-bold">{item.score}</div>
             </div>
@@ -267,25 +271,27 @@ const Profiles = () => {
   return (
     <Section<Profile> section={section}>
       {(item) => (
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           {isUrl(item.url.href) ? (
             <Link
               url={item.url}
               label={item.username}
-              icon={item.icon &&
-                <img
-                  className="ph"
-                  width={fontSize}
-                  height={fontSize}
-                  alt={item.network}
-                  src={`https://cdn.simpleicons.org/${item.icon}`}
-                />
+              icon={
+                item.icon && (
+                  <img
+                    className="ph"
+                    width={fontSize}
+                    height={fontSize}
+                    alt={item.network}
+                    src={`https://cdn.simpleicons.org/${item.icon}`}
+                  />
+                )
               }
             />
           ) : (
             <p>{item.username}</p>
           )}
-          <p className="text-sm align-middle">{item.network}</p>
+          <p className="align-middle text-sm">{item.network}</p>
         </div>
       )}
     </Section>
@@ -301,11 +307,10 @@ const Awards = () => {
         <div className="flex items-center justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
           <div className="text-left">
             <div className="font-bold">{item.title}</div>
-            <div className="flex gap-5 items-center">
+            <div className="flex items-center gap-5">
               <div>{item.awarder}</div>
               <div className="font-bold">{item.date}</div>
             </div>
-
           </div>
         </div>
       )}
@@ -322,11 +327,10 @@ const Certifications = () => {
         <div className="flex flex-col justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
           <div className="">
             <div className="font-bold">{item.name}</div>
-            <div className="flex gap-5 items-center">
+            <div className="flex items-center gap-5">
               <div>{item.issuer}</div>
               <div className="font-bold">{item.date}</div>
             </div>
-
           </div>
         </div>
       )}
@@ -338,7 +342,7 @@ const Skills = () => {
   const section = useArtboardStore((state) => state.resume.sections.skills);
 
   return (
-    <Section<Skill> section={section} levelKey="level" keywordsKey="keywords" >
+    <Section<Skill> section={section} levelKey="level" keywordsKey="keywords">
       {(item) => (
         <div>
           <div className="font-bold">{item.name}</div>
@@ -455,7 +459,6 @@ const References = () => {
 
 const Custom = ({ id }: { id: string }) => {
   const section = useArtboardStore((state) => state.resume.sections.custom[id]);
-  const basics = useArtboardStore((state) => state.resume.basics);
   return (
     <Section<CustomSection>
       section={section}
@@ -464,38 +467,14 @@ const Custom = ({ id }: { id: string }) => {
       keywordsKey="keywords"
     >
       {(item) => (
-        <div className="flex flex-col items-start gap-y-2 text-sm">
-          {basics.location && (
-            <div className="flex items-center gap-x-1.5">
-              <i className="ph ph-bold ph-map-pin" />
-              <div>{basics.location}</div>
-            </div>
-          )}
-          {basics.phone && (
-            <div className="flex items-center gap-x-1.5">
-              <i className="ph ph-bold ph-phone" />
-              <a href={`tel:${basics.phone}`} target="_blank" rel="noreferrer" className="no-underline">
-                {basics.phone}
-              </a>
-            </div>
-          )}
-          {basics.email && (
-            <div className="flex items-center gap-x-1.5">
-              <i className="ph ph-bold ph-at" />
-              <a href={`mailto:${basics.email}`} target="_blank" rel="noreferrer">
-                {basics.email}
-              </a>
-            </div>
-          )}
-          {isUrl(basics.url.href) && <Link url={basics.url} />}
-          {basics.customFields.map((item) => (
-            <Fragment key={item.id}>
-              <div className="flex items-center gap-x-1.5">
-                <i className={cn(`ph ph-bold ph-${item.icon}`)} />
-                <span>{[item.name, item.value].filter(Boolean).join(": ")}</span>
-              </div>
-            </Fragment>
-          ))}
+        <div>
+          <div>
+            <div className="font-bold">{item.name}</div>
+            <div>{item.description}</div>
+
+            <div className="font-bold">{item.date}</div>
+            <div>{item.location}</div>
+          </div>
         </div>
       )}
     </Section>
@@ -543,18 +522,21 @@ export const Aurora = ({ columns, isFirstPage = false }: TemplateProps) => {
   const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary);
   const basics = useArtboardStore((state) => state.resume.basics);
   return (
-    <div className="grid min-h-[inherit] grid-cols-5 text-text">
+    <div className="text-text grid min-h-[inherit] grid-cols-5">
       <div
-        className="sidebar overflow-wrap-anywhere col-span-2 group py-6 space-y-4"
+        className="sidebar overflow-wrap-anywhere group col-span-2 space-y-4 py-6"
         style={{ backgroundColor: hexToRgb(primaryColor, 0.2) }}
       >
-        {isFirstPage && picture.url && <div className="flex justify-center"><img src={picture.url} className="rounded-full h-72 w-72 text-center" /></div>}
+        {isFirstPage && picture.url && (
+          <div className="flex justify-center">
+            <img src={picture.url} alt="profile" className="h-72 w-72 rounded-full text-center" />
+          </div>
+        )}
 
-        {
-          isFirstPage &&
-          <div className=" flex flex-col w-full group-[.sidebar]:pl-10">
-            <h1 className="font-bold text-base tracking-[6px] text-primary">CONTACT</h1>
-            <hr className="border-primary mb-2 w-[90%] group-[.sidebar]:w-full m-0 p-0" />
+        {isFirstPage && (
+          <div className=" flex w-full flex-col group-[.sidebar]:pl-10">
+            <h1 className="text-base font-bold tracking-[6px] text-primary">CONTACT</h1>
+            <hr className="m-0 mb-2 w-[90%] border-primary p-0 group-[.sidebar]:w-full" />
             <div className="flex flex-col items-start gap-y-2 pr-9 text-sm">
               {basics.location && (
                 <div className="flex items-center gap-x-1.5">
@@ -565,7 +547,12 @@ export const Aurora = ({ columns, isFirstPage = false }: TemplateProps) => {
               {basics.phone && (
                 <div className="flex items-center gap-x-1.5">
                   <i className="ph ph-bold ph-phone" />
-                  <a href={`tel:${basics.phone}`} target="_blank" rel="noreferrer" className="no-underline">
+                  <a
+                    href={`tel:${basics.phone}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="no-underline"
+                  >
                     {basics.phone}
                   </a>
                 </div>
@@ -589,7 +576,7 @@ export const Aurora = ({ columns, isFirstPage = false }: TemplateProps) => {
               ))}
             </div>
           </div>
-        }
+        )}
         {sidebar.map((section) => (
           <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
         ))}
