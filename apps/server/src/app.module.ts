@@ -18,78 +18,80 @@ import { StorageModule } from "./storage/storage.module";
 import { TranslationModule } from "./translation/translation.module";
 import { UserModule } from "./user/user.module";
 import { UtilsModule } from "./utils/utils.module";
+import { RazorPayModule } from "./payment/payment.module";
 
 @Module({
-  imports: [
-    // Core Modules
-    ConfigModule,
-    DatabaseModule,
-    MailModule,
-    RavenModule,
-    CacheModule,
-    UtilsModule,
-    HealthModule,
+	imports: [
+		// Core Modules
+		ConfigModule,
+		DatabaseModule,
+		MailModule,
+		RavenModule,
+		CacheModule,
+		UtilsModule,
+		HealthModule,
 
-    // Feature Modules
-    AuthModule.register(),
-    UserModule,
-    ResumeModule,
-    StorageModule,
-    PrinterModule,
-    TranslationModule,
-    ContributorsModule,
+		// Feature Modules
+		AuthModule.register(),
+		UserModule,
+		ResumeModule,
+		StorageModule,
+		PrinterModule,
+		TranslationModule,
+		ContributorsModule,
+		RazorPayModule,
 
-    // Static Assets
-    ServeStaticModule.forRoot({
-      serveRoot: "/artboard",
-      rootPath: join(__dirname, "..", "artboard"),
-    }),
-    ServeStaticModule.forRoot({
-      renderPath: "/home",
-      rootPath: join(__dirname, "../../..", "staticHtml/home"),
-    }),
-    ServeStaticModule.forRoot({
-      renderPath: "/blog",
-      rootPath: join(__dirname, "../../..", "staticHtml/blog"),
-    }),
-    ServeStaticModule.forRoot({
-      renderPath: "/pricing",
-      rootPath: join(__dirname, "../../..", "staticHtml/pricing"),
-    }),
-    ServeStaticModule.forRoot({
-      renderPath: "/contactus",
-      rootPath: join(__dirname, "../../..", "staticHtml/contactus"),
-    }),
-    ServeStaticModule.forRoot({
-      renderPath: "/features",
-      rootPath: join(__dirname, "../../..", "staticHtml/features"),
-    }),
-    ServeStaticModule.forRoot({
-      renderPath: "/article",
-      rootPath: join(__dirname, "../../..", "staticHtml/article"),
-    }),
-    ServeStaticModule.forRoot({
-      renderPath: "/*",
-      rootPath: join(__dirname, "..", "client"),
-    }),
-  ],
-  providers: [
-    {
-      provide: APP_PIPE,
-      useClass: ZodValidationPipe,
-    },
-    {
-      provide: APP_INTERCEPTOR,
-      useValue: new RavenInterceptor({
-        filters: [
-          // Filter all HttpException with status code <= 500
-          {
-            type: HttpException,
-            filter: (exception: HttpException) => exception.getStatus() < 500,
-          },
-        ],
-      }),
-    },
-  ],
+		// Static Assets
+		ServeStaticModule.forRoot({
+			serveRoot: "/artboard",
+			rootPath: join(__dirname, "..", "artboard"),
+		}),
+		ServeStaticModule.forRoot({
+			renderPath: "/home",
+			rootPath: join(__dirname, "../../..", "staticHtml/home"),
+		}),
+		ServeStaticModule.forRoot({
+			renderPath: "/blog",
+			rootPath: join(__dirname, "../../..", "staticHtml/blog"),
+		}),
+		ServeStaticModule.forRoot({
+			renderPath: "/pricing",
+			rootPath: join(__dirname, "../../..", "staticHtml/pricing"),
+		}),
+		ServeStaticModule.forRoot({
+			renderPath: "/contactus",
+			rootPath: join(__dirname, "../../..", "staticHtml/contactus"),
+		}),
+		ServeStaticModule.forRoot({
+			renderPath: "/features",
+			rootPath: join(__dirname, "../../..", "staticHtml/features"),
+		}),
+		ServeStaticModule.forRoot({
+			renderPath: "/article",
+			rootPath: join(__dirname, "../../..", "staticHtml/article"),
+		}),
+		ServeStaticModule.forRoot({
+			renderPath: "/*",
+			rootPath: join(__dirname, "..", "client"),
+		}),
+	],
+	providers: [
+		{
+			provide: APP_PIPE,
+			useClass: ZodValidationPipe,
+		},
+		{
+			provide: APP_INTERCEPTOR,
+			useValue: new RavenInterceptor({
+				filters: [
+					// Filter all HttpException with status code <= 500
+					{
+						type: HttpException,
+						filter: (exception: HttpException) => exception.getStatus() < 500,
+					},
+				],
+			}),
+		},
+	],
 })
-export class AppModule {}
+export class AppModule { }

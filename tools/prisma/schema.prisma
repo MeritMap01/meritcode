@@ -19,19 +19,20 @@ enum Visibility {
 }
 
 model User {
-  id               String   @id @default(cuid())
+  id               String    @id @default(cuid())
   name             String
   picture          String?
-  username         String   @unique
-  email            String   @unique
-  locale           String   @default("en-US")
-  emailVerified    Boolean  @default(false)
-  twoFactorEnabled Boolean  @default(false)
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  username         String    @unique
+  email            String    @unique
+  locale           String    @default("en-US")
+  emailVerified    Boolean   @default(false)
+  twoFactorEnabled Boolean   @default(false)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
   provider         Provider
   secrets          Secrets?
   resumes          Resume[]
+  payments         Payment[]
 }
 
 model Secrets {
@@ -62,4 +63,19 @@ model Resume {
   @@unique([userId, id])
   @@unique([userId, slug])
   @@index(fields: [userId])
+}
+
+model Payment {
+  id        String   @id @default(cuid())
+  orderId   String   @unique
+  userId    String
+  amount    Float
+  status    String
+  startDate DateTime
+  endDate   DateTime
+  timestamp DateTime @default(now())
+  User      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([orderId])
 }
