@@ -111,7 +111,7 @@ const Link = ({ url, icon, label, className }: LinkProps) => {
 
   return (
     <div className="flex items-center gap-x-1.5">
-      {/* {icon ?? <i className="ph ph-bold ph-link text-primary" />} */}
+
       <a
         href={url.href}
         target="_blank"
@@ -144,16 +144,34 @@ const Section = <T,>({
   keywordsKey,
 }: SectionProps<T>) => {
   if (!section.visible || !section.items.length) return null;
-  const borderChanges = section.id === "education" ? "border-b-0" : section.id === "interests" ? "border-b-0" : section.id === "certifications" ? "border-b-0" : "border-b"
+  let alignChanges;
+
+  let textHidden;
+
+  if (section.id === "certificates") {
+    textHidden = "hidden"
+  } else {
+    textHidden = "font-bold text-primary tracking-widest mb-3 text-xl"
+  }
+
+
+  if (section.id === "skills") {
+    alignChanges = "flex flex-wrap gap-x-6 -mx-2"
+  }
+  else if (section.id === "interests") {
+    alignChanges = "flex flex-wrap -mx-2 gap-x-6 gap-y-4"
+  } else {
+    alignChanges = "grid gap-x-6 gap-y-3"
+  }
 
   return (
-    <section id={section.id} className={`grid ${borderChanges} pt-2 pb-3`}>
-      <h4 className={cn(section.id === "certifications" ? "hidden" : "font-bold text-primary tracking-widest mb-3 text-xl")}>{
+    <section id={section.id} className={`grid border-b-0 pt-2 pb-3`}>
+      <h4 className={textHidden}>{
         section.name.toUpperCase()
       }</h4>
 
       <div
-        className={cn(section.id === "skills" ? "flex flex-wrap gap-x-6 -mx-2" : section.id === "interests" ? "flex flex-wrap -mx-2 gap-x-6 gap-y-4" : "grid gap-x-6 gap-y-3")}
+        className={alignChanges}
 
         style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
       >

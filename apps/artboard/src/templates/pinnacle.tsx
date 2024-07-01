@@ -31,7 +31,12 @@ const Header = () => {
     const fontSize = useArtboardStore((state) => state.resume.metadata.typography.font.size);
     const picture = useArtboardStore((state) => state.resume.basics.picture);
 
-    const headerAlign = picture.url ? "grid grid-cols-[2fr_auto_3fr]" : "space-x-4 pb-5"
+    let headerAlign
+    if (picture.url) {
+        headerAlign = "grid grid-cols-[2fr_auto_3fr]"
+    } else {
+        headerAlign = "space-x-4 pb-5"
+    }
     return (
         <div className={headerAlign}>
 
@@ -155,12 +160,27 @@ const Section = <T,>({
 }: SectionProps<T>) => {
     if (!section.visible || !section.items.length) return null;
 
+    let alignChanges;
+
+    if (section.id === "skills") {
+        alignChanges = "flex flex-wrap p-5 pl-7 text-left -mx-2"
+    }
+    else if (section.id === "interests") {
+        alignChanges = "flex flex-wrap gap-y-2 gap-x-4 group-[.main]:gap-x-5 group-[.main]:gap-y-3 p-5"
+    }
+    else if (section.id === "certificates") {
+        alignChanges = "group-[.main]:text-center"
+    }
+    else {
+        alignChanges = "grid gap-x-6 gap-y-3 pl-0 p-5 group-[.main]:pl-9"
+    }
+
     return (
         <section id={section.id} className="grid">
             <h4 className="mb-2 border-b border-t tracking-widest text-xl p-6 text-center border-primary font-bold text-primary">{section.name.toUpperCase()}</h4>
 
             <div
-                className={cn(section.id === "experience" && "group-[.main]:text-center", section.id === "skills" ? "flex flex-wrap p-5 pl-7 text-left -mx-2" : section.id === "interests" ? "flex flex-wrap gap-y-2 gap-x-4 group-[.main]:gap-x-5 group-[.main]:gap-y-3 p-5" : "grid gap-x-6 gap-y-3 pl-0 p-5 group-[.main]:pl-9")}
+                className={alignChanges}
                 style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
             >
                 {section.items
