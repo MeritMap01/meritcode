@@ -27,14 +27,14 @@ import { TemplateProps } from "../types/template";
 
 const Header = () => {
   const basics = useArtboardStore((state) => state.resume.basics);
-
+  const margin = useArtboardStore((state) => state.resume.metadata.page.margin)
   return (
-    <div className="flex flex-col items-center justify-center p-4 bg-gray-100 text-center">
-      <div className="flex justify-between w-full max-w-4xl items-center p-4 overflow-wrap-anywhere">
-        <h1 className="text-3xl font-bold" style={{ color: '#5baaab' }}>{basics.name}</h1>
-        <h2 className="text-xl text-gray-600">{basics.headline}</h2>
+    <div className="flex flex-col items-center justify-center  bg-gray-100 text-center" style={{margin:margin}}>
+      <div className="flex justify-between w-full items-center mt-4 mb-4 overflow-wrap-anywhere">
+        <h1 className="text-4xl font-extrabold" style={{ color: '#5baaab' }}>{basics.name.toUpperCase()}</h1>
+        <h2 className="text-2xl text-gray-600">{basics.headline.toUpperCase()}</h2>
       </div>
-      <div style={{ height: '1px', width: '90%', backgroundColor: '#5baaab' }}></div>
+      <div style={{ height: '1px', width: '100%', backgroundColor: '#5baaab' }}></div>
       <div className="flex flex-wrap justify-center mt-2 space-x-12 overflow-wrap-anywhere">
         {basics.email && <a href={`mailto:${basics.email}`} className="text-gray-600 overflow-wrap-anywhere">{basics.email}</a>}
         <div style={{ height: '20px', width: '1px', backgroundColor: '#5baaab' }}></div> {/* Vertical line */}
@@ -140,7 +140,7 @@ const Section = <T,>({
       </div>
 
       <div
-        className="grid gap-x-6 gap-y-3 group-[.sidebar]:mx-auto group-[.sidebar]:text-center"
+        className={cn("grid gap-x-6 gap-y-3 group-[.sidebar]:mx-auto group-[.sidebar]:text-center",className)}
         style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
       >
         {section.items
@@ -186,9 +186,17 @@ const Section = <T,>({
 const Profiles = () => {
   const section = useArtboardStore((state) => state.resume.sections.profiles);
   const fontSize = useArtboardStore((state) => state.resume.metadata.typography.font.size);
-
+  if(!section.items.length || !section.visible){
+    return null;
+  } 
   return (
-    <Section<Profile> section={section}>
+    <section className="mb-6 mt-5">
+      <div className="flex items-center space-x-8 mb-3">
+        <h3 className="text-lg font-semibold text-[#5baaab]">{section.name}</h3>
+        <div className="flex-grow border-t-2 border-[#5baaab]"></div>
+      </div>
+
+      <Section<Profile> section={section} className="flex gap-x-5">
       {(item) => (
         <div>
           {isUrl(item.url.href) ? (
@@ -212,7 +220,34 @@ const Profiles = () => {
         </div>
       )}
     </Section>
+    </section>
   );
+  // return (
+    // <Section<Profile> section={section}>
+    //   {(item) => (
+    //     <div>
+    //       {isUrl(item.url.href) ? (
+    //         <Link
+    //           url={item.url}
+    //           label={item.username}
+    //           icon={
+    //             <img
+    //               className="ph"
+    //               width={fontSize}
+    //               height={fontSize}
+    //               alt={item.network}
+    //               src={`https://cdn.simpleicons.org/${item.icon}`}
+    //             />
+    //           }
+    //         />
+    //       ) : (
+    //         <p className="font-sans">{item.username}</p>
+    //       )}
+    //       <p className="text-sm font-sans">{item.network}</p>
+    //     </div>
+    //   )}
+    // </Section>
+  // );
 };
 
 const WorkExperience = () => {
@@ -228,14 +263,17 @@ const WorkExperience = () => {
       </div>
 
       {experience.items.map((item) => (
-        <div key={item.id} className="">
-          <div className="flex items-center space-x-8">
+        <div key={item.id}>
+          <div className="flex items-center justify-between space-x-8">
               <h4 className="font-bold overflow-wrap-anywhere">{item.position} - {item.company}, {item.location}</h4>
-              <div className="shrink-0 text-right overflow-wrap-anywhere">
+              <div className="shrink-0  ml-auto  text-right overflow-wrap-anywhere">
                   <div className="font-bold text-[#5baaab]">{item.date}</div>
               </div>
           </div>
-          <p className="mt-1" dangerouslySetInnerHTML={{ __html: item.summary }} />
+          
+          {item.summary !== undefined && !isEmptyString(item.summary) && (
+                    <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: item.summary }} />
+                  )}
         </div>
       ))}
     </section>
@@ -277,7 +315,9 @@ const Education = () => {
 
 const Awards = () => {
   const section = useArtboardStore((state) => state.resume.sections.awards);
-
+  if(!section.items.length || !section.visible){
+    return null;
+  } 
   return (
     <div>
       <div className="flex items-center space-x-8">
@@ -286,9 +326,11 @@ const Awards = () => {
       </div>
     <Section<Award> section={section} urlKey="url" summaryKey="summary">
       {(item) => (
-        <div>
+        <div className="flex justify-between">
+          <div>
           <div className="font-bold">{item.title}</div>
           <div>{item.awarder}</div>
+          </div>
           <div className="shrink-0 text-right">
             <div className="font-bold text-[#5baaab]">{item.date}</div>
           </div>
@@ -300,7 +342,9 @@ const Awards = () => {
 
 const Certifications = () => {
   const section = useArtboardStore((state) => state.resume.sections.certifications);
-
+  if(!section.items.length || !section.visible){
+    return null;
+  } 
   return (
     <div>
       <div className="flex items-center space-x-8">
@@ -309,15 +353,32 @@ const Certifications = () => {
       </div>
     <Section<Certification> section={section} urlKey="url" summaryKey="summary">
       {(item) => (
-        <div>
+        <div className="flex justify-between">
+          <div>
           <div className="font-bold">{item.name}</div>
           <div>{item.issuer}</div>
+          </div>
+         
           <div className="shrink-0 text-right">
             <div className="font-bold text-[#5baaab]">{item.date}</div>
           </div>
         </div>
       )}
     </Section></div>
+    // <Section<Certification> section={section} urlKey="url" summaryKey="summary">
+    //   {(item) => (
+    //     <div className="flex items-center justify-between">
+    //       <div className="text-left">
+    //         <div className="font-bold">{item.name}</div>
+    //         <div>{item.issuer}</div>
+    //       </div>
+
+    //       <div className="shrink-0 text-right">
+    //         <div className="font-bold">{item.date}</div>
+    //       </div>
+    //     </div>
+    //   )}
+    // </Section>
   );
 };
 
@@ -332,12 +393,9 @@ const Skills = () => {
         <h3 className="text-lg font-semibold text-[#5baaab]">Skills</h3>
         <div className="flex-grow border-t-2 border-[#5baaab]"></div>
       </div>
-      <ul className="m-2 grid grid-cols-4 list-disc list-outside">
+      <ul className="grid grid-cols-4 gap-y-2 mt-2 list-disc ml-5">
         {skills.items.map((skill) => (
-          <div key={skill.id} className="w-1/2">
             <li key={skill.id}>{skill.name}</li>
-            <p>{skill.description}</p>
-          </div>
         ))}
       </ul>
     </section>
@@ -368,7 +426,9 @@ const Interests = () => {
 
 const Publications = () => {
   const section = useArtboardStore((state) => state.resume.sections.publications);
-
+  if(!section.items.length || !section.visible){
+    return null;
+  } 
   return (
    <div> 
     <div className="flex items-center space-x-8">
@@ -392,7 +452,9 @@ const Publications = () => {
 
 const Volunteer = () => {
   const section = useArtboardStore((state) => state.resume.sections.volunteer);
-
+  if(!section.items.length || !section.visible){
+    return null;
+  } 
   return (
     <div>
        <div className="flex items-center space-x-8">
@@ -417,7 +479,9 @@ const Volunteer = () => {
 
 const Languages = () => {
   const section = useArtboardStore((state) => state.resume.sections.languages);
-
+  if(!section.items.length || !section.visible){
+    return null;
+  } 
   return (
     <div >
        <div className="flex items-center space-x-8">
@@ -557,15 +621,20 @@ const mapSectionToComponent = (section: SectionKey) => {
 
 export const Legacy = ({ columns, isFirstPage = false } : TemplateProps) => {
   const [main, sidebar] = columns;
-
+  const margin = useArtboardStore((state) => state.resume.metadata.page.margin)
   return (
-    <div className=" bg-white ">
+    <div>
       {isFirstPage && <Header />}
-      <div className="p-8 w-100vw">
+      <div style={{margin:margin}}>
           <div className="grid grid-cols-4 gap-6">
           
           <div className="col-span-12">
               {main.map((section) => (
+              <Fragment key={section}>
+                  {mapSectionToComponent(section)}
+              </Fragment>
+              ))}
+              {sidebar.map((section) => (
               <Fragment key={section}>
                   {mapSectionToComponent(section)}
               </Fragment>

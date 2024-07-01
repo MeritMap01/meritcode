@@ -30,8 +30,8 @@ import {
     const { name, headline, phone } = useArtboardStore((state) => state.resume.basics);
     return (
         <header className="flex flex-col text-wrap items-left text-left p-6 mb-1">
-        <h1 className="text-4xl text-left font-bold mb-1 overflow-wrap-anywhere tracking-widest">{name}</h1>
-        <div className="flex justify-start space-x-10 text-sm text-gray-600 mt-2 mb-4">
+        <h1 className="text-3xl font-serif text-left font-light mb-1 overflow-wrap-anywhere tracking-widest">{name.toUpperCase()}</h1>
+        <div className="flex justify-start space-x-5 text-sm mt-2 mb-4">
          {<span>•</span>}
           <p className="overflow-wrap-anywhere ">{basics.email}</p>
           <span>•</span>
@@ -135,7 +135,7 @@ const Section = <T,>({
 
   return (
     <section id={section.id} className="grid">
-      <h4 className=" pb-0.5 text-xl font-bold mb-2">{section.name}</h4>
+      <h4 className=" pb-0.5 text-xl font-bold mb-2">{section.name.toUpperCase()}</h4>
 
       <div
         className="grid gap-x-6 gap-y-3"
@@ -178,7 +178,7 @@ const Experience = () => {
 
   return (
     <section className="overflow-wrap-anywhere">
-      <h2 className="text-xl font-bold mb-2">Experience</h2>
+      <h2 className="text-xl font-bold mb-2">{section.name.toUpperCase()}</h2>
       {section.items.map((item) => (
         <div key={item.id} className="mb-4">
           <h3 className="text-lg font-semibold">{item.position}</h3>
@@ -195,7 +195,7 @@ const Education = () => {
 
   return (
     <section className="overflow-wrap-anywhere">
-      <h2 className="text-xl font-bold mb-2">Education</h2>
+      <h2 className="text-xl font-bold mb-2">{section.name.toUpperCase()}</h2>
       {section.items.map((item) => (
         <div key={item.id} className="mb-4">
           <h3 className="text-lg font-semibold">{item.studyType}</h3>
@@ -270,9 +270,6 @@ const Certifications = () => {
           <div className="text-left">
             <div className="font-bold">{item.name}</div>
             <div>{item.issuer}</div>
-          </div>
-
-          <div className="shrink-0 text-right">
             <div className="font-bold">{item.date}</div>
           </div>
         </div>
@@ -288,7 +285,7 @@ const Skills = () => {
 
   return (
     <section className="">
-      <h2 className="text-xl font-bold mb-2">Core Skills</h2>
+      <h2 className="text-xl font-bold mb-2">{skills.name.toUpperCase()}</h2>
       <ul className="list-disc ml-5">
         {skills.items.map((item, index) => (
           <li key={index}>{item.name}</li>
