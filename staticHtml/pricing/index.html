@@ -691,12 +691,23 @@
 
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script> -->
 	<script>
+
+		function getCookie(name) {
+			const value = `; ${document.cookie}`;
+			console.log(value)
+			const parts = value.split(`; ${name}=`);
+			if (parts.length === 2) return parts.pop().split(';').shift();
+		}
 		document.getElementById("choose-plan").addEventListener("click", function () {
+			const token = getCookie("Authentication");
+			console.log(token)
 			fetch("/api/payment/create-order", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
+					"Authorization": `Bearer ${token}`
 				},
+				credentials: 'include',
 				body: JSON.stringify({
 					userId: "cly12mcab0002fi9hb7t9qsem",
 					amount: 500, // replace with actual amount
@@ -743,7 +754,7 @@
 			// Log the response object
 			console.log("Response:", response);
 			// Send payment details to your backend for verification
-			fetch("/api/payment/verifypayment", {
+			fetch("/api/verify", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

@@ -64,7 +64,7 @@ export class RazorPayService {
 		});
 
 
-		return 'Payment verified successfully';
+		return 'Payment successful';
 	}
 
 	private generateRazorpaySignature(paymentId: string, orderId: string) {

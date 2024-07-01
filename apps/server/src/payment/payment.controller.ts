@@ -1,18 +1,28 @@
 
 
-import { Controller, Post, Body, Req } from '@nestjs/common';
-import { Request } from 'express';
+import { Controller, Post, Body, Req, UseGuards } from '@nestjs/common';
+import { Request as ExpressRequest } from 'express';
 import { RazorPayService } from './payment.service';
+import { JwtGuard } from '../auth/guards/jwt.guard';
 
 @Controller('payment')
+@UseGuards(JwtGuard)
 export class RazorPayController {
 	constructor(private readonly razorpayService: RazorPayService) { }
 
 	@Post('create-order')
-	async createOrder(@Body() orderData: { amount: number; userId: string; }) {
+	async createOrder(@Body() orderData: { amount: number }, @Req() req: ExpressRequest & { user: { id: string } },) {
 		console.log("hello")
-		const order = await this.razorpayService.createOrder(orderData.amount, orderData.userId);
-		return order;
+		const userId = req.user?.id
+		console.log(req.user.id)
+		if (userId) {
+			const order = await this.razorpayService.createOrder(orderData.amount, userId);
+			console.log(order)
+			return order;
+		} else {
+			console.log("Please Login")
+		}
+
 	}
 
 	@Post('verify')
