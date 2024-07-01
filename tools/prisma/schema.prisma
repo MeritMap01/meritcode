@@ -32,6 +32,7 @@ model User {
   provider         Provider
   secrets          Secrets?
   resumes          Resume[]
+  downloads        DownloadTracking[]
 }
 
 model Secrets {
@@ -61,5 +62,15 @@ model Resume {
 
   @@unique([userId, id])
   @@unique([userId, slug])
+  @@index(fields: [userId])
+}
+
+model DownloadTracking {
+  id               String   @id @default(cuid())
+  userId           String
+  downloadTimestamp DateTime @default(now())
+  isFreeDownload   Boolean  @default(true)
+  user             User     @relation(fields: [userId], references: [id])
+
   @@index(fields: [userId])
 }
