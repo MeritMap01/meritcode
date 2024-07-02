@@ -33,79 +33,82 @@ import { Professional } from "./professional";
 import { Classic } from "./classic";
 import { Vintage } from "./vintage";
 import { Sleek } from "./sleek";
+import { Ethereal } from "./ethereal";
 
 
 
 
 export const getTemplate = (template: Template) => {
-  switch (template) {
-    case "azurill":
-      return Azurill;
-    case "nexus":
-      return Nexus;
-    case "genesis":
-      return Genesis;
-    case "zenith":
-      return Zenith;
-    case "bronzor":
-      return Bronzor;
-    case "chikorita":
-      return Chikorita;
-    case "ditto":
-      return Ditto;
-    case "elevate":
-      return Elevate;
-    case "eternal":
-      return Eternal;
-    case "gengar":
-      return Gengar;
-    case "glalie":
-      return Glalie;
-    case "horizon":
-      return Horizon;
-    case "kakuna":
-      return Kakuna;
-    case "leafish":
-      return Leafish;
-    case "majestic":
-      return Majestic;
-    case "naruto":
-      return Naruto;
-    case "nosepass":
-      return Nosepass;
-    case "nurture":
-      return Nurture;
-    case "onyx":
-      return Onyx;
-    case "pikachu":
-      return Pikachu;
-    case "rhyhorn":
-      return Rhyhorn;
-    case "legacy":
-      return Legacy;
-    case "orion":
-      return Orion;
-    case "palette":
-      return Palette;
-    case "ignite":
-      return Ignite;
-    case "joyful":
-      return Joyful;
-    case "pinnacle":
-      return Pinnacle;
-    case "aurora":
-      return Aurora;
-    case "maven":
-      return Maven;
-    case "professional":
-      return Professional;
-    case "classic":
-      return Classic;
-    case "vintage":
-      return Vintage;
-    case "sleek":
-      return Sleek;
-    default:
-      return Onyx;
-  }
+	switch (template) {
+		case "azurill":
+			return Azurill;
+		case "nexus":
+			return Nexus;
+		case "genesis":
+			return Genesis;
+		case "zenith":
+			return Zenith;
+		case "bronzor":
+			return Bronzor;
+		case "chikorita":
+			return Chikorita;
+		case "ditto":
+			return Ditto;
+		case "elevate":
+			return Elevate;
+		case "eternal":
+			return Eternal;
+		case "gengar":
+			return Gengar;
+		case "glalie":
+			return Glalie;
+		case "horizon":
+			return Horizon;
+		case "kakuna":
+			return Kakuna;
+		case "leafish":
+			return Leafish;
+		case "majestic":
+			return Majestic;
+		case "naruto":
+			return Naruto;
+		case "nosepass":
+			return Nosepass;
+		case "nurture":
+			return Nurture;
+		case "onyx":
+			return Onyx;
+		case "pikachu":
+			return Pikachu;
+		case "rhyhorn":
+			return Rhyhorn;
+		case "legacy":
+			return Legacy;
+		case "orion":
+			return Orion;
+		case "palette":
+			return Palette;
+		case "ignite":
+			return Ignite;
+		case "joyful":
+			return Joyful;
+		case "pinnacle":
+			return Pinnacle;
+		case "aurora":
+			return Aurora;
+		case "maven":
+			return Maven;
+		case "professional":
+			return Professional;
+		case "classic":
+			return Classic;
+		case "vintage":
+			return Vintage;
+		case "sleek":
+			return Sleek;
+		case "ethereal":
+			return Ethereal
+		default:
+			return Onyx;
+	}
 };
