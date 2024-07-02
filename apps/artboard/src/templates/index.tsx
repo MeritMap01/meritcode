@@ -33,6 +33,8 @@ import { Professional } from "./professional";
 import {Classic} from "./classic";
 import { Vintage } from "./vintage";
 import { Sleek } from "./sleek";
+import { Simple } from "./simple";
+import { Designer } from "./designer";
 
 
 
@@ -105,6 +107,10 @@ export const getTemplate = (template: Template) => {
       return Vintage;
     case "sleek":
       return Sleek;
+    case "simple":
+      return Simple;
+    case "designer":
+      return Designer;
     default:
       return Onyx;
   }
