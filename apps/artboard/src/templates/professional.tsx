@@ -30,8 +30,8 @@ import {
   
     return (
         <div className="text-center border-b-2 border-gray-400 p-6 pt-10 space-y-4">
-      <h1 className="text-5xl font-bold tracking-widest">{basics.name}</h1>
-      <div className="text-xl text-center text-gray-600 overflow-wrap-anywhere tracking-widest">{basics.headline}</div>
+      <h1 className="text-6xl font-extrabold tracking-wide">{basics.name.toUpperCase()}</h1>
+      <div className="text-2xl text-center text-gray-600 overflow-wrap-anywhere tracking-widest">{basics.headline}</div>
     </div>
     );
   };
@@ -41,7 +41,7 @@ import {
   
     return (
       <section className="m-2 mt-0 p-2 space-y-2">
-        <h2 className="font-bold border-b-2 border-gray-400 tracking-widest">CONTACT</h2>
+        <h2 className="font-bold border-b-2 border-gray-400 tracking-widest text-xl mb-5 pb-1">CONTACT</h2>
         <div className="space-y-1 text-sm">
           {
             basics.phone && 
@@ -54,7 +54,7 @@ import {
           }
           {basics.email && 
           <div className="flex items-center space-x-4 overflow-wrap-anywhere">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width="20" height="20">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width="10" height="10">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 13.5h3.86a2.25 2.25 0 0 1 2.012 1.244l.256.512a2.25 2.25 0 0 0 2.013 1.244h3.218a2.25 2.25 0 0 0 2.013-1.244l.256-.512a2.25 2.25 0 0 1 2.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 0 0-2.15-1.588H6.911a2.25 2.25 0 0 0-2.15 1.588L2.35 13.177a2.25 2.25 0 0 0-.1.661Z" />
             </svg>
             <div>{basics.email}</div>
@@ -62,7 +62,7 @@ import {
             }
           {basics.location &&
           <div className="flex items-center space-x-4 overflow-wrap-anywhere">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width="20" height="20">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width="10" height="10">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
           </svg>
@@ -72,7 +72,7 @@ import {
           {basics.url.href && 
           (
             <div className="flex items-center space-x-4 overflow-wrap-anywhere">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width="20" height="20">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width="10" height="10">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
               </svg>
 
@@ -94,7 +94,7 @@ import {
   
     return (
         <section className="m-4">
-            <h2 className="font-bold border-b-2 border-gray-400 tracking-widest">PROFESSIONAL SUMMARY</h2>
+            <h2 className="font-bold border-b-2 border-gray-400 tracking-widest text-xl mb-5 pb-1">{section.name.toUpperCase()}</h2>
             <div
             className="wysiwyg overflow-wrap-anywhere"
             dangerouslySetInnerHTML={{ __html: section.content }} />
@@ -163,17 +163,17 @@ import {
     return (
       <section id={section.id} className="grid ml-4">
         <div className="m-2 ml-0 font-bold  group-[.main]:block">
-          <h4 className="tracking-widest border-b-2 border-gray-400">{section.name.toUpperCase()}</h4>
+          <h4 className="tracking-widest border-b-2 border-gray-400 mb-5 pb-1 text-xl">{section.name.toUpperCase()}</h4>
         </div>
   
         <div className="mx-auto mb-2 ml-4 hidden items-center gap-x-2 text-center font-bold text-primary group-[.sidebar]:flex">
           <div className="h-1.5 w-1.5 rounded-full border border-primary" />
-          <h4>{section.name}</h4>
+          <h4>{section.name.toUpperCase()}</h4>
           <div className="h-1.5 w-1.5 rounded-full border border-primary" />
         </div>
   
         <div
-          className="grid gap-x-6 gap-y-3 group-[.sidebar]:mx-auto ml-4 group-[.sidebar]:text-center"
+          className="grid gap-x-6 gap-y-3 group-[.sidebar]:mx-auto"
           style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
         >
           {section.items
@@ -253,17 +253,17 @@ import {
   
     return (
         <section className="p-4 overflow-wrap-anywhere">
-        <h4 className="font-bold border-b-2 border-gray-400 tracking-widest">EXPERIENCE</h4>
+        <h4 className="font-bold border-b-2 border-gray-400 tracking-widest text-xl mb-5 pb-1">{section.name.toUpperCase()}</h4>
         {section.items.map((item) => (
-          <div key={item.id} className="mb-4">
-            <div className="flex items-center space-x-12">
-                <h4 className="font-bold overflow-wrap-anywhere">{item.company}</h4>
-                <p className="overflow-wrap-anywhere">{item.location}</p>
+          <div key={item.id} className="mb-4 mt-3">
+            <div className="flex items-center space-x-4">
+                <h4 className="font-bold overflow-wrap-anywhere">{item.company.toUpperCase()}</h4>
+                <p className="overflow-wrap-anywhere">{item.location&&"- "}{item.location}</p>
             </div>
-            <div className="flex items-center space-x-12">
+            <div className="flex items-center space-x-4">
             <h4 className="font-bold ">{item.position}</h4>
               <div className="shrink-0 text-right overflow-wrap-anywhere">
-                  <div className="font-bold">{item.date}</div>
+                  <div>{item.date&&"- "}{item.date}</div>
               </div>
             </div>
             <p className="overflow-wrap-anywhere text-left"> {item.url.href}</p>
@@ -279,14 +279,14 @@ import {
   
     return (
         <section className="p-4">
-        <h4 className="font-bold border-b-2 border-gray-400 tracking-widest">EDUCATION</h4>
+        <h4 className="font-bold border-b-2 text-xl border-gray-400 tracking-widest mb-5  pb-1">{section.name.toUpperCase()}</h4>
         {section.items.map((item) => (
           <div key={item.id} className="mb-4">
             <h4 className="text-l">{item.institution}</h4>
             <h4 className="text-l overflow-wrap-anywhere ">{item.studyType}</h4>
-            <div className="text-l shrink-0 text-left overflow-wrap-anywhere">{item.date}</div>          
             <p>{item.area}</p>
             <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: item.summary }} />
+            <div className="text-l font-bold shrink-0 text-left overflow-wrap-anywhere">{item.date}</div>          
           </div>
         ))}
       </section>
@@ -342,11 +342,11 @@ import {
   
     return (
     <section className="p-4">
-      <h4 className="font-bold border-b-2 border-gray-400 tracking-widest">EXPERTISE</h4>
-      <ul className=" grid grid-cols-1 gap-2 fas fa-caret-right list-inside">
+      <h4 className="font-bold border-b-2 border-gray-400 tracking-widest text-xl mb-5 pb-1">{section.name.toUpperCase()}</h4>
+      <ul className=" grid grid-cols-1 gap-2 mt-3 fas fa-caret-right list-inside">
         {section.items.map((item) => (
-          <div className="flex items-center space-x-8">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="20" height="20">
+          <div className="flex items-center space-x-5">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="10" height="10">
                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
             </svg>
             <li  key={item.id}>{item.name}</li>

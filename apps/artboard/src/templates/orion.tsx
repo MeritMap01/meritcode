@@ -4,7 +4,7 @@ import {
   CustomSection,
   CustomSectionGroup,
   Education,
-  // Experience,
+  Experience,
   Interest,
   Language,
   Profile,
@@ -29,7 +29,7 @@ const Header = () => {
   const basics = useArtboardStore((state) => state.resume.basics);
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-2 pb-2 text-center border-b-2 border-gray-600">
+    <div className="flex flex-col items-center justify-center space-y-2 pb-2 mt-5 text-center border-b-2 border-gray-600">
       
       <div>
         <div className="text-3xl font-bold font-roboto">{basics.name}</div>
@@ -145,9 +145,10 @@ const Section = <T,>({
       </div>
 
       <div
-        className="grid gap-x-6 gap-y-3 group-[.sidebar]:mx-auto group-[.sidebar]:text-center"
+        className={cn(section.id === "profiles" || section.id==="certifications" ? "flex flex-wrap gap-x-8 gap-y-4 text-left":"grid gap-x-6 gap-y-3 group-[.sidebar]:mx-auto group-[.sidebar]:text-center",className)}
         style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
       >
+
         {section.items
           .filter((item) => item.visible)
           .map((item) => {
@@ -224,23 +225,21 @@ const Experience = () => {
   const section = useArtboardStore((state) => state.resume.sections.experience);
 
   return (
-    <section className="mb-6">
-      
-      <h2 className="text-lg font-semibold ">Experience</h2>
-      {section.items.map((item) => (
-        <div key={item.id} className="">
-          <div className="flex items-center space-x-12 w-full">
-              <h3 className="font-bold overflow-wrap-anywhere flex-grow"> {item.company}</h3>
-              <div className="shrink-0 text-right overflow-wrap-anywhere">
-                  <div className="font-bold">{item.date}</div>
-              </div>
-          </div>
-          <p className="font-bold">{item.position}, {item.location}</p>
-
-          <p className="mt-1" dangerouslySetInnerHTML={{ __html: item.summary }} />
+    <Section<Experience> section={section} urlKey="url" summaryKey="summary">
+    {(item) => (
+      <div className="flex items-center justify-between">
+        <div className="text-left">
+          <div className="font-bold">{item.company}</div>
+          <div>{item.position}</div>
+          <div>{item.location}</div>
         </div>
-      ))}
-    </section>
+
+        <div className="shrink-0 text-right">
+          <div className="font-bold">{item.date}</div>
+        </div>
+      </div>
+    )}
+  </Section>
   );
 };
 
@@ -253,13 +252,13 @@ const Education = () => {
         <div className="flex items-center justify-between overflow-wrap-anywhere">
         <div className="text-left">
           <div className="font-bold">{item.institution}</div>
+          <div>{item.studyType}</div>
           <div>{item.area}</div>
           <div>{item.score}</div>
         </div>
 
         <div className="shrink-0 text-right overflow-wrap-anywhere">
           <div className="font-bold">{item.date}</div>
-          <div>{item.studyType}</div>
         </div>
       </div>
       )}
@@ -271,7 +270,7 @@ const Awards = () => {
   const section = useArtboardStore((state) => state.resume.sections.awards);
 
   return (
-    <Section<Award> section={section} urlKey="url" summaryKey="summary">
+    <Section<Award> section={section} urlKey="url" summaryKey="summary" className="flex gap-x-10">
       {(item) => (
         <div>
           <div className="font-bold">{item.title}</div>
@@ -299,12 +298,12 @@ const Certifications = () => {
   );
 };
 
-const CoreCompetencies = () => {
+const Skills = () => {
   const section = useArtboardStore((state) => state.resume.sections.skills);
 
   return (
     <section id={section.id} className="mt-4">
-      <h2 className="font-bold">Core Competencies</h2>
+      <h2 className="font-bold">{section.name}</h2>
       <ul className="mt-2 grid grid-cols-4 gap-2 list-disc list-inside">
         {section.items.map((item) => (
           <li key={item.id}>{item.name}</li>
@@ -385,7 +384,7 @@ const Projects = () => {
     <Section<Project> section={section} urlKey="url" summaryKey="summary" keywordsKey="keywords">
       {(item) => (
         <div>
-          <div className="m-4">
+          <div>
             <div className="font-bold">{item.name}</div>
             <div>{item.description}</div>
 
@@ -452,7 +451,7 @@ const mapSectionToComponent = (section: SectionKey) => {
     case "certifications":
       return <Certifications />;
     case "skills":
-      return <CoreCompetencies/>;
+      return <Skills/>;
     case "interests":
       return <Interests />;
     case "publications":
@@ -474,18 +473,23 @@ const mapSectionToComponent = (section: SectionKey) => {
 
 export const Orion = ({ columns, isFirstPage = false }: TemplateProps) => {
   const [main,sidebar] = columns;
-
+  const margin = useArtboardStore((state) => state.resume.metadata.page.margin)
   return (
-    <div className="p-2 space-y-0 bg-white">
+    <div className={`p-2 space-y-0 m-${margin}`} style={{margin:margin}}>
       {isFirstPage && <Header />}
 
       
       <div className="col-span-3  p-4 rounded-lg space-y-6">
         {main.map((section) => (
           <Fragment key={section}>
-                    
                     {mapSectionToComponent(section)}
-                    
+          </Fragment>
+        ))}
+      </div>
+      <div className="col-span-3  p-4 rounded-lg space-y-6">
+        {sidebar.map((section) => (
+          <Fragment key={section}>
+                    {mapSectionToComponent(section)}
           </Fragment>
         ))}
       </div>

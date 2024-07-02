@@ -36,7 +36,7 @@ import {
     return (
     <div className="flex flex-row text-left justify-between p-4">
         <div className="flex flex-col w-3/5  mr-2">
-            <h1 className="text-5xl tracking-wide p-2" style={{color:primaryColor}}>{basics.name}</h1> 
+            <h1 className="text-5xl tracking-wide pb-1 mt-4" style={{color:primaryColor}}>{basics.name}</h1> 
             <div className="border-t-2 border-gray-600 w-full mt-2 mb-2"></div> 
             <div className="text-extrabold tracking-widest p-2" style={{color:primaryColor}}>{basics.headline.toUpperCase()}</div>
         </div>
@@ -152,12 +152,12 @@ import {
     const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary)
     return (
       <section id={section.id} className=" flex flex-col  pt-2.5" style={{ borderTopColor: primaryColor }}>
-        <div className="flex flex-col items-start">
+        <div className="flex flex-col items-start mb-3">
           <h4 className="text-base font-bold tracking-normal" style={{color:primaryColor}}>{section.name.toUpperCase()}</h4>
         </div>
   
         <div
-          className=" gap-x-6 gap-y-3 grid grid-cols-3"
+          className={cn("gap-x-6 gap-y-3 grid grid-cols-3",className)}
           style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
         >
           {section.items
@@ -198,7 +198,7 @@ import {
   
     return (
 
-      <Section<Profile> section={section} className="grid grid-cols-3">
+      <Section<Profile> section={section} className="flex">
         {(item) => (
           <div className="col-span-1">
             {isUrl(item.url.href) ? (
@@ -234,13 +234,12 @@ import {
         {(item) => (
           <div className="flex items-center justify-between">
             <div className="text-left">
-              <div className="font-bold" style={{color:primaryColor}}>{item.company}</div>
+              <div className="font-bold text-xl" style={{color:primaryColor}}>{item.company}</div>
               <div>{item.position}</div>
             </div>
   
             <div className="shrink-0 text-right">
-              <div className="font-bold">{item.date}</div>
-              <div>{item.location}</div>
+              <div>{item.date}</div>
             </div>
           </div>
         )}
@@ -255,16 +254,16 @@ import {
     return (
       <Section<Education> section={section} urlKey="url" summaryKey="summary">
         {(item) => (
-          <div className="flex items-center justify-between">
+          <div className="flex justify-between">
             <div className="text-left">
-              <div className="font-bold" style={{color:primaryColor}}>{item.institution}</div>
+              <div className="font-bold text-xl" style={{color:primaryColor}}>{item.institution}</div>
+              <div>{item.studyType}</div>
               <div>{item.area}</div>
               <div>{item.score}</div>
             </div>
   
             <div className="shrink-0 text-right">
-              <div className="font-bold">{item.date}</div>
-              <div>{item.studyType}</div>
+              <div>{item.date}</div>
             </div>
           </div>
         )}
@@ -295,18 +294,16 @@ import {
   
   const Certifications = () => {
     const section = useArtboardStore((state) => state.resume.sections.certifications);
-  
+    const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary)
+
     return (
-      <Section<Certification> section={section} urlKey="url" summaryKey="summary">
+      <Section<Certification> section={section} urlKey="url" summaryKey="summary" className="flex">
         {(item) => (
           <div className="flex items-center justify-between">
             <div className="text-left">
-              <div className="font-bold">{item.name}</div>
+              <div className="font-bold text-xl" style={{color:primaryColor}}>{item.name}</div>
               <div>{item.issuer}</div>
-            </div>
-  
-            <div className="shrink-0 text-right">
-              <div className="font-bold">{item.date}</div>
+              <div>{item.date}</div>
             </div>
           </div>
         )}
@@ -422,7 +419,7 @@ import {
         {(item) => (
           <div className="flex items-center justify-between col-span-1">
             <div className="text-left">
-              <div className="font-bold" style={{color:primaryColor}}>{item.name}</div>
+              <div className="font-bold text-xl" style={{color:primaryColor}}>{item.name}</div>
               <div>{item.description}</div>
             </div>
   

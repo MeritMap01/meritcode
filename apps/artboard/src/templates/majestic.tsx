@@ -190,7 +190,7 @@ import {
     const fontSize = useArtboardStore((state) => state.resume.metadata.typography.font.size);
     if (!section.visible || !section.items.length) return null;
     return (
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-5xl">
         <h2 className="mb-2 text-center text-lg font-bold">{section.name}</h2>
         <div className="grid grid-cols-3 gap-y-2">
           {section.items.map((item) => (

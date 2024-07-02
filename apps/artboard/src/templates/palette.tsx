@@ -30,27 +30,27 @@ const Header = () => {
   const { name, headline, phone,picture,location,email,url } = useArtboardStore((state) => state.resume.basics);
   
   return (
-    <header className="flex flex-col items-center justify-between p-4 rounded-md">
-    <img src={picture.url} alt="Profile" className="w-30 h-30 rounded-full m-1" />
-    <div className="flex flex-col items-center m-2">
-      <h1 className="text-3xl font-bold text-center">{name}</h1>
-      <h2 className="text-xl text-gray-600 text-center">{headline}</h2>
+    <header className="flex flex-col  justify-between rounded-md ">
+<img src={picture.url} alt="Profile" className="w-30 h-30 rounded-full border-solid" />
+<div className="flex flex-col items-start mb-7 mt-3">
+      <h1 className="text-3xl font-bold text-left mb-2">{name}</h1>
+      <h2 className="text-xl text-gray-600 text-left">{headline.toUpperCase()}</h2>
     </div>
-    <div className="flex flex-col items-center m-2 space-y-2">
-      <div className="flex items-center space-x-2 max-w-full">
+    <div className="flex flex-col items-start mt-3  mb-7 space-y-2">
+      <div className="flex items- space-x-2 max-w-full">
         <i className="ph ph-bold ph-map-pin text-primary" style={{ color: "#454040" }} />
-        <p className="break-words text-center">{location}</p>
+        <p className="break-words text-left">{location}</p>
       </div>
-      <div className="flex items-center space-x-2 max-w-full">
+      <div className="flex items-start space-x-2 max-w-full">
         <i className="ph ph-bold ph-phone text-primary" style={{ color: "#454040" }} />
-        <p className="break-words text-center">{phone}</p>
+        <p className="break-words text-left">{phone}</p>
       </div>
-      <div className="flex items-center space-x-2 max-w-full">
+      <div className="flex items-start space-x-2 max-w-full">
         <i className="ph ph-bold ph-at text-primary" style={{ color: "#454040" }} />
-        <p className="break-words text-center">{email}</p>
+        <p className="break-words text-left">{email}</p>
       </div>
-      <div className="flex items-center space-x-2 max-w-full">
-        <p className="break-words text-center overflow-wrap-anywhere">{url.href}</p>
+      <div className="flex items-start space-x-2 max-w-full">
+        <p className="break-words text-left overflow-wrap-anywhere">{url.href}</p>
       </div>
     </div>
   </header>
@@ -66,7 +66,7 @@ const Summary = () => {
 
   return (
     <section id={section.id}>
-       <h3 className="text-lg font-sans border-b-2 font-semibold mb-2" style={{ color: '#454040' }}>SUMMARY</h3>
+       <h3 className="text-2xl tracking-wide font-sans border-b-2 font-semibold  mb-7 pb-2" style={{ color: '#454040' }}>{section.name.toUpperCase()}</h3>
 
       <div
         className="wysiwyg"
@@ -146,7 +146,7 @@ const Section = <T,>({
 
   return (
     <section id={section.id} className="grid text-wrap">
-       <h3 className="text-lg text-wrap font-sans border-b-2 font-semibold mb-2" style={{ color: '#454040' }}>{section.name.toUpperCase()}</h3>
+       <h3 className="text-2xl tracking-wide text-wrap font-sans border-b-2 font-semibold mb-7 pb-2" style={{ color: '#454040' }}>{section.name.toUpperCase()}</h3>
       <div
         className="grid gap-x-6 text-wrap gap-y-3"
         style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
@@ -217,20 +217,24 @@ const Profiles = () => {
 
 const WorkExperience = () => {
   const experience = useArtboardStore((state) => state.resume.sections.experience);
-
   if (!experience.visible || !experience.items.length) return null;
 
   return (
     <section className="mt-6">
-      <h3 className="text-lg font-sans border-b-2 font-semibold mb-2" style={{ color: '#454040' }}>WORK EXPERIENCE</h3>
+<h3 className="text-2xl tracking-wide font-sans border-b-2 font-semibold mb-7 pb-2 inline-block" style={{ color: '#454040' }}>
+  {experience.name.toUpperCase()}
+</h3>
       {experience.items.map((item) => (
-        <div key={item.id} className="mb-4">
-          <h4 className="font-sans font-bold">{item.position} - {item.company}</h4>
-          <div className="flex justify-between">
+        <div key={item.id} className="mb-4 mt-3">
+          <h4 className="text-xl font-bold tracking-wide mt-2 mb-2">{item.position.toUpperCase()}</h4>
+          <h4 className="text-xl font-bold tracking-wide text-gray-500 italic color-[#94a3b8]">{item.company}</h4>
+          <div className="flex justify-between mb-3">
             <p>{item.location}</p>
             <p>{item.date}</p>
           </div>
-          <p className="mt-1" dangerouslySetInnerHTML={{ __html: item.summary }} />
+          {item.summary !== undefined && !isEmptyString(item.summary) && (
+                  <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: item.summary }} />
+                )}
         </div>
       ))}
     </section>
@@ -245,15 +249,17 @@ const Education = () => {
 
   return (
     <section className="mb-6">
-      <h3 className="text-lg font-sans border-b-2 font-semibold mb-2" style={{ color: '#454040' }}>EDUCATION</h3>
+      <h3 className="text-2xl tracking-wide font-sans border-b-2 font-semibold  mb-7 pb-2" style={{ color: '#454040' }}>{education.name.toUpperCase()}</h3>
       {education.items.map((item) => (
         <div key={item.id} className="mt-2">
-          <h4 className="font-bold" style={{color:"#959392"}}>{item.institution}</h4>
-          <p className="italic">{item.area}</p>
-          <p >{item.studyType}</p>
-          <div className="shrink-0 text-right">
-            <div className="font-bold">{item.date}</div>
+          <div className="flex justify-between">
+          <h4 className="text-xl font-bold">{item.studyType}</h4>
+         < div className="shrink-0 text-right">
+            <div>{item.date}</div>
           </div>
+          </div>
+          <h4 className="font-bold text-gray-600 italic text-xl">{item.institution}</h4>
+          <p>{item.area}</p>
         </div>
       ))}
     </section>
