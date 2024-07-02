@@ -4,7 +4,7 @@ import {
     CustomSection,
     CustomSectionGroup,
     // Education,
-   // Experience,
+  //  Experience,
     Interest,
     Language,
     Profile,
@@ -37,15 +37,15 @@ import {
             </div>
           </div>
           <div  className="overflow-wrap-anywhere">
-            <h1 className="text-4xl font-bold break-all">{basics.name}</h1>
+            <h1 className="text-5xl font-bold break-all tracking-widest mb-2">{basics.name.toUpperCase()}</h1>
             <h2 className="text-2xl break-word">{basics.headline}</h2>
           </div>
-          <div className="overflow-wrap-anywhere">
+          {/* <div className="overflow-wrap-anywhere">
              <h3 className="text-xl font-bold text-yellow-300">Get In Touch</h3>
              <p>Email: {basics.email}</p>
              <p>Website: {basics.url.href}</p>
              <p>Contact: {basics.phone}</p>
-             <p>Address: {basics.location}</p></div>
+             <p>Address: {basics.location}</p></div> */}
         </div>
         <div className="absolute bottom-0 left-0 w-full">
           <svg viewBox="0 0 500 150" preserveAspectRatio="none" className="w-full h-10">
@@ -74,8 +74,8 @@ import {
     if (!section.visible || isEmptyString(section.content)) return null;
   
     return (
-        <section className="p-6">
-        <h3 className="text-xl font-bold text-teal-400">Professional Bio</h3>
+        <section className="ml-5">
+        <h3 className="text-xl font-bold text-teal-400 mb-4 tracking-widest">{section.name.toUpperCase()}</h3>
         <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: section.content }} />
         
       </section>
@@ -141,19 +141,19 @@ import {
     if (!section.visible || !section.items.length) return null;
   
     return (
-      <section id={section.id} className="grid ml-4">
-        <div className="mb-2 ml-4 font-bold text-teal-400 group-[.main]:block">
-          <h4>{section.name.toUpperCase()}</h4>
+      <section id={section.id} className="grid">
+        <div className="mb-4 mt-7 tracking-wider font-bold text-teal-400 group-[.main]:block">
+          <h4 className="tracking-widest text-xl">{section.name.toUpperCase()}</h4>
         </div>
   
-        <div className="mx-auto mb-2 ml-4 hidden items-center gap-x-2 text-center font-bold text-primary group-[.sidebar]:flex">
+        <div className="mx-auto mb-2  hidden items-center gap-x-2 text-center font-bold text-primary group-[.sidebar]:flex">
           <div className="h-1.5 w-1.5 rounded-full border border-primary" />
           <h4>{section.name}</h4>
           <div className="h-1.5 w-1.5 rounded-full border border-primary" />
         </div>
   
         <div
-          className="grid gap-x-6 gap-y-3 group-[.sidebar]:mx-auto ml-4 group-[.sidebar]:text-center"
+          className="grid gap-x-6 gap-y-3 group-[.sidebar]:mx-auto  group-[.sidebar]:text-center"
           style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
         >
           {section.items
@@ -232,18 +232,18 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.experience);
   
     return (
-        <section className="p-4 overflow-wrap-anywhere">
-        <h3 className="text-xl font-bold text-teal-400">Employment History</h3>
+        <section className="overflow-wrap-anywhere">
+        <h3 className="text-xl font-bold text-teal-400 mt-7 mb-4 tracking-widest">{section.name.toUpperCase()}</h3>
         {section.items.map((item) => (
           <div key={item.id} className="mb-4">
-            <h4 className="font-bold text-yellow-300">{item.position}</h4>
-            <div className="flex items-center space-x-12">
-              <h4 className="font-bold overflow-wrap-anywhere">{item.company}</h4>
-              <div className="shrink-0 text-right overflow-wrap-anywhere">
+            <h4 className="font-bold text-xl text-yellow-300 tracking-widest">{item.position}</h4>
+            <div className="flex items-center justify-between space-x-12">
+              <h4 className="font-bold overflow-wrap-anywhere">{item.company} | {item.date}</h4>
+              {/* <div className="shrink-0 text-right overflow-wrap-anywhere">
                   <div className="font-bold">{item.date}</div>
-              </div>
+              </div> */}
             </div>
-            <p className="overflow-wrap-anywhere">{item.location}  {item.url.href}</p>
+            <p className="overflow-wrap-anywhere mb-4">{item.location}  {item.url.href}</p>
             <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: item.summary }} />
           </div>
         ))}
@@ -255,16 +255,16 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.education);
   
     return (
-        <section className="p-4">
-        <h3 className="text-xl font-bold text-teal-400">Academic Profile</h3>
+        <section >
+        <h3 className="text-xl font-bold text-teal-400 mt-7 mb-4 tracking-widest">{section.name.toUpperCase()}</h3>
         {section.items.map((item) => (
           <div key={item.id} className="mb-4">
-            <h4 className="font-bold text-yellow-300">{item.institution}</h4>
-            <div className="flex items-center space-x-12">
-              <h4 className="font-bold overflow-wrap-anywhere">{item.studyType}</h4>
-              <div className="shrink-0 text-right overflow-wrap-anywhere">
+            <h4 className="font-bold text-xl text-yellow-300 tracking-widest">{item.institution}</h4>
+            <div className="flex items-center justify-between space-x-12">
+              <h4 className="font-bold overflow-wrap-anywhere">{item.studyType} | {item.date}</h4>
+              {/* <div className="shrink-0 text-right overflow-wrap-anywhere">
                   <div className="font-bold">{item.date}</div>
-              </div>
+              </div> */}
             </div>
             <p>{item.area}</p>
             <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: item.summary }} />
@@ -302,11 +302,11 @@ import {
       <Section<Certification> section={section} urlKey="url" summaryKey="summary">
         {(item) => (
           <div className="overflow-wrap-anywhere">
-            <div className="flex items-center space-x-12">
-              <h4 className="font-bold overflow-wrap-anywhere">{item.name}</h4>
-              <div className="shrink-0 text-right overflow-wrap-anywhere">
-                  <div className="font-bold">{item.date}</div>
-              </div>
+            <div className="flex items-center justify-between space-x-12">
+            <h4 className="font-bold break-words">
+  {item.name}
+  {item.date && <span> - {item.date}</span>}
+</h4>
             </div>
             <div>{item.issuer}  </div>
             <div> {item.url.href}</div>
@@ -322,8 +322,8 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.skills);
   
     return (
-<section className="p-6">
-      <h3 className="text-xl font-bold text-teal-400">Skills and Abilities</h3>
+<section>
+      <h3 className="text-xl font-bold text-teal-400 mb-5 mt-7 tracking-widest">{section.name.toUpperCase()}</h3>
       <ul className="mt-2 grid grid-cols-1 gap-2 list-disc list-inside">
         {section.items.map((item) => (
           <li key={item.id}>{item.name}</li>
@@ -511,19 +511,32 @@ import {
   
   export const Joyful = ({ columns, isFirstPage = false }: TemplateProps) => {
     const [main, sidebar] = columns;
-  
+    const basics = useArtboardStore((state) => state.resume.basics);
+    const margin = useArtboardStore((state)=>state.resume.metadata.page.margin)
     return (
       <div className="pt-0 space-y-0">
         {isFirstPage && <Header />}
   
-        <div className="flex flex-1 overflow-wrap ">
+        <div className="flex flex-1 overflow-wrap " style={{margin:margin}}>
           
-          <div className="w-2/5 p-4 space-y-2 max-w-full break-words overflow-wrap-anywhere">
+          <div className="w-2/5 space-y-2 max-w-full break-words overflow-wrap-anywhere">
+          <div className="overflow-wrap-anywhere">
+             <h3 className="text-xl font-bold text-teal-400 mb-5 tracking-wider">GET IN TOUCH</h3>
+             <p>Email: {basics.email}</p>
+             <p>Website: {basics.url.href}</p>
+             <p>Contact: {basics.phone}</p>
+             <p>Address: {basics.location}</p></div>
             {sidebar.map((section) => (
               <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
             ))}
+            {/* <div className="overflow-wrap-anywhere">
+             <h3 className="text-xl font-bold text-yellow-300">Get In Touch</h3>
+             <p>Email: {basics.email}</p>
+             <p>Website: {basics.url.href}</p>
+             <p>Contact: {basics.phone}</p>
+             <p>Address: {basics.location}</p></div> */}
           </div>
-          <div className="flex-1 p-2 space-y-0 max-w-full break-words overflow-wrap-anywhere">
+          <div className="flex-1 space-y-0 space-x-5 max-w-full break-words overflow-wrap-anywhere">
             {main.map((section) => (
               <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
             ))}
