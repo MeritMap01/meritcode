@@ -24,6 +24,7 @@ import { Legacy } from "./legacy";
 import { Orion } from "./orion";
 import { Palette } from "./palette";
 import { Ignite } from "./ignite";
+import {Innovate} from "./innovate";
 import { Joyful } from "./joyful";
 import { Zenith } from "./zenith";
 import { Pinnacle } from "./pinnacle";
@@ -63,6 +64,8 @@ export const getTemplate = (template: Template) => {
       return Glalie;
     case "horizon":
       return Horizon;
+    case "innovate":
+      return Innovate;
     case "kakuna":
       return Kakuna;
     case "leafish":
