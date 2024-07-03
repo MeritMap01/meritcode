@@ -17,7 +17,6 @@ export const templatesList = [
   "nurture",
   "eternal",
   "innovate",
-  "equinox",
   // Vamsi
   "genesis",
   "nexus",
@@ -27,6 +26,7 @@ export const templatesList = [
   "maven",
   "vintage",
   "sleek",
+  "equinox",
   // Old
   "azurill",
   "bronzor",
