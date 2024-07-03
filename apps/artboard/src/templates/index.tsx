@@ -36,6 +36,7 @@ import { Vintage } from "./vintage";
 import { Sleek } from "./sleek";
 import { Simple } from "./simple";
 import { Designer } from "./designer";
+import { Equinox } from "./equinox";
 
 
 
@@ -114,6 +115,8 @@ export const getTemplate = (template: Template) => {
       return Simple;
     case "designer":
       return Designer;
+    case "equinox":
+      return Equinox;
     default:
       return Onyx;
   }
