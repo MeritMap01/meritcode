@@ -7,6 +7,8 @@ export const templatesList = [
   "joyful",
   "professional",
   "classic",
+  "simple",
+  "designer",
   // Vivek
   "majestic",
   "horizon",
