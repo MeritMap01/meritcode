@@ -29,18 +29,14 @@ import {
     const basics = useArtboardStore((state) => state.resume.basics);
     const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary);
     return (
-      <div className="flex items-center space-x-4 border-b">
-        
-        <div className="space-y-2 text-left m-10 ">
-          <div className="ml-6">
+      <div className="flex items-center space-x-4 border-b">  
+        <div className="space-y-2 text-left m-10 ml-0  ">
             <div className="text-5xl tracking-normal font-bold mb-4" style={{ color: primaryColor }}>
               {basics.name}
             </div>
             <div className="text-3xl " style={{ color: primaryColor }}>
               {basics.headline}
             </div>
-          </div>
-        
         </div>
         <Picture className="mt-2 mb-2" />
       </div>
@@ -53,11 +49,10 @@ import {
     if (!section.visible || isEmptyString(section.content)) return null;
   
     return (
-      <section id={section.id} className="flex flex-col   pt-2.5">
-        <div className="m-4">
-          <h4 className="text-base tracking-[3px] font-bold text-primary">{section.name.toUpperCase()}</h4>
+      <section id={section.id} className="flex flex-col p-4 pl-0 pr-0">
+        <div className="m-auto ml-0">
+          <h4 className="text-base tracking-normal font-bold text-primary">{section.name}</h4>
         </div>
-  
         <div
           className="wysiwyg col-span-3"
           style={{ columns: section.columns }}
@@ -168,7 +163,7 @@ import {
     return (
       <section id={section.id} className="grid grid-cols-5 border-b pt-2.5">
         <div>
-          <h4 className="text-base tracking-[3px] font-bold text-primary">{section.name.toUpperCase()}</h4>
+          <h4 className="text-base tracking-normal font-bold text-primary">{section.name}</h4>
         </div>
   
         <div
@@ -250,7 +245,7 @@ import {
               <div className="font-bold">{item.company}</div>
               
               <div className="flex items-center">
-              <div className="m-2">{item.position}</div>
+              <div className="m-2 ml-0">{item.position}</div>
               <div style={{ height: '20px', width: '1px', backgroundColor: 'black' }}></div>
               <div className="m-2">{item.date}</div>
             </div>
