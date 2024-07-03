@@ -30,7 +30,7 @@ import { Pinnacle } from "./pinnacle";
 import { Aurora } from "./aurora"
 import { Maven } from "./maven";
 import { Professional } from "./professional";
-import {Classic} from "./classic";
+import { Classic } from "./classic";
 import { Vintage } from "./vintage";
 import { Sleek } from "./sleek";
 import { Simple } from "./simple";
