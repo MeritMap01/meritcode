@@ -168,7 +168,7 @@ import {
     return (
       <section id={section.id} className="grid grid-cols-5 border-b pt-2.5">
         <div>
-          <h4 className="text-base tracking-[3px] font-bold text-primary">{section.name.toUpperCase()}</h4>
+          <h4 className="text-base tracking-[3px] font-bold text-primary mr-2">{section.name.toUpperCase()}</h4>
         </div>
   
         <div
