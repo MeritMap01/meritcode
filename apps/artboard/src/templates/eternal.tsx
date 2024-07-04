@@ -154,7 +154,7 @@ import {
         <div className="flex-grow mb-3 border-t-2 border-[#7F7A7A] border-dashed "></div>
       </div>  
         <div
-          className="grid gap-x-2"
+          className={cn("grid gap-x-2", className)}
           style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
         >
           {section.items
@@ -236,7 +236,7 @@ import {
           <div className="flex flex-col justify-content-center items-start">
             <div className="flex flex-row justify-content-center items-center text-start">
               <div className="font-bold">{item.company}</div>
-              <div> - {item.location} </div>
+              {item.location && <div> - {item.location} </div>}
               {item.date && (<div ><span className="pl-1"> (</span>{item.date}<span>)</span></div>)}
               
             </div>
@@ -295,16 +295,15 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.certifications);
   
     return (
-      <Section<Certification> section={section} urlKey="url" summaryKey="summary" className="flex flex-row">
+      <Section<Certification> section={section} urlKey="url" summaryKey="summary" className="flex flex-row gap-x-7">
         {(item) => (
           <div className="flex items-center justify-between">
             <div className="text-left">
-              <div className="font-bold">{item.name}</div>
+              <div className="flex">
+                <div className="font-bold">{item.name}</div>
+                <div className="ml-3">{item.date}</div>
+              </div>
               <div>{item.issuer}</div>
-            </div>
-  
-            <div className="shrink-0 text-right">
-              <div className="font-bold">{item.date}</div>
             </div>
           </div>
         )}
@@ -331,12 +330,12 @@ import {
                 
                 <div className="flex flex-col ">
                   <div className="flex">
-                  <span className="h-1 w-1 rounded-full bg-black mt-2 mr-2"></span>
+                  <span className="h-1 w-1 rounded-full bg-black mt-2 mr-2 flex-shrink-0"></span>
                 <div className="text-left pr-2 font-medium">{item.name}</div>
                 </div>
-                <div className="ml-4">{item.description}</div>
+                <div className="ml-3">{item.description}</div>
                 {keywords !== undefined && keywords.length > 0 && (
-                  <p className="text-sm ml-4">{keywords.join(", ")}</p>
+                  <p className="text-sm ml-3">{keywords.join(", ")}</p>
                 )}
                 </div>
               </div>

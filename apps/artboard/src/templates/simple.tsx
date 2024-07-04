@@ -28,11 +28,12 @@ import {
   const Header = () => {
     const basics = useArtboardStore((state) => state.resume.basics);
     const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary);
+    const margin = useArtboardStore((state) => state.resume.metadata.page.margin);
     return (
       <div className="flex items-center space-x-4">
         
-        <div className="space-y-2 text-left m-10 mb-0">
-          <div className="ml-6">
+        <div className="space-y-2 text-left" style={{margin : margin}}>
+          <div>
             <div className="text-5xl tracking-normal font-bold mb-4" style={{ color: primaryColor }}>
               {basics.name}
             </div>
@@ -42,7 +43,7 @@ import {
           </div>
         
         </div>
-        <Picture className="mt-2 mb-2" />
+        {/* <Picture className="mt-2 mb-2" /> */}
       </div>
     );
   };
@@ -124,10 +125,6 @@ import {
     keywordsKey,
   }: SectionProps<T>) => {
     if (!section.visible || !section.items.length) return null;
-    const lightColors = ["#C6F6D5", " #ffe0b3", "#b3ffcc"];
-    index = (index + 1) % lightColors.length;
-    console.log(index);
-    const bgcolor = lightColors[index];
   
     return (
       <section id={section.id} className="grid">
@@ -161,10 +158,10 @@ import {
                     <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: summary }} />
                   )}
   
-                  {level !== undefined && level > 0 && <Rating level={level} />}
+                  {level !== undefined && level > 0 && section.id !== "skills" && <Rating level={level} />}
   
                   {keywords !== undefined && keywords.length > 0 && (
-                    <p className="text-sm">{keywords.join(", ")}</p>
+                    <p className="text-sm ml-3">{keywords.join(", ")}</p>
                   )}
                 </div>
               );
@@ -303,19 +300,15 @@ import {
   
   const Skills = () => {
     const section = useArtboardStore((state) => state.resume.sections.skills);
-    const lightColors = ["#C6F6D5", " #ffe0b3", "#b3ffcc"];
-    let ind =-1;
-    ind = (ind + 1) % lightColors.length;
+    
     return (
       <Section<Skill> section={section} levelKey="level" keywordsKey="keywords">
         {(item) => (
-          <div className="flex flex-col ">
-          <div className="flex ">
-          <span className="h-1 w-1 rounded-full bg-black mr-2 mt-3"></span>
-          <div>
-        <div className="text-left pr-1 font-bold">{item.name}</div>
-         </div>
-        </div>
+        <div className="flex flex-col">
+          <div className="flex">
+            <div className="mr-1">&#8226;</div>
+            <div className="text-left pr-1 font-bold">{item.name}</div>
+          </div>
         </div>
         )}
       </Section>
@@ -542,14 +535,14 @@ import {
       <div className="bg-[white] min-h-[inherit]" >
         <div >
           {isFirstPage && <Header />}
-          <div className="grid grid-cols-3 bg-grey  rounded-xl resize-none" >
-            <div className="main p-custom group col-span-2 space-y-4 overflow-wrap-anywhere">
+          <div className="grid grid-cols-10 bg-grey  rounded-xl resize-none" >
+            <div className="main p-custom group col-span-7 space-y-4 overflow-wrap-anywhere">
               {main.map((section) => (
                 <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
               ))}
             </div>
   
-            <div className="sidebar p-custom group h-full space-y-4 overflow-wrap-anywhere">
+            <div className="sidebar p-custom  col-span-3 group h-full space-y-4 overflow-wrap-anywhere">
               {isFirstPage && <Contact/>}
               {sidebar.map((section) => (
                 <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
