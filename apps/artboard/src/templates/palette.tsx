@@ -502,9 +502,7 @@ export const Palette = ({ columns, isFirstPage = false }: TemplateProps) => {
         ))}
       </div>
 
-      <div className="main group col-span-2 space-y-4 overflow-wrap-anywhere">
-        
-
+      <div className="main group col-span-2 space-y-4 overflow-wrap-anywhere mt-3">
         {main.map((section) => (
           <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
         ))}

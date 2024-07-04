@@ -34,11 +34,11 @@ import {
   const firstName = nameParts[0];
   const restOfName = nameParts.slice(1).join(' ');
     return (
-    <div className="flex flex-row text-left justify-between p-4">
+    <div className="flex flex-row text-left justify-between">
         <div className="flex flex-col w-3/5  mr-2">
             <h1 className="text-5xl tracking-wide pb-1 mt-4" style={{color:primaryColor}}>{basics.name}</h1> 
             <div className="border-t-2 border-gray-600 w-full mt-2 mb-2"></div> 
-            <div className="text-extrabold tracking-widest p-2" style={{color:primaryColor}}>{basics.headline.toUpperCase()}</div>
+            <div className="text-extrabold tracking-widest" style={{color:primaryColor}}>{basics.headline.toUpperCase()}</div>
         </div>
         <div className="flex flex-col justify-end overflow-wrap-anywhere items-start  gap-x-2 gap-y-0.5 text-sm">
           {basics.location && (
