@@ -31,7 +31,7 @@ const Header = () => {
   const picture = useArtboardStore((state) => state.resume.basics.picture);
   return (
     <div className="relative pb-0" style={{ backgroundColor: hexToRgb(primaryColor, 0.2) }}>
-      <div className="flex relative justify-between w-full">
+      <div className="flex relative justify-between w-full p-custom">
         <div className="p-6">
           <h2 className="text-5xl font-bold text-primary">{basics.name}</h2>
           <p className="mt-2 text-xl">{basics.headline}</p>
@@ -268,7 +268,7 @@ const Experience = () => {
             <div className="text-primary">{item.position}</div>
           </div>
           <div className="flex gap-4">
-            <div className="bg-primary h-8 w-1"></div>
+            {(item.date || item.location) && <div className="bg-primary h-8 flex-shrink-0">|</div>}
             <div className="shrink-0 text-right">
               <div className="font-bold">{item.date}</div>
               <div>{item.location}</div>
@@ -290,7 +290,7 @@ const Education = () => {
           <div className="">
             <div className="flex">
               <div className="font-bold">{item.institution}</div>
-              <div>,{item.area}</div>
+              {item.area && <div>,{item.area}</div>}
             </div>
           </div>
 
@@ -534,7 +534,7 @@ export const Genesis = ({ columns, isFirstPage = false }: TemplateProps) => {
   const [main, sidebar] = columns;
 
   return (
-    <div className="text-text">
+    <div className="text-text overflow-wrap-anywhere">
       {isFirstPage && (
         <div className="relative">
           <Header />

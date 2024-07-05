@@ -123,10 +123,10 @@ const Section = <T,>({
   let alignChanges
 
   if (section.id === "skills") {
-    alignChanges = "flex flex-wrap px-1 gap-x-5 mb-4 gap-y-4 text-left -mx-2"
+    alignChanges = "flex flex-wrap gap-x-5 mb-4 gap-y-4 text-left"
   }
   else if (section.id === "interests") {
-    alignChanges = "flex flex-wrap px-1 text-left gap-x-5 group-[.sidebar]:gap-x-6  -mx-2"
+    alignChanges = "flex flex-wrap text-left gap-x-5 group-[.sidebar]:gap-x-6"
   } else {
     alignChanges = "grid gap-x-6 gap-y-3"
   }

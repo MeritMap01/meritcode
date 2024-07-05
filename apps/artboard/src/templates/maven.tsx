@@ -169,7 +169,7 @@ const Section = <T,>({
 
     return (
         <section id={section.id} className="grid">
-            <h4 className="mb-2 border-b pb-0.5 text-xl font-bold tracking-[4px] self-stretch">{section.name}</h4>
+            <h4 className="mb-2 border-b pb-0.5 text-xl font-bold tracking-[4px] self-stretch">{section.name.toUpperCase()}</h4>
 
             <div
                 className={alignChanges}

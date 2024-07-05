@@ -161,18 +161,17 @@ const Section = <T,>({
     if (!section.visible || !section.items.length) return null;
 
     let alignChanges;
-
     if (section.id === "skills") {
-        alignChanges = "flex flex-wrap p-5 pl-7 text-left -mx-2"
+        alignChanges = "flex flex-wrap text-left mt-5"
     }
     else if (section.id === "interests") {
-        alignChanges = "flex flex-wrap gap-y-2 gap-x-4 group-[.main]:gap-x-5 group-[.main]:gap-y-3 p-5"
+        alignChanges = "flex flex-wrap mt-5 gap-y-2 gap-x-4 group-[.main]:gap-x-5 group-[.main]:gap-y-3"
     }
     else if (section.id === "certificates") {
-        alignChanges = "group-[.main]:text-center"
+        alignChanges = "group-[.main]:text-center mt-5 ml-9"
     }
     else {
-        alignChanges = "grid gap-x-6 gap-y-3 pl-0 p-5 group-[.main]:pl-9"
+        alignChanges = "grid gap-x-6 gap-y-3 pl-0 mt-5 group-[.main]:pl-9"
     }
 
     return (
@@ -205,7 +204,7 @@ const Section = <T,>({
                                 {level !== undefined && level > 0 && <div className=""><Rating level={level} /></div>}
 
                                 {keywords !== undefined && keywords.length > 0 && (
-                                    <p className="text-sm ml-5">{keywords.join(", ")}</p>
+                                    <p className="text-sm">{keywords.join(", ")}</p>
                                 )}
                             </div>
                         );
@@ -259,9 +258,9 @@ const Experience = () => {
                         <div>{item.position}</div>
                     </div>
 
-                    <div className="flex justify-center">
-                        <div className="font-bold">{item.date}</div>
-                        <div>,{item.location}</div>
+                    <div className="flex">
+                        {item.date && <div className="font-bold mr-2">{item.date},</div>}
+                        <div>{item.location}</div>
                     </div>
                 </div>
             )}
@@ -338,11 +337,11 @@ const Skills = () => {
     const section = useArtboardStore((state) => state.resume.sections.skills);
 
     return (
-        <Section<Skill> section={section} levelKey="level" keywordsKey="keywords" className="group-[.sidebar]:w-full group-[.main]:w-[50%] px-2 mb-2">
+        <Section<Skill> section={section} levelKey="level" keywordsKey="keywords" className="group-[.sidebar]:w-full group-[.main]:w-[50%] mb-2">
             {(item) => (
                 <div>
-                    <div className="flex items-center gap-2">
-                        <i className="ph ph-bold ph-check-circle"></i>
+                    <div className="flex gap-2">
+                        <i className="ph ph-bold ph-check-circle mt-1.5"></i>
                         <div className="font-bold">{item.name}</div>
                     </div>
                     <div className="">{item.description}</div>
