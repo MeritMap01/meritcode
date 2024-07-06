@@ -35207,7 +35207,7 @@ a {
 }
 
 .navbar-brand img {
-  max-width: 500px;
+  max-width: 300px;
 }
 
 .navbar-toggler {
@@ -35288,6 +35288,24 @@ a {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+  }
+}
+@media (max-width: 767.98px) {
+  .navbar-brand img {
+    max-width: 200px;
+  }
+  .navbar-toggler .navbar-toggler-icon {
+    width: 1.5rem;
+    height: 1rem;
+  }
+  .navbar-toggler .navbar-toggler-icon span {
+    height: 1.5px;
+  }
+  .dropdown-item:hover, .dropdown-item:focus {
+    transform: translateX(2px);
+  }
+  .navbar-content-inner {
+    max-height: 60vh;
   }
 }
 @media (min-width: 992px) {
