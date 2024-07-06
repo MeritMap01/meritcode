@@ -29,7 +29,8 @@ const Header = () => {
   const basics = useArtboardStore((state) => state.resume.basics);
   const margin = useArtboardStore((state) => state.resume.metadata.page.margin)
   return (
-    <div className="flex flex-col items-center justify-center  bg-gray-100 text-center" style={{margin:margin}}>
+    <div className="bg-gray-100">
+    <div className="flex flex-col items-center justify-center text-center" style={{margin:margin}}>
       <div className="flex justify-between w-full items-center mt-4 mb-4 overflow-wrap-anywhere">
         <h1 className="text-4xl font-extrabold" style={{ color: '#5baaab' }}>{basics.name.toUpperCase()}</h1>
         <h2 className="text-2xl text-gray-600">{basics.headline.toUpperCase()}</h2>
@@ -42,6 +43,7 @@ const Header = () => {
         <div style={{ height: '20px', width: '1px', backgroundColor: '#5baaab' }}></div> {/* Vertical line */}
         {basics.location && <span className="text-gray-600 overflow-wrap-anywhere">{basics.location}</span>}
       </div>
+    </div>
     </div>
   );
 };

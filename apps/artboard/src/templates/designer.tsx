@@ -54,7 +54,7 @@ import {
           <h4 className="text-base tracking-normal font-bold text-primary">{section.name}</h4>
         </div>
         <div
-          className="wysiwyg col-span-3"
+          className="wysiwyg"
           style={{ columns: section.columns }}
           dangerouslySetInnerHTML={{ __html: section.content }}
         />
@@ -65,7 +65,7 @@ import {
   const Contact = () =>{
     const basics = useArtboardStore((state) => state.resume.basics);
     return(
-      <div className="m-6 border-l p-8">
+      <div className="mt-6 border-l p-8">
   <div className="flex flex-col items-start flex-wrap justify-center gap-x-2 gap-y-2 text-sm">
           {basics.location && (
             <div className="flex items-center gap-x-1.5">
@@ -243,7 +243,6 @@ import {
           <div className="flex justify-between">
             <div className="text-left">
               <div className="font-bold">{item.company}</div>
-              
               <div className="flex items-center">
               <div className="m-2 ml-0">{item.position}</div>
               <div style={{ height: '20px', width: '1px', backgroundColor: 'black' }}></div>
@@ -251,8 +250,6 @@ import {
             </div>
             <div>{item.location}</div>
             </div>
-  
-            
           </div>
         )}
       </Section>
@@ -265,12 +262,15 @@ import {
     return (
       <Section<Education> section={section} urlKey="url" summaryKey="summary">
         {(item) => (
-          <div className="flex items-center grid grid-cols-2 justify-between">
+          <div className="flex items-center justify-between">
             <div className="flex flex-col" >
               <div className="font-bold">{item.institution}</div>
-              <div>{item.area}</div>
+              <div className="flex items-center">
+              <div className="mr-2 italic">{item.area}</div>
+              {item.date && <div >|</div>}
+              <div className="m-2">{item.date}</div>
+            </div>
               <div>{item.score}</div>
-              <div>{item.date}</div>
               <div>{item.studyType}</div>
               </div>
           </div>
@@ -505,6 +505,7 @@ import {
   
     return (
       <div className="p-custom space-y-4 min-h-[inherit] overflow-wrap-anywhere bg-[#fffef7] text-text relative">
+        <div className="m-7">
         {isFirstPage && <Header />}
         <div className="flex flex-row items-start border-b">
             <div className="flex-1">{isFirstPage && <Summary/>}</div>
@@ -521,7 +522,7 @@ import {
             <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
           ))}
         </div>
-  
+        </div>
       </div>
     );
   };

@@ -168,10 +168,10 @@ const Section = <T,>({
                   <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: summary }} />
                 )}
 
-                {level !== undefined && level > 0 && <Rating level={level} />}
+                {level !== undefined && level > 0 && section.id !== "skills" && <Rating level={level} />}
 
                 {keywords !== undefined && keywords.length > 0 && (
-                  <p className="text-sm">{keywords.join(", ")}</p>
+                  <p className="text-sm ml-3">{keywords.join(", ")}</p>
                 )}
               </div>
             );
@@ -314,13 +314,11 @@ const Skills = () => {
   return (
     <Section<Skill> section={section} levelKey="level" keywordsKey="keywords">
       {(item) => (
-        <div className="flex flex-col ">
-        <div className="flex ">
-        <span className="h-1 w-1 rounded-full bg-black mr-2 mt-3"></span>
-        <div>
-      <div className="text-left pr-1 font-bold">{item.name}</div>
-       </div>
-      </div>
+      <div className="flex flex-col">
+        <div className="flex">
+          <div className="mr-1">&#8226;</div>
+          <div className="text-left pr-1 font-bold">{item.name}</div>
+        </div>
       </div>
       )}
     </Section>

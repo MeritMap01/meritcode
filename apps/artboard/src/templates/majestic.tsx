@@ -322,12 +322,12 @@ import {
                 
                 <div className="flex flex-col ">
                   <div className="flex">
-                  <span className="h-1 w-1 rounded-full bg-black mt-2 mr-2"></span>
+                  <span className="h-1 w-1 rounded-full bg-black mt-2 mr-2 flex-shrink-0"></span>
                 <div className="text-left pr-2 font-bold">{item.name}</div>
                 </div>
-                <div className="ml-4">{item.description}</div>
+                <div className="ml-3">{item.description}</div>
                 {keywords !== undefined && keywords.length > 0 && (
-                  <p className="text-sm ml-4">{keywords.join(", ")}</p>
+                  <p className="text-sm ml-3">{keywords.join(", ")}</p>
                 )}
                 </div>
               </div>
