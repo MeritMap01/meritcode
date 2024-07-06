@@ -469,7 +469,7 @@ import {
     const [main, sidebar] = columns;
   
     return (
-      <div>
+      <div className="overflow-wrap-anywhere">
         {isFirstPage && <Header />}
         {isFirstPage && <Summary/>}
 
