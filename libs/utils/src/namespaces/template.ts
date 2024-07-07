@@ -26,6 +26,8 @@ export const templatesList = [
   "maven",
   "vintage",
   "sleek",
+  "ethereal",
+  "equinox",
   // Old
   "azurill",
   "bronzor",
