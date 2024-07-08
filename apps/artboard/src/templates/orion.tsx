@@ -475,7 +475,7 @@ export const Orion = ({ columns, isFirstPage = false }: TemplateProps) => {
   const [main,sidebar] = columns;
   const margin = useArtboardStore((state) => state.resume.metadata.page.margin)
   return (
-    <div className={`p-2 space-y-0 m-${margin}`} style={{margin:margin}}>
+    <div className={`p-2 overflow-wrap-anywhere space-y-0 m-${margin}`} style={{margin:margin}}>
       {isFirstPage && <Header />}
 
       

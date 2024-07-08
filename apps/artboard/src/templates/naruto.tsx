@@ -343,7 +343,7 @@ import {
                 
                 <div className="flex flex-col ">
                   <div className="flex">
-                  <span className="h-1 w-1 rounded-full bg-black mt-2 mr-2"></span>
+                  <div className="text-primary mr-1">&#8226;</div>
                 <div className="text-left pr-2 font-bold" style={{color:primaryColor}}>{item.name}</div>
                 </div>
                 <div className="ml-4">{item.description}</div>
@@ -530,7 +530,7 @@ import {
     const [main, sidebar] = columns;
   
     return (
-      <div className="p-custom space-y-4">
+      <div className="p-custom space-y-4 overflow-wrap-anywhere">
         {isFirstPage && <Header />}
   
         <div className="space-y-4 overflow-wrap-anywhere">

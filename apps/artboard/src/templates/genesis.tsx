@@ -168,7 +168,7 @@ const Section = <T,>({
   let alignChanges;
 
   if (section.id === "skills") {
-    alignChanges = "flex flex-wrap gap-x-5 gap-y-3 text-left -mx-2 group-[.main]:mb-4"
+    alignChanges = "flex flex-wrap gap-x-5 gap-y-3 text-left group-[.main]:mb-4"
   }
   else if (section.id === "interests") {
     alignChanges = "flex flex-wrap gap-x-6 group-[.main]:mb-4"
@@ -335,7 +335,7 @@ const Certifications = () => {
     <Section<Certification> section={section} urlKey="url" summaryKey="summary">
       {(item) => (
         <div className="flex items-center justify-between">
-          <div className="text-left ml-2">
+          <div className="text-left">
             <div className="font-bold">{item.name}</div>
             <div>{item.issuer}</div>
           </div>
@@ -353,7 +353,7 @@ const Skills = () => {
   const section = useArtboardStore((state) => state.resume.sections.skills);
 
   return (
-    <Section<Skill> section={section} levelKey="level" keywordsKey="keywords" className="ml-5">
+    <Section<Skill> section={section} levelKey="level" keywordsKey="keywords">
       {(item) => (
         <div>
           <div className="font-bold">{item.name}</div>

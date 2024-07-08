@@ -29,14 +29,14 @@ const Header = () => {
   const basics = useArtboardStore((state) => state.resume.basics);
 
   return (
-    <div className="flex justify-between items-center space-y-2">
+    <div className="grid grid-cols-5 flex justify-between items-center space-y-2 border-t pb-4 border-b">
 
-      <div>
+      <div className="col-span-3">
         <div className="text-3xl font-bold tracking-[5px] text-primary">{basics.name.toUpperCase()}</div>
         <div className="text-base tracking-[3px] font-bold">{basics.headline}</div>
       </div>
 
-      <div className="grid grid-cols-2 gap-x-2 gap-y-0.5 text-sm">
+      <div className="col-span-2 grid grid-cols-2 gap-x-2 gap-y-0.5 text-sm">
         {basics.location && (
           <div className="flex col-span-1 items-center gap-x-1.5">
             <i className="ph ph-bold ph-map-pin text-primary" />
@@ -77,7 +77,7 @@ const Summary = () => {
   if (!section.visible || isEmptyString(section.content)) return null;
 
   return (
-    <section id={section.id} className="grid grid-cols-5 border-b pt-2.5">
+    <section id={section.id} className="grid grid-cols-5 border-b">
       <div>
         <h4 className="text-base tracking-[3px] font-bold text-primary">{section.name.toUpperCase()}</h4>
       </div>
@@ -164,7 +164,7 @@ const Section = <T,>({
   return (
     <section id={section.id} className="grid grid-cols-5 border-b pt-2.5">
       <div>
-        <h4 className="text-base tracking-[3px] font-bold text-primary">{section.name.toUpperCase()}</h4>
+        <h4 className="text-base tracking-[3px] font-bold text-primary mr-2">{section.name.toUpperCase()}</h4>
       </div>
 
       <div

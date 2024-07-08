@@ -242,11 +242,11 @@ import {
         {(item) => (
           <div className="flex justify-between">
             <div className="text-left">
-              <div className="font-bold">{item.company}</div>
+              <div className="font-bold">{item.position}</div>
               <div className="flex items-center">
-              <div className="m-2 ml-0">{item.position}</div>
-              <div style={{ height: '20px', width: '1px', backgroundColor: 'black' }}></div>
-              <div className="m-2">{item.date}</div>
+              <div className="m-2 italic ml-0">{item.company}</div>
+              {item.company && item.date && <div style={{ height: '20px', width: '1px', backgroundColor: 'black' }}></div>}
+              <div className="m-2 italic">{item.date}</div>
             </div>
             <div>{item.location}</div>
             </div>
@@ -267,8 +267,8 @@ import {
               <div className="font-bold">{item.institution}</div>
               <div className="flex items-center">
               <div className="mr-2 italic">{item.area}</div>
-              {item.date && <div >|</div>}
-              <div className="m-2">{item.date}</div>
+              {item.date && item.area && <div>|</div>}
+              <div className="m-2 italic">{item.date}</div>
             </div>
               <div>{item.score}</div>
               <div>{item.studyType}</div>

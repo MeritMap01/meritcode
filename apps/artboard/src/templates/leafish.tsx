@@ -447,7 +447,7 @@ export const Leafish = ({ columns, isFirstPage = false }: TemplateProps) => {
   const [main, sidebar] = columns;
 
   return (
-    <div>
+    <div className="overflow-wrap-anywhere">
       {isFirstPage && <Header />}
 
       <div className="p-custom grid grid-cols-2 items-start space-x-6">
