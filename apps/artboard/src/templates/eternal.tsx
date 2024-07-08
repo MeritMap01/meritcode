@@ -330,7 +330,7 @@ import {
                 
                 <div className="flex flex-col ">
                   <div className="flex">
-                  <span className="h-1 w-1 rounded-full bg-black mt-2 mr-2 flex-shrink-0"></span>
+                  <div className="mr-1 text-primary">&#8226;</div>
                 <div className="text-left pr-2 font-medium">{item.name}</div>
                 </div>
                 <div className="ml-3">{item.description}</div>

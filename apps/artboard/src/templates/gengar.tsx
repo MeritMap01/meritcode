@@ -493,7 +493,7 @@ export const Gengar = ({ columns, isFirstPage = false }: TemplateProps) => {
   const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary);
 
   return (
-    <div className="grid min-h-[inherit] grid-cols-3">
+    <div className="grid min-h-[inherit] grid-cols-3 overflow-wrap-anywhere">
       <div
         className={cn(
           "sidebar group flex flex-col",

@@ -30,7 +30,7 @@ const Header = () => {
   const { name, headline, phone,picture,location,email,url } = useArtboardStore((state) => state.resume.basics);
   
   return (
-    <header className="flex flex-col  justify-between rounded-md ">
+    <header className="flex flex-col  justify-between rounded-md overflow-wrap-anywhere">
 <img src={picture.url} alt="Profile" className="w-30 h-30 rounded-full border-solid" />
 <div className="flex flex-col items-start mb-7 mt-3">
       <h1 className="text-3xl font-bold text-left mb-2">{name}</h1>
@@ -39,15 +39,15 @@ const Header = () => {
     <div className="flex flex-col items-start mt-3  mb-7 space-y-2">
       <div className="flex items- space-x-2 max-w-full">
         <i className="ph ph-bold ph-map-pin text-primary" style={{ color: "#454040" }} />
-        <p className="break-words text-left">{location}</p>
+        <p className="break-words text-left overflow-wrap-anywhere">{location}</p>
       </div>
       <div className="flex items-start space-x-2 max-w-full">
         <i className="ph ph-bold ph-phone text-primary" style={{ color: "#454040" }} />
-        <p className="break-words text-left">{phone}</p>
+        <p className="break-words text-left overflow-wrap-anywhere">{phone}</p>
       </div>
       <div className="flex items-start space-x-2 max-w-full">
         <i className="ph ph-bold ph-at text-primary" style={{ color: "#454040" }} />
-        <p className="break-words text-left">{email}</p>
+        <p className="break-words text-left overflow-wrap-anywhere">{email}</p>
       </div>
       <div className="flex items-start space-x-2 max-w-full">
         <p className="break-words text-left overflow-wrap-anywhere">{url.href}</p>
@@ -494,7 +494,7 @@ export const Palette = ({ columns, isFirstPage = false }: TemplateProps) => {
   const [main, sidebar] = columns;
 
   return (
-    <div className="p-custom grid grid-cols-3 space-x-6">
+    <div className="p-custom grid grid-cols-3 space-x-6 overflow-wrap-anywhere">
       <div className="sidebar bg-gray-100 ml-6 mt-4 p-6 group space-y-4 text-wrap max-w-full break-words overflow-wrap-anywhere">
         {isFirstPage && <Header />}
         {sidebar.map((section) => (

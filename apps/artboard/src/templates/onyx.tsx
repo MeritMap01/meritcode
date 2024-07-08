@@ -490,7 +490,7 @@ export const Onyx = ({ columns, isFirstPage = false }: TemplateProps) => {
   const [main, sidebar] = columns;
 
   return (
-    <div className="p-custom space-y-4">
+    <div className="p-custom space-y-4 overflow-wrap-anywhere">
       {isFirstPage && <Header />}
 
       {main.map((section) => (
