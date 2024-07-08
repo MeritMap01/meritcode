@@ -150,7 +150,7 @@ import {
         <h2 className="mb-1 text-center text-lg font-bold">{section.name}</h2>
   
         <div
-          className="grid gap-x-2"
+          className={cn("grid gap-x-2",className)}
           style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
         >
           {section.items
@@ -289,15 +289,12 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.certifications);
   
     return (
-      <Section<Certification> section={section} urlKey="url" summaryKey="summary" className="flex flex-row">
+      <Section<Certification> section={section} urlKey="url" summaryKey="summary" className="gapy-7">
         {(item) => (
           <div className="flex items-center justify-between">
             <div className="text-left">
               <div className="font-bold">{item.name}</div>
               <div>{item.issuer}</div>
-            </div>
-  
-            <div className="shrink-0 text-right">
               <div className="font-bold">{item.date}</div>
             </div>
           </div>
@@ -322,7 +319,7 @@ import {
                 
                 <div className="flex flex-col ">
                   <div className="flex">
-                  <span className="h-1 w-1 rounded-full bg-black mt-2 mr-2 flex-shrink-0"></span>
+                  <div className="mr-1 text-primary">&#8226;</div>
                 <div className="text-left pr-2 font-bold">{item.name}</div>
                 </div>
                 <div className="ml-3">{item.description}</div>

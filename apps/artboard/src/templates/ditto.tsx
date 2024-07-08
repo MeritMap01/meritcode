@@ -524,7 +524,7 @@ export const Ditto = ({ columns, isFirstPage = false }: TemplateProps) => {
   const [main, sidebar] = columns;
 
   return (
-    <div>
+    <div className="overflow-wrap-anywhere">
       {isFirstPage && (
         <div className="relative">
           <Header />

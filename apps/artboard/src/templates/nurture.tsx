@@ -266,14 +266,10 @@ const Awards = () => {
       {(item) => (
         <div className="flex items-center justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
           <div className="flex text-left">
-          <div className="flex">
-          <span className="h-1 w-1 rounded-full bg-black mr-2 mt-3"></span>
-          </div>
+          <div className="mr-1">&#8226;</div>
           <div className="flex flex-col items-start">
             <div className="font-bold">{item.title}</div>
             <div>{item.awarder}</div>
-         
-
           <div className="shrink-0 text-right">
             <div className="font-bold">{item.date}</div>
           </div>
@@ -332,9 +328,7 @@ const Interests = () => {
     <Section<Interest> section={section} keywordsKey="keywords" className="space-y-0.5">
       {(item) => 
       <div className="flex">
-      <div className="flex">
-      <span className="h-1 w-1 rounded-full bg-black mr-2 mt-3 "></span>
-      </div>
+      <div className="mr-1">&#8226;</div>
       <div className="font-bold">{item.name}</div>
       </div>}
     </Section>

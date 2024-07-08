@@ -28,13 +28,13 @@ const Header = () => {
   const basics = useArtboardStore((state) => state.resume.basics);
 
   return (
-    <div className="text-text mb-3 flex flex-col items-start gap-1 text-left">
+    <div className="mb-3 flex flex-col items-start gap-1 text-left">
       <div className="flex flex-col gap-1">
         <div className="text-3xl font-bold tracking-widest">{basics.name.toUpperCase()}</div>
         <div className="text-md tracking-wider text-primary">{basics.headline.toUpperCase()}</div>
       </div>
 
-      <div className="flex items-start gap-x-2 text-sm">
+      <div className="flex flex-wrap items-start gap-x-2 text-sm">
         {basics.location && (
           <div className="flex items-center gap-x-1.5">
             <i className="ph ph-bold ph-map-pin" />
@@ -543,7 +543,7 @@ export const Sleek = ({ columns, isFirstPage = false }: TemplateProps) => {
   const [main, sidebar] = columns;
 
   return (
-    <div className="p-custom text-text">
+    <div className="p-custom text-text overflow-wrap-anywhere">
       {isFirstPage && <Header />}
 
       <div className="grid grid-cols-5 gap-x-4 ">

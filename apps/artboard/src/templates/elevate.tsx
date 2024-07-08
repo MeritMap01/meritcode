@@ -372,7 +372,7 @@ import {
         {section.items.map((item) => 
               <div key={item.id} className="col-span-1">
                 <div className="flex">
-                <span className="h-1 w-1 rounded-full bg-black mt-2 mr-2"></span>
+                <div className="mr-1 text-primary">&#8226;</div>
                 <div>
                 <div className="font-bold">{item.name}</div>
               <div>{item.issuer}</div>
@@ -410,30 +410,28 @@ import {
   
     return (
       <div className="max-w-5xl mx-auto text-left mt-4">
-
-<div className="mb-2 font-bold text-primary  items-center flex ">
-  <h4 className="tracking-widest flex-[1_1_0%]">{section.name.toUpperCase()}</h4>
-  <div className="flex-[4_1_0%]">
-    <hr className="border-t-2 border-primary"/>
-  </div>
-</div>        <div className="grid grid-cols-3 gap-y-2">
+        <div className="mb-2 font-bold text-primary  items-center flex ">
+          <h4 className="tracking-widest flex-[1_1_0%]">{section.name.toUpperCase()}</h4>
+          <div className="flex-[4_1_0%]">
+            <hr className="border-t-2 border-primary"/>
+          </div>
+        </div>        
+        <div className="grid grid-cols-3 gap-y-2">
           {section.items.map((item) => {
             const keywords = get(item, "keywords", []) as string[] | undefined;
             return (
-              <div key={item.id} className="col-span-1">
-                
+              <div key={item.id} className="col-span-1">   
                 <div className="flex flex-col ">
                   <div className="flex">
-                  <span className="h-1 w-1 rounded-full bg-black mt-2 mr-2"></span>
-                  <div>
-                <div className="text-left pr-2 font-bold">{item.name}</div>
-               
-                <div >{item.description}</div>
-                {keywords !== undefined && keywords.length > 0 && (
-                  <p className="text-sm">{keywords.join(", ")}</p>
-                )}
-                 </div>
-                </div>
+                    <div className="mr-1 text-primary">&#8226;</div>
+                    <div>
+                        <div className="text-left pr-2 font-bold">{item.name}</div>
+                        <div >{item.description}</div>
+                        {keywords !== undefined && keywords.length > 0 && (
+                          <p className="text-sm">{keywords.join(", ")}</p>
+                        )}
+                    </div>
+                  </div>
                 </div>
               </div>
             );
@@ -600,7 +598,7 @@ import {
     const [main, sidebar] = columns;
   
     return (
-      <div className="p-custom space-y-3">
+      <div className="p-custom space-y-3 overflow-wrap-anywhere">
         {isFirstPage && <Header />}
   
         <div>
