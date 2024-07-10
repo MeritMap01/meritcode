@@ -322,10 +322,8 @@ import {
       <Section<Interest> section={section} keywordsKey="keywords" className="space-y-0.5">
         {(item) => 
         <div className="flex">
-        <div className="flex">
-        <span className="h-1 w-1 rounded-full bg-black mr-2 mt-3 "></span>
-        </div>
-        <div className="font-bold">{item.name}</div>
+          <div className="mr-1">&#8226;</div>
+          <div className="font-bold">{item.name}</div>
         </div>}
       </Section>
     );
