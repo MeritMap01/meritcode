@@ -9,7 +9,7 @@ export const EmailVerifiedGuard = () => {
 
   if (loading) return null;
 
-  if (user && user.emailVerified) {
+  if (user && user?.emailVerified) {
     return <Outlet/>
   }
 
