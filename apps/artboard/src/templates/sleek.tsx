@@ -192,7 +192,7 @@ const Section = <T,>({
                   {url !== undefined && <Link url={url} />}
                 </div>
 
-                {summary !== undefined && !isEmptyString(summary) && (
+                {summary !== undefined && !isEmptyString(summary) && section.id!=='skills' && (
                   <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: summary }} />
                 )}
 
@@ -357,7 +357,6 @@ const Skills = () => {
       {(item) => (
         <div>
           <div className="group-[.sidebar]:border-b">{item.name}</div>
-          <div>{item.description}</div>
         </div>
       )}
     </Section>

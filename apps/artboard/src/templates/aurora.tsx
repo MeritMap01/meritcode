@@ -148,22 +148,22 @@ const Section = <T,>({
 
   let alignChanges;
 
-  if (section.id === "skills") {
-    alignChanges = "flex flex-wrap p-5 pl-7 gap-x-6 gap-y-5 ml-5 text-left -mx-2";
-  } else if (section.id === "interests") {
-    alignChanges = "flex flex-wrap  pl-10 gap-x-5 gap-y-3 p-5";
-  } else {
-    alignChanges = "grid gap-x-6 gap-y-3 p-10 group-[.sidebar]:pl-14 py-0";
-  }
+  // if (section.id === "skills") {
+  //   alignChanges = "flex flex-wrap p-5 pl-7 gap-x-6 gap-y-5 ml-5 text-left -mx-2";
+  // } else if (section.id === "interests") {
+  //   alignChanges = "flex flex-wrap  pl-10 gap-x-5 gap-y-3 p-5";
+  // } else {
+  //   alignChanges = "grid gap-x-6 gap-y-3 group-[.sidebar]:pl-14 py-0";
+  // }
 
   return (
     <section id={section.id} className="grid">
-      <div className="mb-5 items-center group-[.main]:flex group-[.main]:gap-3">
+      <div className="mb-3 items-center group-[.main]:flex group-[.main]:gap-3">
         <span className=" flex items-center rounded-full bg-[#000] p-2 text-[#fff] group-[.sidebar]:hidden">
           {forIcons(section.id)}
         </span>
 
-        <div className="flex w-full flex-col group-[.sidebar]:pl-10">
+        <div className="flex w-full flex-col group-[.sidebar]:-ml-2">
           <h4 className="m-0 -mb-1 w-[90%] self-stretch p-0 text-sm font-bold tracking-[6px] group-[.sidebar]:text-primary">
             {section.name.toUpperCase()}
           </h4>
@@ -524,7 +524,7 @@ export const Aurora = ({ columns, isFirstPage = false }: TemplateProps) => {
   return (
     <div className="text-text grid min-h-[inherit] grid-cols-5">
       <div
-        className="sidebar overflow-wrap-anywhere group col-span-2 space-y-4 py-6"
+        className="p-custom sidebar overflow-wrap-anywhere group col-span-2 space-y-4 py-6"
         style={{ backgroundColor: hexToRgb(primaryColor, 0.2) }}
       >
         {isFirstPage && picture.url && (
@@ -534,9 +534,9 @@ export const Aurora = ({ columns, isFirstPage = false }: TemplateProps) => {
         )}
 
         {isFirstPage && (
-          <div className=" flex w-full flex-col group-[.sidebar]:pl-10">
-            <h1 className="text-base font-bold tracking-[6px] text-primary">CONTACT</h1>
-            <hr className="m-0 mb-2 w-[90%] border-primary p-0 group-[.sidebar]:w-full" />
+          <div className=" flex w-full flex-col">
+            <h1 className="text-base font-bold tracking-[6px] text-primary -ml-2">CONTACT</h1>
+            <hr className="m-0 mb-2 w-[90%] border-primary p-0 group-[.sidebar]:w-full -ml-2" />
             <div className="flex flex-col items-start gap-y-2 pr-9 text-sm">
               {basics.location && (
                 <div className="flex items-center gap-x-1.5">
