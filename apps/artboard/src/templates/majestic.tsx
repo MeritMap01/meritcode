@@ -146,13 +146,10 @@ import {
     if (!section.visible || !section.items.length) return null;
   
     return (
-      <section id={section.id} className="mt-2  grid">
+      <section id={section.id} className="mt-2">
         <h2 className="mb-1 text-center text-lg font-bold">{section.name}</h2>
   
-        <div
-          className={cn("grid gap-x-2",className)}
-          style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
-        >
+        <div className={cn((section.id==="languages" || section.id === "interests")?("grid grid-cols-3"):"grid gap-x-2",className)}>
           {section.items
             .filter((item) => item.visible)
             .map((item) => {
@@ -162,7 +159,7 @@ import {
               const keywords = (keywordsKey && get(item, keywordsKey, [])) as string[] | undefined;
   
               return (
-                <div key={item.id} className={cn("space-y-2", className)}>
+                <div key={item.id} className={cn((section.id==="certifications" || section.id === "awards")?("space-y-0"):"space-y-2",className)}>
                   <div>
                     {children?.(item as T)}
                     {url !== undefined && <Link url={url} />}
@@ -273,11 +270,7 @@ import {
           <div className="flex items-center justify-between">
             <div className="text-left">
               <div className="font-bold">{item.title}</div>
-              <div>{item.awarder}</div>
-            </div>
-  
-            <div className="shrink-0 text-right">
-              <div className="font-bold">{item.date}</div>
+              <div>{item.awarder}<span className="font-bold"> {item.date}</span></div>
             </div>
           </div>
         )}
@@ -289,13 +282,12 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.certifications);
   
     return (
-      <Section<Certification> section={section} urlKey="url" summaryKey="summary" className="gapy-7">
+      <Section<Certification> section={section} urlKey="url" summaryKey="summary" className="space-y-2">
         {(item) => (
           <div className="flex items-center justify-between">
             <div className="text-left">
               <div className="font-bold">{item.name}</div>
-              <div>{item.issuer}</div>
-              <div className="font-bold">{item.date}</div>
+              <div>{item.issuer} <span className="font-bold ml-1">{item.date}</span></div>
             </div>
           </div>
         )}
@@ -311,23 +303,24 @@ import {
     return (
       <div className="max-w-5xl mx-auto">
         <h2 className="mb-2 text-center text-lg font-bold">{section.name}</h2>
-        <div className="grid grid-cols-3 gap-y-2">
+        <div className="grid grid-cols-3 gap-y-3">
           {section.items.map((item) => {
             const keywords = get(item, "keywords", []) as string[] | undefined;
             return (
-              <div key={item.id} className="col-span-1">
-                
+              <div key={item.id} className="col-span-1"> 
                 <div className="flex flex-col ">
                   <div className="flex">
-                  <div className="mr-1 text-primary">&#8226;</div>
-                <div className="text-left pr-2 font-bold">{item.name}</div>
-                </div>
-                <div className="ml-3">{item.description}</div>
+                  <div className="mr-1 text-primary text-3xl">&#8226;</div>
+                  <div>
+                <div className="text-left pr-2 font-bold mt-1">{item.name}</div>
+                <div>{item.description}</div>
                 {keywords !== undefined && keywords.length > 0 && (
-                  <p className="text-sm ml-3">{keywords.join(", ")}</p>
+                  <p className="text-sm">{keywords.join(", ")}</p>
                 )}
                 </div>
+                </div>
               </div>
+            </div>
             );
           })}
         </div>
@@ -341,7 +334,11 @@ import {
   
     return (
       <Section<Interest> section={section} keywordsKey="keywords" className="space-y-0.5">
-        {(item) => <div className="font-bold">{item.name}</div>}
+        {(item) =>
+        <div className="flex">
+          <div className="mr-1 text-primary text-3xl">&#8226;</div>
+          <div className="mt-1">{item.name}</div>
+        </div>}
       </Section>
     );
   };
@@ -390,11 +387,16 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.languages);
   
     return (
-      <Section<Language> section={section}>
+      <Section<Language> section={section} className="space-y-0.5">
         {(item) => (
-          <div className="space-y-0.5">
-            <div className="font-bold">{item.name}</div>
-            <div>{item.description}</div>
+          <div className="space-y-0.5 col-span-1">
+            <div className="flex">
+            <div className="mr-1 text-primary text-3xl">&#8226;</div>
+            <div>
+              <div className="mt-1">{item.name}</div>
+              <div>{item.description}</div>
+              </div>
+            </div>
           </div>
         )}
       </Section>

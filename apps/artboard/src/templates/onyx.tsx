@@ -185,9 +185,7 @@ const Section = <T,>({
       <h4 className="font-bold text-primary">{section.name}</h4>
 
       <div
-        className="grid gap-x-6 gap-y-3"
-        style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
-      >
+        className={cn("grid gap-x-6 gap-y-3", className)}>
         {section.items
           .filter((item) => item.visible)
           .map((item) => {
@@ -290,7 +288,7 @@ const Certifications = () => {
   const section = useArtboardStore((state) => state.resume.sections.certifications);
 
   return (
-    <Section<Certification> section={section} urlKey="url" summaryKey="summary">
+    <Section<Certification> section={section} urlKey="url" summaryKey="summary" className="grid-cols-2">
       {(item) => (
         <div className="flex items-center justify-between">
           <div className="text-left">
@@ -311,7 +309,7 @@ const Skills = () => {
   const section = useArtboardStore((state) => state.resume.sections.skills);
 
   return (
-    <Section<Skill> section={section} levelKey="level" keywordsKey="keywords">
+    <Section<Skill> section={section} levelKey="level" keywordsKey="keywords" className="grid-cols-3">
       {(item) => (
         <div>
           <div className="font-bold">{item.name}</div>
@@ -326,7 +324,7 @@ const Interests = () => {
   const section = useArtboardStore((state) => state.resume.sections.interests);
 
   return (
-    <Section<Interest> section={section} keywordsKey="keywords" className="space-y-0.5">
+    <Section<Interest> section={section} keywordsKey="keywords" className="space-y-0.5 grid-cols-3">
       {(item) => <div className="font-bold">{item.name}</div>}
     </Section>
   );
@@ -379,7 +377,7 @@ const Languages = () => {
   const section = useArtboardStore((state) => state.resume.sections.languages);
 
   return (
-    <Section<Language> section={section} levelKey="level">
+    <Section<Language> section={section} levelKey="level" className="grid-cols-3">
       {(item) => (
         <div className="space-y-0.5">
           <div className="font-bold">{item.name}</div>
