@@ -1,3 +1,5 @@
+import React, { Fragment, useEffect, useRef, useState  } from "react";
+import { InView } from "react-intersection-observer";
 import {
   Award,
   Certification,
@@ -17,13 +19,12 @@ import {
   URL,
   Volunteer,
 } from "@reactive-resume/schema";
-import { cn, isEmptyString, isUrl, linearTransform } from "@reactive-resume/utils";
+import { cn, isEmptyString, isUrl, linearTransform, pageSizeMap, } from "@reactive-resume/utils";
 import get from "lodash.get";
-import React, { Fragment } from "react";
-
 import { Picture } from "../components/picture";
 import { useArtboardStore } from "../store/artboard";
 import { TemplateProps } from "../types/template";
+import { MM_TO_PX, } from "../components/page";
 
 const Header = () => {
   const basics = useArtboardStore((state) => state.resume.basics);
@@ -470,31 +471,96 @@ const mapSectionToComponent = (section: SectionKey) => {
       return null;
   }
 };
-
 export const Orion = ({ columns, isFirstPage = false }: TemplateProps) => {
-  const [main,sidebar] = columns;
-  const margin = useArtboardStore((state) => state.resume.metadata.page.margin)
+  const [main, sidebar] = columns;
+  const margin = useArtboardStore((state) => state.resume.metadata.page.margin);
+  const pageHeight = pageSizeMap[useArtboardStore((state) => state.resume.metadata.page.format)].height * MM_TO_PX;
+  const [overflowingSections, setOverflowingSections] = useState<string[]>([]);
+  const [isPaginating, setIsPaginating] = useState(true);
+  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const checkOverflow = () => {
+    const totalHeight = sectionRefs.current.reduce((acc, section) => {
+      return acc + (section ? section.offsetHeight : 0);
+    }, 0);
+
+    console.log("Total Height:", totalHeight);
+    console.log("Page Height:", pageHeight);
+
+    if (totalHeight > pageHeight) {
+      const overflowSections = sectionRefs.current.filter((section) => {
+        return section && (section.offsetTop + section.offsetHeight > pageHeight);
+      }).map((section) => section?.id);
+
+      console.log("Overflowing Sections:", overflowSections);
+
+      setOverflowingSections(overflowSections as string[]);
+      const message = { type: "addPage", detail: overflowSections };
+      console.log("Posting message to parent window:", message);
+      window.parent.postMessage(message, "*");
+    } else {
+      setOverflowingSections([]);
+      setIsPaginating(false); // Stop pagination once content fits within pages
+    }
+  };
+
+  useEffect(() => {
+    if (isPaginating) {
+      const interval = setInterval(checkOverflow, 100);
+      return () => clearInterval(interval);
+    }
+  }, [isPaginating]);
+
+  useEffect(() => {
+    if (overflowingSections.length > 0) {
+      checkOverflow();
+    }
+  }, [overflowingSections]);
+
+  useEffect(() => {
+    // Re-enable pagination when content changes
+    setIsPaginating(true);
+  }, [columns]);
+
+
   return (
     <div className={`p-2 space-y-0 m-${margin}`} style={{margin:margin}}>
       {isFirstPage && <Header />}
 
-      
-      <div className="col-span-3  p-4 rounded-lg space-y-6">
-        {main.map((section) => (
-          <Fragment key={section}>
-                    {mapSectionToComponent(section)}
-          </Fragment>
+      <div className="space-y-6">
+        {main.map((section, sectionIndex) => (
+          <InView key={section} triggerOnce={true}>
+            {({ ref }) => (
+              <div
+                id={section}
+                ref={(el) => {
+                  if (typeof ref === 'function') ref(el);
+                  sectionRefs.current[sectionIndex] = el;
+                }}
+              >
+                {mapSectionToComponent(section)}
+              </div>
+            )}
+          </InView>
         ))}
       </div>
-      <div className="col-span-3  p-4 rounded-lg space-y-6">
-        {sidebar.map((section) => (
-          <Fragment key={section}>
-                    {mapSectionToComponent(section)}
-          </Fragment>
+      <div className="space-y-6">
+        {sidebar.map((section, sectionIndex) => (
+          <InView key={section} triggerOnce={true}>
+            {({ ref }) => (
+              <div
+                id={section}
+                ref={(el) => {
+                  if (typeof ref === 'function') ref(el);
+                  sectionRefs.current[main.length + sectionIndex] = el;
+                }}
+              >
+                {mapSectionToComponent(section)}
+              </div>
+            )}
+          </InView>
         ))}
       </div>
-      
     </div>
-    
   );
 };

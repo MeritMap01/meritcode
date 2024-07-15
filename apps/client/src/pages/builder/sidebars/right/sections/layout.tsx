@@ -30,7 +30,7 @@ import {
   SortablePayload,
 } from "@reactive-resume/utils";
 import get from "lodash.get";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 
 import { useResumeStore } from "@/client/stores/resume";
 
@@ -162,11 +162,32 @@ export const LayoutSection = () => {
     setActiveId(null);
   };
 
-  const onAddPage = () => {
+  const onAddPage = (event: CustomEvent) => {
+    console.log("Adding new page with overflowing sections:", event.detail);
+  
     const layoutCopy = JSON.parse(JSON.stringify(layout)) as string[][][];
-
-    layoutCopy.push([[], []]);
-
+  
+    if (event && event.detail) {
+      const newPage = [[], []];
+      layoutCopy.push(newPage);
+  
+      event.detail.forEach((sectionId: string) => {
+        layoutCopy.forEach((page, pageIndex) => {
+          page.forEach((column, columnIndex) => {
+            const sectionIndex = column.indexOf(sectionId);
+            if (sectionIndex > -1) {
+              const movedSection = layoutCopy[pageIndex][columnIndex].splice(sectionIndex, 1)[0];
+              layoutCopy[layoutCopy.length - 1][0].push(movedSection);
+              console.log(`Moved section ${sectionId} from page ${pageIndex}, column ${columnIndex} to new page ${layoutCopy.length - 1}`);
+            }
+          });
+        });
+      });
+    } else {
+      layoutCopy.push([[], []]);
+    }
+  
+    console.log("Updated layout:", layoutCopy);
     setValue("metadata.layout", layoutCopy);
   };
 
@@ -198,7 +219,20 @@ export const LayoutSection = () => {
 
     setValue("metadata.layout", layoutCopy);
   };
+  useEffect(() => {
+    const handleAddPageEvent = (event: MessageEvent) => {
+      if (event.data.type === "addPage") {
+        console.log("Received addPage event:", event.data);
+        onAddPage(event.data);
+      }
+    };
 
+    window.addEventListener("message", handleAddPageEvent);
+
+    return () => {
+      window.removeEventListener("message", handleAddPageEvent);
+    };
+  }, []);
   return (
     <section id="layout" className="grid gap-y-6">
       <header className="flex items-center justify-between">
@@ -264,7 +298,7 @@ export const LayoutSection = () => {
           </Portal>
         </DndContext>
 
-        <Button variant="outline" className="ml-auto" onClick={onAddPage}>
+        <Button variant="outline" className="ml-auto" onClick={() => onAddPage(new CustomEvent('addPage'))}>
           <Plus />
           <span className="ml-2">{t`Add New Page`}</span>
         </Button>
