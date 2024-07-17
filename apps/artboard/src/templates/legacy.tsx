@@ -57,8 +57,8 @@ const ProfileSummary = () => {
 
   return (
    <div className="w-full"> <section className="mb-6 ">
-      <div className="flex items-center space-x-8">
-        <h3 className="text-lg font-semibold text-[#5baaab]">Profile Summary</h3>
+      <div className="flex items-center space-x-8 mb-4">
+        <h3 className="text-lg font-semibold text-[#5baaab]">{summary.name}</h3>
         <div className="flex-grow border-t-2 border-[#5baaab]"></div>
       </div>
       <div
@@ -296,7 +296,7 @@ const Education = () => {
         <div className="flex-grow border-t-2 border-[#5baaab]"></div>
       </div>
       {education.items.map((item) => (
-        <div className="flex items-center justify-between overflow-wrap-anywhere">
+        <div className="flex justify-between overflow-wrap-anywhere mb-4">
         <div className="text-left">
           <div className="font-bold">{item.institution}</div>
           <div>{item.studyType}</div>
@@ -395,9 +395,9 @@ const Skills = () => {
         <h3 className="text-lg font-semibold text-[#5baaab]">{skills.name}</h3>
         <div className="flex-grow border-t-2 border-[#5baaab]"></div>
       </div>
-      <ul className="grid grid-cols-4 gap-y-2 mt-2 list-disc ml-5">
+      <ul className="grid grid-cols-3 gap-y-2 mt-1 list-disc ml-5 overflow-wrap-anywhere">
         {skills.items.map((skill) => (
-            <li key={skill.id}>{skill.name}</li>
+            <li key={skill.id} className="pr-3 overflow-wrap-anywhere mr-8">{skill.name}</li>
         ))}
       </ul>
     </section>
@@ -485,9 +485,9 @@ const Languages = () => {
     return null;
   } 
   return (
-    <div >
-       <div className="flex items-center space-x-8">
-        <h3 className="text-lg font-semibold text-[#5baaab]">Languages</h3>
+    <section className="mb-6">
+      <div className="flex items-center space-x-8 mb-4">
+        <h3 className="text-lg font-semibold text-[#5baaab]">{section.name}</h3>
         <div className="flex-grow border-t-2 border-[#5baaab]"></div>
       </div>
       <ul className="grid grid-cols-3 list-disc list-inside">
@@ -625,7 +625,7 @@ export const Legacy = ({ columns, isFirstPage = false } : TemplateProps) => {
       <div style={{margin:margin}}>
           <div className="grid grid-cols-4 gap-6">
           
-          <div className="col-span-12">
+          <div className="col-span-12 p-custom pt-1">
               {main.map((section) => (
               <Fragment key={section}>
                   {mapSectionToComponent(section)}
