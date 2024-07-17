@@ -161,7 +161,7 @@ const Section = <T,>({
     if (section.id === "skills") {
         alignChanges = "flex flex-wrap gap-x-8 gap-y-4 pl-3 text-left -mx-2"
     }
-    else if (section.id === "interests") {
+    else if (section.id === "interests" || section.id === "languages") {
         alignChanges = "flex flex-wrap text-left gap-x-6 gap-y-4"
     } else {
         alignChanges = "grid gap-x-6 gap-y-3"
@@ -398,7 +398,7 @@ const Languages = () => {
     const section = useArtboardStore((state) => state.resume.sections.languages);
 
     return (
-        <Section<Language> section={section} levelKey="level">
+        <Section<Language> section={section} levelKey="level" className="space-y-0.5">
             {(item) => (
                 <div className="space-y-0.5">
                     <div className="font-bold">{item.name}</div>
