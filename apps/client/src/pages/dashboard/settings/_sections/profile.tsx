@@ -5,12 +5,13 @@ import { Button } from "@reactive-resume/ui";
 import { Combobox } from "@reactive-resume/ui";
 import { Form, FormDescription, FormField, FormItem, FormLabel } from "@reactive-resume/ui";
 import { cn } from "@reactive-resume/utils";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { LocaleComboboxPopover } from "@/client/components/locale-combobox";
 import { useUpdateUser, useUser } from "@/client/services/user";
+import {EmailAlert} from "../_dialogs/emailAlert";
 
 const formSchema = z.object({
   theme: z.enum(["system", "light", "dark"]).default("system"),
@@ -23,6 +24,7 @@ export const ProfileSettings = () => {
   const { user } = useUser();
   const { theme, setTheme } = useTheme();
   const { updateUser, loading } = useUpdateUser();
+  const [showEmailAlert,setEmailAlert] = useState(false)
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -30,7 +32,12 @@ export const ProfileSettings = () => {
   });
 
   useEffect(() => {
-    user && onReset();
+    if(user){
+      onReset();
+      if(!user.emailVerified){
+        setEmailAlert(true)
+      }
+    }
   }, [user]);
 
   const onReset = () => {
@@ -55,7 +62,8 @@ export const ProfileSettings = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="relative space-y-6">
+      {showEmailAlert && <EmailAlert onClose={()=>setEmailAlert(false)}/>}
       <div>
         <h3 className="text-2xl font-bold leading-relaxed tracking-tight">{t`Profile`}</h3>
         <p className="leading-relaxed opacity-75">

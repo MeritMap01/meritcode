@@ -29,15 +29,15 @@ import {
     const basics = useArtboardStore((state) => state.resume.basics);
     const { name, headline, phone } = useArtboardStore((state) => state.resume.basics);
     return (
-        <header className="flex flex-col text-wrap items-left text-left p-6 mb-1">
-        <h1 className="text-4xl text-left font-bold mb-1 overflow-wrap-anywhere tracking-widest">{name}</h1>
-        <div className="flex flex-wrap justify-start space-x-5 text-sm text-gray-600 mt-2 mb-4">
-         {<span>•</span>}
+        <header className="flex flex-col text-wrap items-left text-left p-6 pb-1">
+        <h1 className="text-4xl text-left font-bold mb-1 overflow-wrap-anywhere tracking-[0.1em]">{name.toUpperCase()}</h1>
+        <div className="flex flex-wrap justify-start space-x-5 text-sm text-gray-600 mt-2 mb-2">
           <p className="overflow-wrap-anywhere ">{basics.email}</p>
-          <span>•</span>
+          {basics.email && <span>•</span>}
           <p className="overflow-wrap-anywhere">{basics.location}</p>
-          <span>•</span>
+          {basics.location && <span>•</span>}
           <p>{phone}</p>
+          {phone && <span>•</span>}
           <p className="overflow-wrap-anywhere">{basics.url.href}</p>
         </div>
         <div className="text-lg text-gray-600">
@@ -134,11 +134,11 @@ const Section = <T,>({
   if (!section.visible || !section.items.length) return null;
 
   return (
-    <section id={section.id} className="grid">
-      <h4 className=" pb-0.5 text-xl font-bold mb-2">{section.name.toUpperCase()}</h4>
+    <section id={section.id} className="grid mb-2">
+      <h4 className=" pb-0.5 text-xl font-bold mb-2 tracking-wider">{section.name.toUpperCase()}</h4>
 
       <div
-        className="grid gap-x-6 gap-y-3"
+        className="grid gap-x-6 gap-y-2"
         style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
       >
         {section.items
@@ -156,7 +156,7 @@ const Section = <T,>({
                   {url !== undefined && <Link url={url} />}
                 </div>
 
-                {summary !== undefined && !isEmptyString(summary) && (
+                {summary !== undefined && !isEmptyString(summary) && section.id !=='certifications' && section.id !== 'awards' && (
                   <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: summary }} />
                 )}
 
@@ -178,7 +178,7 @@ const Experience = () => {
 
   return (
     <section className="overflow-wrap-anywhere">
-      <h2 className="text-xl font-bold mb-2">{section.name.toUpperCase()}</h2>
+      <h2 className="text-xl font-bold mb-2 tracking-wider">{section.name.toUpperCase()}</h2>
       {section.items.map((item) => (
         <div key={item.id} className="mb-4">
           <h3 className="text-lg font-semibold">{item.position}</h3>
@@ -195,7 +195,7 @@ const Education = () => {
 
   return (
     <section className="overflow-wrap-anywhere">
-      <h2 className="text-xl font-bold mb-2">{section.name.toUpperCase()}</h2>
+      <h2 className="text-xl font-bold mb-2 tracking-wider">{section.name.toUpperCase()}</h2>
       {section.items.map((item) => (
         <div key={item.id} className="mb-4">
           <h3 className="text-lg font-semibold">{item.studyType}</h3>
@@ -247,12 +247,10 @@ const Awards = () => {
       {(item) => (
         <div className="flex items-center justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
           <div className="text-left">
-            <div className="font-bold">{item.title}</div>
+            <div>{item.title}</div>
             <div>{item.awarder}</div>
-          </div>
-
-          <div className="shrink-0 text-right">
-            <div className="font-bold">{item.date}</div>
+            <div>{item.date}</div>
+            <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: item.summary }} />
           </div>
         </div>
       )}
@@ -268,9 +266,10 @@ const Certifications = () => {
       {(item) => (
         <div className="flex items-center justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
           <div className="text-left">
-            <div className="font-bold">{item.name}</div>
+            <div>{item.name}</div>
             <div>{item.issuer}</div>
-            <div className="font-bold">{item.date}</div>
+            <div>{item.date}</div>
+            <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: item.summary }} />
           </div>
         </div>
       )}
@@ -285,7 +284,7 @@ const Skills = () => {
 
   return (
     <section className="">
-      <h2 className="text-xl font-bold mb-2">{skills.name.toUpperCase()}</h2>
+      <h2 className="text-xl font-bold mb-2 tracking-wider">{skills.name.toUpperCase()}</h2>
       <ul className="list-disc ml-5">
         {skills.items.map((item, index) => (
           <li key={index}>{item.name}</li>
@@ -298,9 +297,14 @@ const Interests = () => {
   const section = useArtboardStore((state) => state.resume.sections.interests);
 
   return (
-    <Section<Interest> section={section} keywordsKey="keywords" className="space-y-0.5">
-      {(item) => <div className="font-bold">{item.name}</div>}
-    </Section>
+    <section className="">
+      <h2 className="text-xl font-bold mb-2 tracking-wider">{section.name.toUpperCase()}</h2>
+      <ul className="list-disc ml-5">
+        {section.items.map((item, index) => (
+          <li key={index}>{item.name}</li>
+        ))}
+      </ul>
+    </section>
   );
 };
 
@@ -312,7 +316,7 @@ const Publications = () => {
       {(item) => (
         <div className="flex items-center justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
           <div className="text-left">
-            <div className="font-bold">{item.name}</div>
+            <div className="font-bold tracking-wider">{item.name}</div>
             <div>{item.publisher}</div>
           </div>
 
@@ -333,7 +337,7 @@ const Volunteer = () => {
       {(item) => (
         <div className="flex items-center justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
           <div className="text-left">
-            <div className="font-bold">{item.organization}</div>
+            <div className="font-bold tracking-wider">{item.organization}</div>
             <div>{item.position}</div>
           </div>
 
@@ -354,7 +358,7 @@ const Languages = () => {
     <Section<Language> section={section} levelKey="level">
       {(item) => (
         <div className="space-y-0.5">
-          <div className="font-bold">{item.name}</div>
+          <div className="tracking-wider">{item.name}</div>
           <div>{item.description}</div>
         </div>
       )}
@@ -370,7 +374,7 @@ const Projects = () => {
       {(item) => (
         <div className="flex items-center justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start overflow-wrap-anywhere">
           <div className="text-left">
-            <div className="font-bold">{item.name}</div>
+            <div className="font-bold tracking-wider">{item.name}</div>
             <div>{item.description}</div>
           </div>
 
@@ -390,7 +394,7 @@ const References = () => {
     <Section<Reference> section={section} urlKey="url" summaryKey="summary">
       {(item) => (
         <div>
-          <div className="font-bold">{item.name}</div>
+          <div className="font-bold tracking-wider">{item.name}</div>
           <div>{item.description}</div>
         </div>
       )}
@@ -467,12 +471,12 @@ export const Ignite = ({ columns, isFirstPage = false }: TemplateProps) => {
         <div className="w-1/5 border-t-2 border-[#9c9b97]"></div>
         {isFirstPage && <Summary />}
         <div className="flex flex-1 overflow-wrap-anywhere">
-          <div className="flex-1 p-4 space-y-4 max-w-full break-words overflow-wrap-anywhere">
+          <div className="flex-1 p-6 space-y-4 max-w-full overflow-wrap-anywhere">
             {main.map((section) => (
               <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
             ))}
           </div>
-          <div className="w-1/3 p-4 space-y-4 max-w-full break-words overflow-wrap-anywhere">
+          <div className="w-1/3 p-6 space-y-4 max-w-full overflow-wrap-anywhere">
             {sidebar.map((section) => (
               <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
             ))}
