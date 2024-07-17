@@ -29,10 +29,10 @@ const Header = () => {
   const basics = useArtboardStore((state) => state.resume.basics);
 
   return (
-    <div className="grid grid-cols-5 flex justify-between items-center space-y-2 border-t pb-4 border-b">
+    <div className="grid grid-cols-5 justify-between items-center space-y-2 border-t pb-4 border-b">
 
-      <div className="col-span-3">
-        <div className="text-3xl font-bold tracking-[5px] text-primary">{basics.name.toUpperCase()}</div>
+      <div className="col-span-3 items-center">
+        <div className="text-3xl font-bold tracking-[5px] text-primary mt-2">{basics.name.toUpperCase()}</div>
         <div className="text-base tracking-[3px] font-bold">{basics.headline}</div>
       </div>
 
@@ -168,7 +168,7 @@ const Section = <T,>({
       </div>
 
       <div
-        className={alignChanges}
+        className={cn(alignChanges,className)}
         style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
       >
         {section.items
@@ -180,7 +180,7 @@ const Section = <T,>({
             const keywords = (keywordsKey && get(item, keywordsKey, [])) as string[] | undefined;
 
             return (
-              <div key={item.id} className={cn("space-y-2", className)}>
+              <div key={item.id} className={cn("space-y-2")}>
                 <div>
                   {children?.(item as T)}
                   {url !== undefined && <Link url={url} />}
@@ -208,9 +208,9 @@ const Profiles = () => {
   const fontSize = useArtboardStore((state) => state.resume.metadata.typography.font.size);
 
   return (
-    <Section<Profile> section={section}>
+    <Section<Profile> section={section} className="flex flex-wrap">
       {(item) => (
-        <div className="flex gap-2 items-center">
+        <div className="gap-2">
           {isUrl(item.url.href) ? (
             <Link
               url={item.url}
@@ -394,7 +394,7 @@ const Languages = () => {
   const section = useArtboardStore((state) => state.resume.sections.languages);
 
   return (
-    <Section<Language> section={section} levelKey="level">
+    <Section<Language> section={section} levelKey="level" className="flex  flex-wrap">
       {(item) => (
         <div className="space-y-0.5">
           <div className="font-bold">{item.name}</div>
@@ -508,9 +508,9 @@ export const Vintage = ({ columns, isFirstPage = false }: TemplateProps) => {
 
   return (
     <div className="p-custom space-y-4 min-h-[inherit] overflow-wrap-anywhere bg-[#f5f4f2] text-text relative">
-      <div className="w-full h-0.5 bg-background"></div>
+
       {isFirstPage && <Header />}
-      {isFirstPage && <div className="w-full h-0.5 bg-background"></div>}
+      
       <div className="space-y-4">
         {main.map((section) => (
           <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>

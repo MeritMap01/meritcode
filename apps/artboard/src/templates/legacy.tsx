@@ -29,7 +29,7 @@ const Header = () => {
   const basics = useArtboardStore((state) => state.resume.basics);
   const margin = useArtboardStore((state) => state.resume.metadata.page.margin)
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-100 mb-2 p-custom">
     <div className="flex flex-col items-center justify-center text-center" style={{margin:margin}}>
       <div className="flex justify-between w-full items-center mt-4 mb-4 overflow-wrap-anywhere">
         <h1 className="text-4xl font-extrabold" style={{ color: '#5baaab' }}>{basics.name.toUpperCase()}</h1>
@@ -38,7 +38,7 @@ const Header = () => {
       <div style={{ height: '1px', width: '100%', backgroundColor: '#5baaab' }}></div>
       <div className="flex flex-wrap justify-center mt-2 space-x-12 overflow-wrap-anywhere">
         {basics.email && <a href={`mailto:${basics.email}`} className="text-gray-600 overflow-wrap-anywhere">{basics.email}</a>}
-        <div style={{ height: '20px', width: '1px', backgroundColor: '#5baaab' }}></div> {/* Vertical line */}
+        <div style={{ height: '20px', width: '1px', backgroundColor: '#5baaab' }}></div> {/* Vleertical line */}
         {basics.phone && <span className="text-gray-600 overflow-wrap-anywhere">{basics.phone}</span>}
         <div style={{ height: '20px', width: '1px', backgroundColor: '#5baaab' }}></div> {/* Vertical line */}
         {basics.location && <span className="text-gray-600 overflow-wrap-anywhere">{basics.location}</span>}
@@ -53,12 +53,12 @@ const Header = () => {
 const ProfileSummary = () => {
   const summary = useArtboardStore((state) => state.resume.sections.summary);
 
-  if (!summary.visible || !summary.content) return null;
+  if (!summary.visible || isEmptyString(summary.content)) return null;
 
   return (
    <div className="w-full"> <section className="mb-6 ">
-      <div className="flex items-center space-x-8">
-        <h3 className="text-lg font-semibold text-[#5baaab]">Profile Summary</h3>
+      <div className="flex items-center space-x-8 mb-4">
+        <h3 className="text-lg font-semibold text-[#5baaab]">{summary.name}</h3>
         <div className="flex-grow border-t-2 border-[#5baaab]"></div>
       </div>
       <div
@@ -135,7 +135,7 @@ const Section = <T,>({
         <h4>{section.name}</h4>
       </div>
 
-      <div className="mx-auto mb-2 hidden items-center gap-x-2 text-center font-bold text-primary group-[.sidebar]:flex">
+      <div className="mx-auto mb-4 hidden items-center gap-x-2 text-center font-bold text-primary group-[.sidebar]:flex">
         <div className="h-1.5 w-1.5 rounded-full border border-primary" />
         <h4>{section.name}</h4>
         <div className="h-1.5 w-1.5 rounded-full border border-primary" />
@@ -157,9 +157,9 @@ const Section = <T,>({
               <div
                 key={item.id}
                 className={cn(
-                  "relative space-y-2",
+                  "relative space-y-2 col-span-1",
                   "border-primary group-[.main]:border-l group-[.main]:pl-4",
-                  className,
+                  
                 )}
               >
                 <div>{children?.(item as T)}</div>
@@ -193,7 +193,7 @@ const Profiles = () => {
   } 
   return (
     <section className="mb-6 mt-5">
-      <div className="flex items-center space-x-8 mb-3">
+      <div className="flex items-center space-x-8 mb-4">
         <h3 className="text-lg font-semibold text-[#5baaab]">{section.name}</h3>
         <div className="flex-grow border-t-2 border-[#5baaab]"></div>
       </div>
@@ -258,16 +258,16 @@ const WorkExperience = () => {
   if (!experience.visible || !experience.items.length) return null;
 
   return (
-    <section className="mb-6">
-      <div className="flex items-center space-x-8">
-        <h3 className="text-lg font-semibold text-[#5baaab]">Work Experience</h3>
+    <section className="mb-2">
+      <div className="flex items-center space-x-8 mb-4">
+        <h3 className="text-lg font-semibold text-[#5baaab]">{experience.name}</h3>
         <div className="flex-grow border-t-2 border-[#5baaab]"></div>
       </div>
 
       {experience.items.map((item) => (
-        <div key={item.id}>
+        <div key={item.id} className="mb-4">
           <div className="flex items-center justify-between space-x-8">
-              <h4 className="font-bold overflow-wrap-anywhere">{item.position} - {item.company}, {item.location}</h4>
+              <h4 className="font-bold overflow-wrap-anywhere">{item.position}{item.company && ` - ${item.company}`}</h4>
               <div className="shrink-0  ml-auto  text-right overflow-wrap-anywhere">
                   <div className="font-bold text-[#5baaab]">{item.date}</div>
               </div>
@@ -290,13 +290,13 @@ const Education = () => {
   if (!education.visible || !education.items.length) return null;
 
   return (
-    <section className="mb-6">
-      <div className="flex items-center space-x-8">
-        <h3 className="text-lg font-semibold text-[#5baaab]">Education</h3>
+    <section className="mb-2">
+      <div className="flex items-center space-x-8 mb-4">
+        <h3 className="text-lg font-semibold text-[#5baaab]">{education.name}</h3>
         <div className="flex-grow border-t-2 border-[#5baaab]"></div>
       </div>
       {education.items.map((item) => (
-        <div className="flex items-center justify-between overflow-wrap-anywhere">
+        <div className="flex justify-between overflow-wrap-anywhere mb-4">
         <div className="text-left">
           <div className="font-bold">{item.institution}</div>
           <div>{item.studyType}</div>
@@ -322,13 +322,13 @@ const Awards = () => {
   } 
   return (
     <div>
-      <div className="flex items-center space-x-8">
-        <h3 className="text-lg font-semibold text-[#5baaab]">Awards</h3>
+      <div className="flex items-center space-x-8 mb-4">
+        <h3 className="text-lg font-semibold text-[#5baaab]">{section.name}</h3>
         <div className="flex-grow border-t-2 border-[#5baaab]"></div>
       </div>
-    <Section<Award> section={section} urlKey="url" summaryKey="summary">
+    <Section<Award> section={section} urlKey="url" summaryKey="summary" className="flex flex-wrap">
       {(item) => (
-        <div className="flex justify-between">
+        <div className="flex gap-x-2 col-span-1">
           <div>
           <div className="font-bold">{item.title}</div>
           <div>{item.awarder}</div>
@@ -349,13 +349,13 @@ const Certifications = () => {
   } 
   return (
     <div>
-      <div className="flex items-center space-x-8">
-        <h3 className="text-lg font-semibold text-[#5baaab]">Certifications</h3>
+      <div className="flex items-center space-x-8 mb-4">
+        <h3 className="text-lg font-semibold text-[#5baaab]">{section.name}</h3>
         <div className="flex-grow border-t-2 border-[#5baaab]"></div>
       </div>
-    <Section<Certification> section={section} urlKey="url" summaryKey="summary">
+    <Section<Certification> section={section} urlKey="url" summaryKey="summary" className="flex flex-wrap">
       {(item) => (
-        <div className="flex justify-between">
+        <div className="flex gap-x-2 col-span-1">
           <div>
           <div className="font-bold">{item.name}</div>
           <div>{item.issuer}</div>
@@ -391,13 +391,13 @@ const Skills = () => {
 
   return (
     <section className="mb-6">
-      <div className="flex items-center space-x-8">
-        <h3 className="text-lg font-semibold text-[#5baaab]">Skills</h3>
+      <div className="flex items-center space-x-8 mb-4">
+        <h3 className="text-lg font-semibold text-[#5baaab]">{skills.name}</h3>
         <div className="flex-grow border-t-2 border-[#5baaab]"></div>
       </div>
-      <ul className="grid grid-cols-4 gap-y-2 mt-2 list-disc ml-5">
+      <ul className="grid grid-cols-3 gap-y-2 mt-1 list-disc ml-5 overflow-wrap-anywhere">
         {skills.items.map((skill) => (
-            <li key={skill.id}>{skill.name}</li>
+            <li key={skill.id} className="pr-3 overflow-wrap-anywhere mr-8">{skill.name}</li>
         ))}
       </ul>
     </section>
@@ -412,8 +412,8 @@ const Interests = () => {
 
   return (
     <section className="mb-6">
-      <div className="flex items-center space-x-8">
-        <h3 className="text-lg font-semibold text-[#5baaab]">Interests</h3>
+      <div className="flex items-center space-x-8 mb-4">
+        <h3 className="text-lg font-semibold text-[#5baaab]">{interests.name}</h3>
         <div className="flex-grow border-t-2 border-[#5baaab]"></div>
       </div>
       <ul className="grid grid-cols-3 list-disc list-inside">
@@ -433,8 +433,8 @@ const Publications = () => {
   } 
   return (
    <div> 
-    <div className="flex items-center space-x-8">
-        <h3 className="text-lg font-semibold text-[#5baaab]">Publications</h3>
+    <div className="flex items-center space-x-8 mb-4">
+        <h3 className="text-lg font-semibold text-[#5baaab]">{section.name}</h3>
         <div className="flex-grow border-t-2 border-[#5baaab]"></div>
       </div>
     <Section<Publication> section={section} urlKey="url" summaryKey="summary">
@@ -459,8 +459,8 @@ const Volunteer = () => {
   } 
   return (
     <div>
-       <div className="flex items-center space-x-8">
-        <h3 className="text-lg font-semibold text-[#5baaab]">Volunteer</h3>
+       <div className="flex items-center space-x-8 mb-4">
+        <h3 className="text-lg font-semibold text-[#5baaab]">{section.name}</h3>
         <div className="flex-grow border-t-2 border-[#5baaab]"></div>
       </div>
       <Section<Volunteer> section={section} urlKey="url" summaryKey="summary">
@@ -485,22 +485,17 @@ const Languages = () => {
     return null;
   } 
   return (
-    <div >
-       <div className="flex items-center space-x-8">
-        <h3 className="text-lg font-semibold text-[#5baaab]">Languages</h3>
+    <section className="mb-6">
+      <div className="flex items-center space-x-8 mb-4">
+        <h3 className="text-lg font-semibold text-[#5baaab]">{section.name}</h3>
         <div className="flex-grow border-t-2 border-[#5baaab]"></div>
       </div>
-        <Section<Language> section={section} levelKey="level" className="grid grid-cols-3">
-        
-          {(item) => (
-            <div >
-              <div className="font-bold">{item.name}</div>
-              <div>{item.description}</div>
-            </div>
-          )}
-          
-        </Section>
-    </div>
+      <ul className="grid grid-cols-3 list-disc list-inside">
+        {section.items.map((language) => (
+          <li key={language.id}>{language.name}</li>
+        ))}
+      </ul>
+    </section>
   );
 };
 
@@ -510,13 +505,13 @@ const Projects = () => {
   if (!projects.visible || !projects.items.length) return null;
 
   return (
-    <section className="mb-6">
-      <div className="flex items-center space-x-8">
-        <h3 className="text-lg font-semibold text-[#5baaab]">Projects</h3>
+    <section className="mb-2">
+      <div className="flex items-center space-x-8 mb-4">
+        <h3 className="text-lg font-semibold text-[#5baaab]">{projects.name}</h3>
         <div className="flex-grow border-t-2 border-[#5baaab]"></div>
       </div>
       {projects.items.map((item) => (
-        <div key={item.id} className="mt-2">
+        <div key={item.id} className="mb-4">
           <div className="flex items-center space-x-12 w-full">
             <h4 className="font-bold overflow-wrap-anywhere flex-grow">{item.name}</h4>
             <div className="shrink-0 text-right overflow-wrap-anywhere">
@@ -544,8 +539,8 @@ const References = () => {
 
   return (
     <section className="mb-6">
-      <div className="flex items-center space-x-8">
-        <h3 className="text-lg font-semibold text-[#5baaab]">References</h3>
+      <div className="flex items-center space-x-8 mb-4">
+        <h3 className="text-lg font-semibold text-[#5baaab]">{references.name}</h3>
         <div className="flex-grow border-t-2 border-[#5baaab]"></div>
       </div>
       {references.items.map((item) => (
@@ -630,7 +625,7 @@ export const Legacy = ({ columns, isFirstPage = false } : TemplateProps) => {
       <div style={{margin:margin}}>
           <div className="grid grid-cols-4 gap-6">
           
-          <div className="col-span-12">
+          <div className="col-span-12 p-custom pt-1">
               {main.map((section) => (
               <Fragment key={section}>
                   {mapSectionToComponent(section)}

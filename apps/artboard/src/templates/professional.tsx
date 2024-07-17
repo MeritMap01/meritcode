@@ -201,7 +201,7 @@ import {
                 >
                   <div>{children?.(item as T)}</div>
   
-                  {summary !== undefined && !isEmptyString(summary) && (
+                  {summary !== undefined && !isEmptyString(summary) && section.id !== 'awards' &&  section.id !== 'certifications' && (
                     <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: summary }} />
                   )}
   
@@ -292,7 +292,7 @@ import {
             <h4 className="text-l overflow-wrap-anywhere ">{item.studyType}</h4>
             <p>{item.area}</p>
             <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: item.summary }} />
-            <div className="text-l font-bold shrink-0 text-left overflow-wrap-anywhere">{item.date}</div>          
+            <div className="text-l shrink-0 text-left overflow-wrap-anywhere">{item.date}</div>          
           </div>
         ))}
       </section>
@@ -306,13 +306,9 @@ import {
       <Section<Award> section={section} urlKey="url" summaryKey="summary">
         {(item) => (
           <div>
-            <div className="flex items-center space-x-12">
               <h4 className="font-bold overflow-wrap-anywhere">{item.title}</h4>
-              <div className="shrink-0 text-right overflow-wrap-anywhere">
-                  <div className="font-bold">{item.date}</div>
-              </div>
-            </div>
-            <div>{item.awarder}</div>
+              <div>{item.awarder}</div>
+              <div>{item.date}</div>
             <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: item.summary }} />
           </div>
         )}
@@ -327,13 +323,9 @@ import {
       <Section<Certification> section={section} urlKey="url" summaryKey="summary">
         {(item) => (
           <div className="overflow-wrap-anywhere">
-            <div className="flex items-center space-x-12">
-              <h4 className="font-bold overflow-wrap-anywhere">{item.name}</h4>
-              <div className="shrink-0 text-right overflow-wrap-anywhere">
-                  <div className="font-bold">{item.date}</div>
-              </div>
-            </div>
+            <h4 className="font-bold overflow-wrap-anywhere">{item.name}</h4>
             <div>{item.issuer}  </div>
+            <div>{item.date}</div>
             <div> {item.url.href}</div>
             
             <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: item.summary }} />
@@ -369,12 +361,22 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.interests);
   
     return (
-      <Section<Interest> section={section} keywordsKey="keywords" className="space-y-0.5">
-        {(item) => <ul className="list-disc space-x-4 overflow-wrap-anywhere">
-                        <li className="font-bold">{item.name}</li>
-                  </ul>}
-      </Section>
-    );
+      <section className="p-4">
+        <h4 className="font-bold border-b-2 border-gray-400 tracking-widest text-xl mb-5 pb-1">{section.name.toUpperCase()}</h4>
+        <ul className=" grid grid-cols-1 gap-2 mt-3 fas fa-caret-right list-inside">
+          {section.items.map((item) => (
+            <div className="flex items-center space-x-5">
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="10" height="10">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+                </svg>
+              </div>
+              <li  key={item.id}>{item.name}</li>
+              </div>
+          ))}
+        </ul>
+      </section>
+      );
   };
   
   const Publications = () => {
@@ -550,14 +552,14 @@ import {
   
         <div className="flex flex-1 overflow-wrap ">
           
-          <div className="w-1/3 p-4 space-y-2 max-w-full break-words overflow-wrap-anywhere">
+          <div className="w-1/3 p-4 space-y-2 max-w-full overflow-wrap-anywhere">
             {isFirstPage && <Contact/>}
             {sidebar.map((section) => (
               <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
             ))}
           </div>
           <div className="mt-8 mb-8"style={{width: '1px', backgroundColor: 'rgb(156 163 175)' }}></div>
-          <div className="flex-1 p-2 space-y-0 max-w-full break-words overflow-wrap-anywhere">
+          <div className="flex-1 p-2 space-y-0 max-w-full overflow-wrap-anywhere">
             {main.map((section) => (
               <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
             ))}
