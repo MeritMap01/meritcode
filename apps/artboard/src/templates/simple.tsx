@@ -28,11 +28,10 @@ import {
   const Header = () => {
     const basics = useArtboardStore((state) => state.resume.basics);
     const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary);
-    const margin = useArtboardStore((state) => state.resume.metadata.page.margin);
+
     return (
-      <div className="flex items-center space-x-4">
-        
-        <div className="space-y-2 text-left" style={{margin : margin}}>
+      <div className="flex items-center space-x-4 p-custom pb-0">
+        <div className="space-y-2 text-left">
           <div>
             <div className="text-5xl tracking-normal font-bold mb-4" style={{ color: primaryColor }}>
               {basics.name}
@@ -136,7 +135,7 @@ import {
             </span>
           </h4>
         <div
-          className="grid gap-x-6 gap-y-3"
+          className={cn("grid gap-x-6 group-[.main]:gap-y-3 group-[.side]:gap-y-0", className)}
           style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
         >
           {section.items
@@ -177,16 +176,13 @@ import {
     return (
       <Section<Experience> section={section} urlKey="url" summaryKey="summary">
         {(item) => (
-          <div className="flex items-center justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
+          <div className="flex justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
             <div className="text-left">
-            <div className="font-bold">{item.position}</div>
-              <div >{item.company}</div>
-              
-            </div>
-  
+              <div className="font-bold">{item.position}</div>
+              <div >{item.company}{item.company && ", "}{item.location}</div>
+            </div> 
             <div className="shrink-0 text-right">
               <div >{item.date}</div>
-              <div>{item.location}</div>
             </div>
           </div>
         )}
@@ -200,16 +196,15 @@ import {
     return (
       <Section<Education> section={section} urlKey="url" summaryKey="summary">
         {(item) => (
-          <div className="flex items-center justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
+          <div className="flex justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
             <div className="text-left">
              <div className="font-bold">{item.studyType}</div>
-              
+             <div >{item.institution}</div> 
               <div>{item.area}</div>
               <div>{item.score}</div>
             </div>
   
             <div className="shrink-0 text-right">
-            <div >{item.institution}</div>
               <div className="text-start">{item.date}</div>
             </div>
           </div>
@@ -223,7 +218,7 @@ import {
     const fontSize = useArtboardStore((state) => state.resume.metadata.typography.font.size);
   
     return (
-      <Section<Profile> section={section}>
+      <Section<Profile> section={section} className="space-y-2">
         {(item) => (
           <div>
             {isUrl(item.url.href) ? (
@@ -257,19 +252,12 @@ import {
       <Section<Award> section={section} urlKey="url" summaryKey="summary">
         {(item) => (
           <div className="flex items-center justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
-            <div className="flex text-left">
-            <div className="flex">
-            <span className="h-1 w-1 rounded-full bg-black mr-2 mt-3"></span>
-            </div>
-            <div className="flex flex-col items-start">
-              <div className="font-bold">{item.title}</div>
-              <div>{item.awarder}</div>
-           
-  
-            <div className="shrink-0 text-right">
-              <div className="font-bold">{item.date}</div>
-            </div>
-            </div>
+              <div className="flex flex-col items-start">
+                <div className="font-bold">{item.title}</div>
+                <div>{item.awarder}</div>
+                <div className="shrink-0 text-right">
+                <div className="font-bold">{item.date}</div>
+              </div>
             </div>
           </div>
         )}
@@ -281,7 +269,7 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.certifications);
   
     return (
-      <Section<Certification> section={section} urlKey="url" summaryKey="summary">
+      <Section<Certification> section={section} urlKey="url" summaryKey="summary" className="space-y-2">
         {(item) => (
           <div className="flex items-center justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
             <div className="text-left">
@@ -306,8 +294,8 @@ import {
         {(item) => (
         <div className="flex flex-col">
           <div className="flex">
-            <div className="mr-1">&#8226;</div>
-            <div className="text-left pr-1 font-bold">{item.name}</div>
+            <div className="mr-1 text-2xl mt-0 pt-0 text-primary">&#8226;</div>
+            <div className="text-left pr-1 mt-0.5">{item.name}</div>
           </div>
         </div>
         )}
@@ -319,11 +307,11 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.interests);
   
     return (
-      <Section<Interest> section={section} keywordsKey="keywords" className="space-y-0.5">
+      <Section<Interest> section={section} keywordsKey="keywords">
         {(item) => 
         <div className="flex">
-          <div className="mr-1">&#8226;</div>
-          <div className="font-bold">{item.name}</div>
+          <div className="mr-1 text-2xl mt-0 pt-0">&#8226;</div>
+          <div className="text-left pr-1 mt-0.5">{item.name}</div>
         </div>}
       </Section>
     );

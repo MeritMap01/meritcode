@@ -64,7 +64,7 @@ const Summary = () => {
 
   return (
     <section id={section.id} className="mt-4">
-      <h4 className="font-bold ">Summary</h4>
+      <h4 className="font-bold ">{section.name}</h4>
       <div
         className="wysiwyg"
         style={{ columns: section.columns }}
@@ -145,7 +145,7 @@ const Section = <T,>({
       </div>
 
       <div
-        className={cn(section.id === "profiles" || section.id==="certifications" ? "flex flex-wrap gap-x-8 gap-y-4 text-left":"grid gap-x-6 gap-y-3 group-[.sidebar]:mx-auto group-[.sidebar]:text-center",className)}
+        className={cn(section.id === "profiles" || section.id === "awards" || section.id === 'languages' ? ("flex flex-wrap gap-x-8 gap-y-5 text-left"):"gap-x-6 gap-y-3 group-[.sidebar]:mx-auto group-[.sidebar]:text-center",className)}
         style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
       >
 
@@ -168,7 +168,7 @@ const Section = <T,>({
               >
                 <div>{children?.(item as T)}</div>
 
-                {summary !== undefined && !isEmptyString(summary) && (
+                {summary !== undefined && !isEmptyString(summary) && section.id !== "certifications" && section.id !== 'awards' &&(
                   <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: summary }} />
                 )}
 
@@ -268,45 +268,67 @@ const Education = () => {
 
 const Awards = () => {
   const section = useArtboardStore((state) => state.resume.sections.awards);
+  if (!section.visible || !section.items.length) return null;
 
   return (
-    <Section<Award> section={section} urlKey="url" summaryKey="summary" className="flex gap-x-10">
-      {(item) => (
-        <div>
-          <div className="font-bold">{item.title}</div>
-          <div>{item.awarder}</div>
-          <div className="font-bold">{item.date}</div>
-        </div>
-      )}
-    </Section>
-  );
+    <section id={section.id}>
+      <h2 className="font-bold">{section.name}</h2>
+      <ul className="mt-2 list-inside">
+        {section.items.map((item) => (
+          <div className="flex">
+            <div className="text-3xl text-primary mr-2">&#8226;</div>
+            <div className="flex flex-col">
+            <div className="flex flex-wrap gap-x-3 mt-1">
+            <div>{item.title}</div>
+          <div className="font-bold">{item.awarder}</div>
+          <div className="font-bold">{item.date}</div></div>            
+            <div className="wysiwyg ml-6 text-xs italic" dangerouslySetInnerHTML={{ __html: item.summary }} />
+          </div>
+          </div>
+       ))}
+       </ul>
+     </section>
+   );
 };
 
 const Certifications = () => {
   const section = useArtboardStore((state) => state.resume.sections.certifications);
+  if (!section.visible || !section.items.length) return null;
 
   return (
-    <Section<Certification> section={section} urlKey="url" summaryKey="summary">
-      {(item) => (
-        <div>
-          <div className="font-bold">{item.name}</div>
-          <div>{item.issuer}</div>
-          <div className="font-bold">{item.date}</div>
-        </div>
-      )}
-    </Section>
-  );
+    <section id={section.id}>
+      <h2 className="font-bold">{section.name}</h2>
+      <ul className="mt-2 list-inside">
+        {section.items.map((item) => (
+          <div className="flex">
+            <div className="text-3xl text-primary mr-2">&#8226;</div>
+            <div className="flex flex-col">
+            <div className="flex flex-wrap gap-x-3 mt-1">
+            <div>{item.name}</div>
+            <div className="font-bold">{item.issuer}</div>
+            <div className="font-bold">{item.date}</div></div>            
+            <div className="wysiwyg ml-6 text-xs italic" dangerouslySetInnerHTML={{ __html: item.summary }} />
+          </div>
+          </div>
+       ))}
+       </ul>
+     </section>
+   );
 };
 
 const Skills = () => {
   const section = useArtboardStore((state) => state.resume.sections.skills);
+  if (!section.visible || !section.items.length) return null;
 
   return (
-    <section id={section.id} className="mt-4">
+    <section id={section.id}>
       <h2 className="font-bold">{section.name}</h2>
-      <ul className="mt-2 grid grid-cols-4 gap-2 list-disc list-inside">
+      <ul className="mt-2 grid grid-cols-4 gap-x-6 list-inside">
         {section.items.map((item) => (
-          <li key={item.id}>{item.name}</li>
+          <div className="flex">
+            <div className="mr-2 text-3xl text-primary">&#8226;</div>
+            <li key={item.id} className="mt-2">{item.name}</li>
+          </div>
         ))}
       </ul>
     </section>
@@ -315,11 +337,20 @@ const Skills = () => {
 
 const Interests = () => {
   const section = useArtboardStore((state) => state.resume.sections.interests);
-
+  if (!section.visible || !section.items.length) return null;
+  
   return (
-    <Section<Interest> section={section} keywordsKey="keywords" className="space-y-0.5">
-      {(item) => <div className="font-bold">{item.name}</div>}
-    </Section>
+    <section id={section.id}>
+      <h2 className="font-bold">{section.name}</h2>
+      <ul className="mt-2 grid grid-cols-4 gap-x-6 list-inside">
+        {section.items.map((item) => (
+          <div className="flex">
+            <div className="mr-2 text-3xl text-primary">&#8226;</div>
+            <li key={item.id} className="mt-2">{item.name}</li>
+          </div>
+        ))}
+      </ul>
+    </section>
   );
 };
 
@@ -368,7 +399,7 @@ const Languages = () => {
     <Section<Language> section={section} levelKey="level">
       {(item) => (
         <div>
-          <div className="font-bold">{item.name}</div>
+          <div>{item.name}</div>
           <div>{item.description}</div>
         </div>
       )}
