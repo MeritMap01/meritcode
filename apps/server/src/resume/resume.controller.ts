@@ -27,6 +27,7 @@ import { UtilsService } from "../utils/utils.service";
 import { Resume } from "./decorators/resume.decorator";
 import { ResumeGuard } from "./guards/resume.guard";
 import { ResumeService } from "./resume.service";
+import { EmailVerificationGuard } from "./guards/emailVerification.guard";
 
 @ApiTags("Resume")
 @Controller("resume")
@@ -76,13 +77,13 @@ export class ResumeController {
   }
 
   @Get()
-  @UseGuards(TwoFactorGuard)
+  @UseGuards(TwoFactorGuard,EmailVerificationGuard)
   findAll(@User() user: UserEntity) {
     return this.resumeService.findAll(user.id);
   }
 
   @Get(":id")
-  @UseGuards(TwoFactorGuard, ResumeGuard)
+  @UseGuards(TwoFactorGuard, ResumeGuard,EmailVerificationGuard)
   findOne(@Resume() resume: ResumeDto) {
     return resume;
   }
