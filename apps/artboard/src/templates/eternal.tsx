@@ -155,7 +155,6 @@ import {
       </div>  
         <div
           className={cn("grid gap-x-2", className)}
-          style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
         >
           {section.items
             .filter((item) => item.visible)
@@ -166,7 +165,7 @@ import {
               const keywords = (keywordsKey && get(item, keywordsKey, [])) as string[] | undefined;
   
               return (
-                <div key={item.id} className={cn("space-y-2", className)}>
+                <div key={item.id} className={cn("space-y-2")}>
                   <div>
                     {children?.(item as T)}
                     {url !== undefined && <Link url={url} />}
@@ -279,11 +278,7 @@ import {
           <div className="flex items-center justify-between">
             <div className="text-left">
               <div className="font-bold">{item.title}</div>
-              <div>{item.awarder}</div>
-            </div>
-  
-            <div className="shrink-0 text-right">
-              <div className="font-bold">{item.date}</div>
+              <div>{item.awarder} <span>{item.date}</span></div>
             </div>
           </div>
         )}
@@ -295,7 +290,7 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.certifications);
   
     return (
-      <Section<Certification> section={section} urlKey="url" summaryKey="summary" className="flex flex-row gap-x-7">
+      <Section<Certification> section={section} urlKey="url" summaryKey="summary" className="flex flex-wrap gap-x-7">
         {(item) => (
           <div className="flex items-center justify-between">
             <div className="text-left">
@@ -330,13 +325,15 @@ import {
                 
                 <div className="flex flex-col ">
                   <div className="flex">
-                  <div className="mr-1 text-primary">&#8226;</div>
-                <div className="text-left pr-2 font-medium">{item.name}</div>
-                </div>
-                <div className="ml-3">{item.description}</div>
-                {keywords !== undefined && keywords.length > 0 && (
-                  <p className="text-sm ml-3">{keywords.join(", ")}</p>
-                )}
+                  <div className="mr-1 text-primary text-3xl">&#8226;</div>
+                  <div>
+                    <div className="text-left pr-2 mt-1">{item.name}</div>
+                    <p className="text-sm">{item.description}</p>
+                    {keywords !== undefined && keywords.length > 0 && (
+                      <p className="text-sm">{keywords.join(", ")}</p>
+                    )}
+                    </div>
+                  </div>
                 </div>
               </div>
             );
@@ -351,8 +348,12 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.interests);
   
     return (
-      <Section<Interest> section={section} keywordsKey="keywords" className="space-y-0.5">
-        {(item) => <div className="font-bold">{item.name}</div>}
+      <Section<Interest> section={section} keywordsKey="keywords" className="grid grid-cols-4 space-y-0.5">
+        {(item) =>
+        <div className="flex col-span-1">
+            <div className="text-3xl text-primary">&#8226;</div>
+            <div className="ml-1 mt-1">{item.name}</div>
+        </div>}
       </Section>
     );
   };
@@ -401,13 +402,12 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.languages);
   
     return (
-      <Section<Language> section={section}>
-        {(item) => (
-          <div className="space-y-0.5">
-            <div className="font-bold">{item.name}</div>
-            <div>{item.description}</div>
-          </div>
-        )}
+      <Section<Language> section={section} className="grid grid-cols-4 space-y-0.5">
+        {(item) =>
+        <div className="flex col-span-1">
+            <div className="text-3xl text-primary">&#8226;</div>
+            <div className="ml-1 mt-1">{item.name}</div>
+        </div>}
       </Section>
     );
   };

@@ -168,8 +168,7 @@ import {
         </div>
   
         <div
-          className=" gap-x-6 gap-y-3 grid grid-cols-3"
-          style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
+          className={cn("gap-x-6 gap-y-3", className)}
         >
           {section.items
             .filter((item) => item.visible)
@@ -180,7 +179,7 @@ import {
               const keywords = (keywordsKey && get(item, keywordsKey, [])) as string[] | undefined;
   
               return (
-                <div key={item.id} className={cn("space-y-2", className)}>
+                <div key={item.id} className={cn("space-y-2")}>
                   <div>
                     {children?.(item as T)}
                     {url !== undefined && <Link url={url} />}
@@ -209,7 +208,7 @@ import {
   
     return (
 
-      <Section<Profile> section={section} className="grid grid-cols-3">
+      <Section<Profile> section={section} className="flex flex-wrap">
         {(item) => (
           <div className="col-span-1">
             {isUrl(item.url.href) ? (
@@ -308,7 +307,7 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.certifications);
   
     return (
-      <Section<Certification> section={section} urlKey="url" summaryKey="summary">
+      <Section<Certification> section={section} urlKey="url" summaryKey="summary" className="space-y-2">
         {(item) => (
           <div className="flex items-center justify-between">
             <div className="text-left">
@@ -363,7 +362,7 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.interests);
   
     return (
-      <Section<Interest> section={section} keywordsKey="keywords" className="space-y-0.5">
+      <Section<Interest> section={section} keywordsKey="keywords" className="grid grid-cols-3">
         {(item) => <div className="font-bold">{item.name}</div>}
       </Section>
     );
@@ -416,9 +415,9 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.languages);
   
     return (
-      <Section<Language> section={section} levelKey="level">
+      <Section<Language> section={section} levelKey="level" className="grid grid-cols-3">
         {(item) => (
-          <div className="space-y-0.5">
+          <div className="col-span-1">
             <div className="font-bold">{item.name}</div>
             <div>{item.description}</div>
           </div>

@@ -157,8 +157,7 @@ const Section = <T,>({
       <h4 className="mb-2 border-b pb-0.5 text-sm font-bold">{section.name}</h4>
 
       <div
-        className="grid gap-x-6 gap-y-3"
-        style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
+        className={cn("grid gap-x-6 gap-y-3", className)}
       >
         {section.items
           .filter((item) => item.visible)
@@ -169,7 +168,7 @@ const Section = <T,>({
             const keywords = (keywordsKey && get(item, keywordsKey, [])) as string[] | undefined;
 
             return (
-              <div key={item.id} className={cn("space-y-2", className)}>
+              <div key={item.id} className={cn("space-y-2")}>
                 <div>
                   {children?.(item as T)}
                   {url !== undefined && <Link url={url} />}
@@ -197,7 +196,7 @@ const Profiles = () => {
   const fontSize = useArtboardStore((state) => state.resume.metadata.typography.font.size);
 
   return (
-    <Section<Profile> section={section}>
+    <Section<Profile> section={section} className="flex flex-wrap">
       {(item) => (
         <div>
           {isUrl(item.url.href) ? (
@@ -294,7 +293,7 @@ const Certifications = () => {
   const section = useArtboardStore((state) => state.resume.sections.certifications);
 
   return (
-    <Section<Certification> section={section} urlKey="url" summaryKey="summary">
+    <Section<Certification> section={section} urlKey="url" summaryKey="summary" className="grid-cols-2">
       {(item) => (
         <div className="flex items-center justify-between">
           <div className="text-left">
@@ -315,7 +314,7 @@ const Skills = () => {
   const section = useArtboardStore((state) => state.resume.sections.skills);
 
   return (
-    <Section<Skill> section={section} levelKey="level" keywordsKey="keywords">
+    <Section<Skill> section={section} levelKey="level" keywordsKey="keywords" className="grid-cols-3">
       {(item) => (
         <div>
           <div className="font-bold">{item.name}</div>
@@ -330,7 +329,7 @@ const Interests = () => {
   const section = useArtboardStore((state) => state.resume.sections.interests);
 
   return (
-    <Section<Interest> section={section} keywordsKey="keywords" className="space-y-0.5">
+    <Section<Interest> section={section} keywordsKey="keywords" className="space-y-0.5 flex flex-wrap">
       {(item) => <div className="font-bold">{item.name}</div>}
     </Section>
   );
@@ -383,7 +382,7 @@ const Languages = () => {
   const section = useArtboardStore((state) => state.resume.sections.languages);
 
   return (
-    <Section<Language> section={section} levelKey="level">
+    <Section<Language> section={section} levelKey="level" className="flex flex-wrap">
       {(item) => (
         <div className="space-y-0.5">
           <div className="font-bold">{item.name}</div>
@@ -398,9 +397,9 @@ const Projects = () => {
   const section = useArtboardStore((state) => state.resume.sections.projects);
 
   return (
-    <Section<Project> section={section} urlKey="url" summaryKey="summary" keywordsKey="keywords">
+    <Section<Project> section={section} urlKey="url" summaryKey="summary" keywordsKey="keywords" className="grid-cols-2">
       {(item) => (
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between col-span-1">
           <div className="text-left">
             <div className="font-bold">{item.name}</div>
             <div>{item.description}</div>
