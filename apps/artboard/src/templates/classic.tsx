@@ -34,13 +34,13 @@ import {
   const firstName = nameParts[0];
   const restOfName = nameParts.slice(1).join(' ');
     return (
-    <div className="flex flex-row text-left justify-between">
+    <div className="flex flex-row text-left">
         <div className="flex flex-col w-3/5  mr-2">
             <h1 className="text-5xl tracking-wide pb-1 mt-4" style={{color:primaryColor}}>{basics.name}</h1> 
             <div className="border-t-2 border-gray-600 w-full mt-2 mb-2"></div> 
             <div className="text-extrabold tracking-widest" style={{color:primaryColor}}>{basics.headline.toUpperCase()}</div>
         </div>
-        <div className="flex flex-col justify-end overflow-wrap-anywhere items-start  gap-x-2 gap-y-0.5 text-sm">
+        <div className="flex flex-col justify-end overflow-wrap-anywhere items-start  gap-x-2 gap-y-0.5 text-sm ml-6">
           {basics.location && (
             <div className="flex items-center gap-x-1.5">
               <i className="ph ph-bold ph-map-pin text-primary" />
@@ -151,13 +151,13 @@ import {
     if (!section.visible || !section.items.length) return null;
     const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary)
     return (
-      <section id={section.id} className=" flex flex-col  pt-2.5" style={{ borderTopColor: primaryColor }}>
+      <section id={section.id} className=" flex flex-col mt-2.5" style={{ borderTopColor: primaryColor }}>
         <div className="flex flex-col items-start mb-3">
           <h4 className="text-base font-bold tracking-normal" style={{color:primaryColor}}>{section.name.toUpperCase()}</h4>
         </div>
   
         <div
-          className={cn("gap-x-6 gap-y-3 grid grid-cols-3",className)}
+          className={cn(section.id === "awards" ? ("flex gap-x-16"):"gap-x-6 gap-y-3")}
           style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
         >
           {section.items
@@ -169,7 +169,7 @@ import {
               const keywords = (keywordsKey && get(item, keywordsKey, [])) as string[] | undefined;
   
               return (
-                <div key={item.id} className={cn("space-y-2", className)}>
+                <div key={item.id} className={cn("space-y-2 col-span-1")}>
                   <div>
                     {children?.(item as T)}
                     {url !== undefined && <Link url={url} />}
@@ -196,10 +196,12 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.profiles);
     const fontSize = useArtboardStore((state) => state.resume.metadata.typography.font.size);
   
+    if (!section.visible || !section.items.length) return null;
     return (
-
-      <Section<Profile> section={section} className="flex">
-        {(item) => (
+      <div className="max-w-5xl mt-2.5">
+        <h2 className="mb-3 text-left text-normal font-bold mt-2 tracking-normal text-primary">{section.name.toUpperCase()}</h2>
+        <div className="grid grid-cols-3 gap-y-2 gap-x-4">
+          {section.items.map((item) => (
           <div className="col-span-1">
             {isUrl(item.url.href) ? (
               <Link
@@ -220,8 +222,9 @@ import {
             )}
             <p className="text-sm">{item.network}</p>
           </div>
-        )}
-      </Section>
+        ))}
+        </div>
+      </div>
     );
   };
   
@@ -234,8 +237,7 @@ import {
         {(item) => (
           <div className="flex items-center justify-between">
             <div className="text-left">
-              <div className="font-bold text-xl" style={{color:primaryColor}}>{item.company}</div>
-              <div>{item.position}</div>
+              <div className="font-bold text-xl   " style={{color:primaryColor}}>{item.position}{item.position && ", "}{item.company}</div>
             </div>
   
             <div className="shrink-0 text-right">
@@ -273,17 +275,14 @@ import {
   
   const Awards = () => {
     const section = useArtboardStore((state) => state.resume.sections.awards);
-  
+    
     return (
       <Section<Award> section={section} urlKey="url" summaryKey="summary">
         {(item) => (
-          <div className="flex items-center justify-between">
+          <div className="flex items-center gap-x-2 col-span-1">
             <div className="text-left">
-              <div className="font-bold">{item.title}</div>
+              <div>{item.title}</div>
               <div>{item.awarder}</div>
-            </div>
-  
-            <div className="shrink-0 text-right">
               <div className="font-bold">{item.date}</div>
             </div>
           </div>
@@ -296,20 +295,24 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.certifications);
     const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary)
 
-    return (
-      <Section<Certification> section={section} urlKey="url" summaryKey="summary" className="flex">
-        {(item) => (
-          <div className="flex items-center justify-between">
-            <div className="text-left">
-              <div className="font-bold text-xl" style={{color:primaryColor}}>{item.name}</div>
-              <div>{item.issuer}</div>
-              <div>{item.date}</div>
-            </div>
+    if (!section.visible || !section.items.length) return null;
+  
+    return(
+      <div className="max-w-5xl mx-auto text-left mt-2.5">
+        <h2 className="mb-3 text-left text-normal font-bold mt-2 tracking-normal" style={{color:primaryColor}}>{section.name.toUpperCase()}</h2>
+        <div className="grid grid-cols-3 gap-y-4 gap-x-4">
+          {section.items.map((item) => 
+                <div key={item.id} className="col-span-1">
+                  <div>
+                    <div>{item.name}</div>
+                    <div>{item.issuer}</div>
+                    <div>{item.date}</div>
+                  </div>
+                </div>)}
           </div>
-        )}
-      </Section>
-    );
-  };
+        </div>
+      );
+    };
   
   const Skills = () => {
     const section = useArtboardStore((state) => state.resume.sections.skills);
@@ -319,22 +322,15 @@ import {
     if (!section.visible || !section.items.length) return null;
   
     return (
-      <div className="max-w-5xl mx-auto" style={{borderColor:primaryColor}}>
-        <h2 className="mb-2 text-left text-normal font-bold mt-2 tracking-normal" style={{color:primaryColor}}>{section.name.toUpperCase()}</h2>
-        <div className="grid grid-cols-3 gap-y-2">
+      <div className="max-w-5xl mx-auto mt-2.5" style={{borderColor:primaryColor}}>
+        <h2 className="mb-3 text-left text-normal font-bold mt-2 tracking-normal" style={{color:primaryColor}}>{section.name.toUpperCase()}</h2>
+        <div className="grid grid-cols-3 gap-y-2 gap-x-4">
           {section.items.map((item) => {
             const keywords = get(item, "keywords", []) as string[] | undefined;
             return (
               <div key={item.id} className="col-span-1">
-                
-                <div className="flex flex-col ">
-                <div className="text-left pr-2 font-bold" style={{color:primaryColor}}>{item.name}</div>
-                </div>
-                <div className="ml-4">{item.description}</div>
-                {keywords !== undefined && keywords.length > 0 && (
-                  <p className="text-sm ml-4">{keywords.join(", ")}</p>
-                )}
-                </div>
+                {item.name}
+              </div>
             );
           })}
         </div>
@@ -344,11 +340,22 @@ import {
   
   const Interests = () => {
     const section = useArtboardStore((state) => state.resume.sections.interests);
-  
+    const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary)
+    if (!section.visible || !section.items.length) return null;
+
     return (
-      <Section<Interest> section={section} keywordsKey="keywords" className="space-y-0.5">
-        {(item) => <div className="font-bold">{item.name}</div>}
-      </Section>
+      <div className="max-w-5xl mx-auto mt-2.5" style={{borderColor:primaryColor}}>
+        <h2 className="mb-3 text-left text-normal font-bold mt-2 tracking-normal" style={{color:primaryColor}}>{section.name.toUpperCase()}</h2>
+        <div className="grid grid-cols-3 gap-y-2 gap-x-4">
+          {section.items.map((item) => {
+            return (
+              <div key={item.id} className="col-span-1">
+                {item.name}
+              </div>
+            );
+          })}
+        </div>
+      </div>
     );
   };
   
@@ -397,16 +404,23 @@ import {
   
   const Languages = () => {
     const section = useArtboardStore((state) => state.resume.sections.languages);
-  
+    const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary)
+    if (!section.visible || !section.items.length) return null;
+
     return (
-      <Section<Language> section={section} levelKey="level">
-        {(item) => (
-          <div className="space-y-0.5">
-            <div className="font-bold">{item.name}</div>
-            <div>{item.description}</div>
-          </div>
-        )}
-      </Section>
+      <div className="max-w-5xl mx-auto  mt-2.5" style={{borderColor:primaryColor}}>
+        <h2 className="mb-3 text-left text-normal font-bold mt-2 tracking-normal" style={{color:primaryColor}}>{section.name.toUpperCase()}</h2>
+        <div className="grid grid-cols-3 gap-y-2 gap-x-4">
+          {section.items.map((item) => {
+            return (
+              <div key={item.id} className="col-span-1">
+                <div>{item.name}</div>
+                {item.level !== undefined && item.level > 0 && <Rating level={item.level} />}
+              </div>
+            );
+          })}
+        </div>
+      </div>
     );
   };
   
