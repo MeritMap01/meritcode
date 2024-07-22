@@ -218,6 +218,7 @@
     "react-dom": "18.2.0",
     "react-helmet-async": "^2.0.3",
     "react-hook-form": "^7.48.2",
+    "react-intersection-observer": "^9.10.3",
     "react-parallax-tilt": "^1.7.175",
     "react-resizable-panels": "^0.0.63",
     "react-router-dom": "6.20.1",
