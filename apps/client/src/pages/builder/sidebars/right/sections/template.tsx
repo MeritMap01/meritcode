@@ -1,6 +1,6 @@
 import { t } from "@lingui/macro";
 import { AspectRatio } from "@reactive-resume/ui";
-import { cn, templatesList } from "@reactive-resume/utils";
+import { cn, templatesList, layoutsList } from "@reactive-resume/utils";
 import { motion } from "framer-motion";
 
 import { useResumeStore } from "@/client/stores/resume";
@@ -27,7 +27,10 @@ export const TemplateSection = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, transition: { delay: index * 0.1 } }}
               whileTap={{ scale: 0.98, transition: { duration: 0.1 } }}
-              onClick={() => setValue("metadata.template", template)}
+              onClick={() => {
+                setValue('metadata.template', template);
+                setValue('metadata.layout', layoutsList[index]); 
+              }}   
               className={cn(
                 "relative cursor-pointer rounded-sm ring-primary transition-all hover:ring-2",
                 currentTemplate === template && "ring-2",
