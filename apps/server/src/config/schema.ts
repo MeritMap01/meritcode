@@ -69,6 +69,11 @@ export const configSchema = z.object({
   GOOGLE_CLIENT_ID: z.string().optional(),
   GOOGLE_CLIENT_SECRET: z.string().optional(),
   GOOGLE_CALLBACK_URL: z.string().url().optional(),
+
+  // Search 
+  ELASTICSEARCH_NODE: z.string().optional(),
+  ELASTICSEARCH_USERNAME: z.string().optional(),
+  ELASTICSEARCH_PASSWORD: z.string().optional(),
 });
 
 export type Config = z.infer<typeof configSchema>;

@@ -19,6 +19,7 @@ import { PrinterService } from "@/server/printer/printer.service";
 
 import { StorageService } from "../storage/storage.service";
 import { UtilsService } from "../utils/utils.service";
+import { SearchServiceService } from "../search/search-service/search-service.service";
 
 @Injectable()
 export class ResumeService {
@@ -30,6 +31,7 @@ export class ResumeService {
     private readonly storageService: StorageService,
     private readonly redisService: RedisService,
     private readonly utils: UtilsService,
+    private readonly searchService: SearchServiceService,
   ) {
     this.redis = this.redisService.getClient();
   }
@@ -43,6 +45,13 @@ export class ResumeService {
     const data = deepmerge(defaultResumeData, {
       basics: { name, email, picture: { url: picture ?? "" } },
     } satisfies DeepPartial<ResumeData>);
+
+    // cleaning the data
+    const { basics, sections } = data;
+    const cleanData = {basics, sections};
+
+    // inserting data in elastic search
+    const elasticSearchResponse = await this.searchService.insertDocument(cleanData);
 
     const resume = await this.prisma.resume.create({
       data: {
@@ -148,6 +157,8 @@ export class ResumeService {
         },
         where: { userId_id: { userId, id } },
       });
+
+      // find elasticSearchId using the existing dto
 
       await Promise.all([
         this.redis.set(`user:${userId}:resume:${id}`, JSON.stringify(resume)),
