@@ -29,7 +29,7 @@ export const TemplateSection = () => {
               whileTap={{ scale: 0.98, transition: { duration: 0.1 } }}
               onClick={() => {
                 setValue('metadata.template', template);
-                setValue('metadata.layout', layoutsList[index]); 
+                setValue('metadata.layout', layoutsList[template]); 
               }}   
               className={cn(
                 "relative cursor-pointer rounded-sm ring-primary transition-all hover:ring-2",
