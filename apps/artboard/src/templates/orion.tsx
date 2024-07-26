@@ -482,6 +482,8 @@ export const Orion = ({ columns, isFirstPage = false }: TemplateProps) => {
   const margin = useArtboardStore((state) => state.resume.metadata.page.margin);
   const pageHeight = pageSizeMap[useArtboardStore((state) => state.resume.metadata.page.format)].height * MM_TO_PX;
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [totalHeight, setTotalHeight] = useState(0);
+  const [initialCheckComplete, setInitialCheckComplete] = useState(false);
 
   useEffect(() => {
     const checkOverflow = () => {
@@ -507,16 +509,10 @@ export const Orion = ({ columns, isFirstPage = false }: TemplateProps) => {
     if (!initialCheckComplete) {
       checkOverflow();
     }
-  }, [overflowingSections]);
-
-  useEffect(() => {
-    // Re-enable pagination when content changes
-    setIsPaginating(true);
-  }, [columns]);
-
+  }, [totalHeight, initialCheckComplete]);
 
   return (
-    <div className={`p-2 space-y-0 m-${margin}`} style={{margin:margin}}>
+    <div className="p-4">
       {isFirstPage && <Header />}
 
       <div className="space-y-6">
