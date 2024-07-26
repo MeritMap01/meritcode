@@ -111,9 +111,43 @@ const Section = ({ id, isDragging = false }: SectionProps) => {
   );
 };
 
+const calculateSectionHeight = (sectionId: string): number => {
+  const sectionElement = document.getElementById(sectionId);
+  return sectionElement ? sectionElement.offsetHeight : 0;
+};
+
+const getOverflowingSections = (page: string[][], maxHeight: number): { main: string[], sidebar: string[] } => {
+  const sectionHeights = page.map((column) =>
+    column.reduce((acc, sectionId) => acc + calculateSectionHeight(sectionId), 0)
+  );
+
+  const overflow = { main: [] as string[], sidebar: [] as string[] };
+
+  if (sectionHeights.some((height) => height > maxHeight)) {
+    page.forEach((column, columnIndex) => {
+      let height = 0;
+      for (const sectionId of column) {
+        const sectionHeight = calculateSectionHeight(sectionId);
+        if (height + sectionHeight > maxHeight) {
+          if (columnIndex === 0) {
+            overflow.main.push(sectionId);
+          } else {
+            overflow.sidebar.push(sectionId);
+          }
+        } else {
+          height += sectionHeight;
+        }
+      }
+    });
+  }
+
+  return overflow;
+};
+
 export const LayoutSection = () => {
   const setValue = useResumeStore((state) => state.setValue);
   const layout = useResumeStore((state) => state.resume.data.metadata.layout);
+  const pageHeight=1122;
 
   const [activeId, setActiveId] = useState<string | null>(null);
 
@@ -163,33 +197,58 @@ export const LayoutSection = () => {
   };
 
   const onAddPage = (event: CustomEvent) => {
-    console.log("Adding new page with overflowing sections:", event.detail);
-  
+    console.log('Adding new page with overflowing sections:', event.detail);
+
     const layoutCopy = JSON.parse(JSON.stringify(layout)) as string[][][];
-  
+
     if (event && event.detail) {
-      const newPage = [[], []];
-      layoutCopy.push(newPage);
-  
-      event.detail.forEach((sectionId: string) => {
-        layoutCopy.forEach((page, pageIndex) => {
-          page.forEach((column, columnIndex) => {
-            const sectionIndex = column.indexOf(sectionId);
-            if (sectionIndex > -1) {
-              const movedSection = layoutCopy[pageIndex][columnIndex].splice(sectionIndex, 1)[0];
-              layoutCopy[layoutCopy.length - 1][0].push(movedSection);
-              console.log(`Moved section ${sectionId} from page ${pageIndex}, column ${columnIndex} to new page ${layoutCopy.length - 1}`);
-            }
+      let sectionsToMove = { main: event.detail.main, sidebar: event.detail.sidebar };
+      let pageIndex = layoutCopy.length - 1;
+
+      while (sectionsToMove.main.length > 0 || sectionsToMove.sidebar.length > 0) {
+        const newPage: string[][] = [[], []];
+        layoutCopy.push(newPage);
+
+        sectionsToMove.main.forEach((sectionId: string) => {
+          layoutCopy.forEach((page, pageIndex) => {
+            page.forEach((column, columnIndex) => {
+              const sectionIndex = column.indexOf(sectionId);
+              if (sectionIndex > -1) {
+                const movedSection = layoutCopy[pageIndex][columnIndex].splice(sectionIndex, 1)[0];
+                newPage[0].push(movedSection);
+                console.log(`Moved section ${sectionId} from page ${pageIndex}, column ${columnIndex} to new page ${layoutCopy.length - 1}`);
+              }
+            });
           });
         });
-      });
+
+        sectionsToMove.sidebar.forEach((sectionId: string) => {
+          layoutCopy.forEach((page, pageIndex) => {
+            page.forEach((column, columnIndex) => {
+              const sectionIndex = column.indexOf(sectionId);
+              if (sectionIndex > -1) {
+                const movedSection = layoutCopy[pageIndex][columnIndex].splice(sectionIndex, 1)[0];
+                newPage[1].push(movedSection);
+                console.log(`Moved section ${sectionId} from page ${pageIndex}, column ${columnIndex} to new page ${layoutCopy.length - 1}`);
+              }
+            });
+          });
+        });
+
+        sectionsToMove = getOverflowingSections(layoutCopy[pageIndex], pageHeight);
+        pageIndex++;
+      }
     } else {
       layoutCopy.push([[], []]);
     }
-  
-    console.log("Updated layout:", layoutCopy);
-    setValue("metadata.layout", layoutCopy);
-  };
+
+    console.log('Updated layout:', layoutCopy);
+    setValue('metadata.layout', layoutCopy);
+    setTimeout(() => {
+      const message = { type: 'checkOverflow' };
+      window.parent.postMessage(message, "*");
+  }, 100);
+};
 
   const onRemovePage = (page: number) => {
     const layoutCopy = JSON.parse(JSON.stringify(layout)) as string[][][];

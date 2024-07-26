@@ -471,48 +471,40 @@ const mapSectionToComponent = (section: SectionKey) => {
       return null;
   }
 };
+const calculateTotalHeight = (sections: (HTMLDivElement | null)[]): number => {
+  return sections.reduce((acc, section) => {
+    return acc + (section ? section.offsetHeight : 0);
+  }, 0);
+};
+
 export const Orion = ({ columns, isFirstPage = false }: TemplateProps) => {
   const [main, sidebar] = columns;
   const margin = useArtboardStore((state) => state.resume.metadata.page.margin);
   const pageHeight = pageSizeMap[useArtboardStore((state) => state.resume.metadata.page.format)].height * MM_TO_PX;
-  const [overflowingSections, setOverflowingSections] = useState<string[]>([]);
-  const [isPaginating, setIsPaginating] = useState(true);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const checkOverflow = () => {
-    const totalHeight = sectionRefs.current.reduce((acc, section) => {
-      return acc + (section ? section.offsetHeight : 0);
-    }, 0);
-
-    console.log("Total Height:", totalHeight);
-    console.log("Page Height:", pageHeight);
-
-    if (totalHeight > pageHeight) {
-      const overflowSections = sectionRefs.current.filter((section) => {
-        return section && (section.offsetTop + section.offsetHeight > pageHeight);
-      }).map((section) => section?.id);
-
-      console.log("Overflowing Sections:", overflowSections);
-
-      setOverflowingSections(overflowSections as string[]);
-      const message = { type: "addPage", detail: overflowSections };
-      console.log("Posting message to parent window:", message);
-      window.parent.postMessage(message, "*");
-    } else {
-      setOverflowingSections([]);
-      setIsPaginating(false); // Stop pagination once content fits within pages
-    }
-  };
-
   useEffect(() => {
-    if (isPaginating) {
-      const interval = setInterval(checkOverflow, 100);
-      return () => clearInterval(interval);
-    }
-  }, [isPaginating]);
+    const checkOverflow = () => {
+      const totalHeight = calculateTotalHeight(sectionRefs.current);
+      setTotalHeight(totalHeight);
 
-  useEffect(() => {
-    if (overflowingSections.length > 0) {
+      if (totalHeight > pageHeight) {
+        const overflowSectionsMain = sectionRefs.current.filter((section, index) => {
+          return section && index < main.length && (section.offsetTop + section.offsetHeight > pageHeight);
+        }).map((section) => section?.id);
+
+        const overflowSectionsSidebar = sectionRefs.current.filter((section, index) => {
+          return section && index >= main.length && (section.offsetTop + section.offsetHeight > pageHeight);
+        }).map((section) => section?.id);
+
+        const message = { type: "addPage", detail: { main: overflowSectionsMain as string[], sidebar: overflowSectionsSidebar as string[] } };
+        window.parent.postMessage(message, "*");
+      } else {
+        setInitialCheckComplete(true);
+      }
+    };
+
+    if (!initialCheckComplete) {
       checkOverflow();
     }
   }, [overflowingSections]);
