@@ -107,8 +107,26 @@ export class AuthService {
         secrets: { create: { password: hashedPassword } },
       });
 
+      const emailData={
+        to:user.email,
+        from:{
+          name:"theResume",
+          email:this.configService.get("MAIL_FROM")
+        },
+        templateId:"d-bb5d5a751c8b4e019965cbf4eae3dd42",
+        dynamicTemplateData:{
+          subject:"Welcome",
+          message:"Welcome To theResume",
+          content1:"A Warm Welcome to theResume! We are thrilled to have you on board.",
+          content2:"Get Started now and discover how our AI can enhance your resume, making it highly personalised and tailored to your career goals.",
+          buttonContent:"GET STARTED",
+          buttonUrl:"https://theresume.io/dashboard/resumes"
+        }
+      }
+
       // Do not `await` this function, otherwise the user will have to wait for the email to be sent before the response is returned
       this.sendVerificationEmail(user.email);
+      this.mailService.sendGridMail(emailData).catch((err) => Logger.error(err));
 
       return user as UserWithSecrets;
     } catch (error) {
@@ -124,6 +142,22 @@ export class AuthService {
   async authenticate({ identifier, password }: LoginDto) {
     try {
       const user = await this.userService.findOneByIdentifier(identifier);
+      const emailData={
+        to:user.email,
+        from:{
+          name:"theResume",
+          email:this.configService.get("MAIL_FROM"),
+        },
+        templateId:"d-bb5d5a751c8b4e019965cbf4eae3dd42",
+        dynamicTemplateData:{
+          subject:"Use Our Easy-to-go Tutorial",
+          message:"Use Our Easy-to-go Tutorial",
+          content1:"The theResume has multiple templates to choose from. It is your turn to stand out!",
+          content2:"we have created a suggested resume template just for ypu. Let us help you to create your first resume, follow the video link to get a quick tutorial; Login now and start building your dream resume!",
+          buttonContent:"GET STARTED",
+          buttonUrl:"https://theresume.io/dashboard/resumes"
+        }
+      }
 
       if (!user) {
         throw new BadRequestException(ErrorMessage.InvalidCredentials);
@@ -135,6 +169,7 @@ export class AuthService {
 
       await this.validatePassword(password, user.secrets?.password);
 
+      this.mailService.sendGridMail(emailData).catch((err) => Logger.error(err));
       return user;
     } catch (error) {
       throw new BadRequestException(ErrorMessage.InvalidCredentials);
@@ -150,10 +185,28 @@ export class AuthService {
     });
 
     const url = `${this.utils.getUrl()}/auth/reset-password?token=${token}`;
-    const subject = "Reset your Reactive Resume password";
-    const text = `Please click on the link below to reset your password:\n\n${url}`;
+    // const subject = "Reset your Reactive Resume password";
+    // const text = `Please click on the link below to reset your password:\n\n${url}`;
 
-    await this.mailService.sendEmail({ to: email, subject, text });
+    const emailData={
+      to:email,
+      from:{
+        name:"theResume",
+        email:this.configService.get("MAIL_FROM")
+      },
+      templateId:"d-bb5d5a751c8b4e019965cbf4eae3dd42",
+      dynamicTemplateData:{
+        subject:"Password reset Instructions 🔒",
+        message:"Password Reset - Let's Get You Back In!",
+        content1:"Need a new password? Click on the below button to reset it and get back to resume-building.",
+        content2:"",
+        buttonContent:"Reset Password",
+        buttonUrl:url
+      }
+
+    }
+
+    await this.mailService.sendGridMail(emailData);
   }
 
   async updatePassword(email: string, password: string) {
@@ -210,10 +263,25 @@ export class AuthService {
       });
 
       const url = `${this.utils.getUrl()}/auth/verify-email?token=${token}`;
-      const subject = "Verify your email address";
-      const text = `Please verify your email address by clicking on the link below:\n\n${url}`;
-
-      await this.mailService.sendEmail({ to: email, subject, text });
+      // const subject = "Verify your email address";
+      // const text = `Please verify your email address by clicking on the link below:\n\n${url}`;
+      const emailData={
+        to:email,
+        from:{
+          name:"theResume",
+          email:this.configService.get("MAIL_FROM")
+        },
+        templateId:"d-bb5d5a751c8b4e019965cbf4eae3dd42",
+        dynamicTemplateData:{
+          subject:"Verify Email",
+          message:"Verify Your Email",
+          content1:"To complete your registration, please verify your email address by clicking the button below :",
+          content2:"",
+          buttonContent:"Verify Email",
+          buttonUrl:url
+        }
+      }
+      await this.mailService.sendGridMail(emailData);
     } catch (error) {
       Logger.error(error);
       throw new InternalServerErrorException(error);

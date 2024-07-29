@@ -28,6 +28,8 @@ export const configSchema = z.object({
   MAIL_FROM: z.string().includes("@").optional().default("noreply@localhost"),
   SMTP_URL: z.string().url().startsWith("smtp://").optional(),
 
+  SEND_GRID_API_KEY: z.string().optional(), 
+
   // Storage
   STORAGE_ENDPOINT: z.string(),
   STORAGE_PORT: z.coerce.number(),

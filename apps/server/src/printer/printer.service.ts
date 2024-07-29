@@ -13,6 +13,8 @@ import { connect } from "puppeteer";
 import { Config } from "../config/schema";
 import { StorageService } from "../storage/storage.service";
 import { UtilsService } from "../utils/utils.service";
+import { PrismaService } from "nestjs-prisma";
+import { MailService } from "../mail/mail.service";
 
 @Injectable()
 export class PrinterService {
@@ -22,9 +24,11 @@ export class PrinterService {
 
   constructor(
     private readonly configService: ConfigService<Config>,
+    private readonly prisma: PrismaService,
     private readonly storageService: StorageService,
     private readonly httpService: HttpService,
     private readonly utils: UtilsService,
+    private readonly mailService: MailService
   ) {
     const chromeUrl = this.configService.getOrThrow<string>("CHROME_URL");
     const chromeToken = this.configService.getOrThrow<string>("CHROME_TOKEN");
@@ -66,9 +70,37 @@ export class PrinterService {
 
         this.logger.debug(`Chrome took ${duration}ms to print ${numPages} page(s)`);
 
+        await this.sendResumeEmail(resume.userId)
+
         return url;
       },
     );
+  }
+
+
+  async sendResumeEmail(userId:string){
+    const user = await this.prisma.user.findUnique({
+      where:{id:userId}
+    })
+
+    const emailData={
+      to:user?.email,
+      from:{
+        name:"Download",
+        email:this.configService.get("MAIL_FROM")
+      },
+      templateId:"d-bb5d5a751c8b4e019965cbf4eae3dd42",
+      dynamicTemplateData:{
+        subject:"Ta-Da! Your resume is ready 🎁",
+        message:"Ta-Da! Your Resume Is Ready.",
+        content1:"The moment of truth: Your resume is now ready to dazzle to recruiters!",
+        content2:"You have successfully downloaded your final resume! we are thrilled to see your progress. Your new resume is now ready to impress recruiters and hiring managers.",
+        buttonContent:"DOWNLOAD"
+      }
+    }
+
+    await this.mailService.sendGridMail(emailData)
+
   }
 
   async printPreview(resume: ResumeDto) {
