@@ -50,7 +50,8 @@ const Header = () => {
           />
         </div>
 
-        <Picture />
+        {basics.picture.url && <img src={basics.picture.url} className="w-32 h-32 mx-auto" />}
+
       </div>
 
       <div className="p-custom space-y-3" style={{ backgroundColor: hexToRgb(primaryColor, 0.4) }}>

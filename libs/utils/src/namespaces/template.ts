@@ -95,7 +95,7 @@ export const layoutsList = {
     ["profiles","skills","interests", "certifications", "awards", "publications", "languages"]]],
     "sleek": [[[ "summary", "experience", "education", "projects", "volunteer", "references"],
     ["profiles","skills","interests", "certifications", "awards", "publications", "languages"]]],
-//previous
+//old
     "azurill": [[["summary", "experience","education", "projects", "certifications", "awards", "volunteer", "references"],
     ["skills", "profiles",   "interests",   "publications", "languages"]]],
     "bronzor": [[[ "profiles","summary", "experience", "education", "projects",   "volunteer", "references"],
@@ -122,7 +122,18 @@ export const layoutsList = {
     ["profiles",   "interests",   "publications", "languages", "certifications", "awards"]]],
     "rhyhorn": [[["profiles", "summary", "experience", "education", "projects", "volunteer", "references"],
     ["certifications","skills","interests", "awards", "publications", "languages"]]],
-
 };
+
+export const premiumList = {
+  //jai
+  "orion": true, "legacy": true, "palette": false, "joyful": false, "ignite": true, "professional": true, "classic": true, "simple": true, "designer": false,
+  //vivek
+  "majestic": false, "eternal": true, "naruto": true, "nurture": false, "elevate":true, "innovate":  false, "horizon": true, 
+  //vamsi
+  "genesis": false, "nexus": false, "zenith": false, "pinnacle": false, "aurora": true, "maven": true, "vintage": true, "sleek": false,
+  //old
+  "azurill": false, "bronzor": true, "chikorita": false, "developerx": false, "ditto": false, "gengar": false, "glalie": false, "kakuna": false, 
+  "leafish": false, "nosepass": false, "onyx": true, "pikachu": false, "rhyhorn": true
+}
 
 export type Template = (typeof templatesList)[number];

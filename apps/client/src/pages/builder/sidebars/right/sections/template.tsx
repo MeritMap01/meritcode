@@ -1,6 +1,6 @@
 import { t } from "@lingui/macro";
 import { AspectRatio } from "@reactive-resume/ui";
-import { cn, templatesList, layoutsList } from "@reactive-resume/utils";
+import { cn, templatesList, layoutsList, premiumList} from "@reactive-resume/utils";
 import { motion } from "framer-motion";
 
 import { useResumeStore } from "@/client/stores/resume";
@@ -43,6 +43,10 @@ export const TemplateSection = () => {
                   {template}
                 </p>
               </div>
+              {/* premium feature symbol */}
+              {premiumList[template] && <div className="absolute top-0 right-0">
+                <img src="https://res.cloudinary.com/dd5l4yejk/image/upload/v1722189062/94s2dn87-removebg-preview_f3vrf1.png" alt="star" className="h-6 w-6" style={{backgroundColor:'transparent'}}/>
+              </div>}
             </motion.div>
           </AspectRatio>
         ))}

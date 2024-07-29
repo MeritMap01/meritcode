@@ -30,7 +30,7 @@ const Header = () => {
 
   return (
     <div className="flex flex-col items-center space-y-4 text-center">
-      <Picture />
+      {basics.picture.url && <img src={basics.picture.url} className="w-32 h-32 mx-auto" />}
 
       <div className="space-y-4">
         <div>

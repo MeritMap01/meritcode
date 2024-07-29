@@ -27,10 +27,24 @@ import { TemplateProps } from "../types/template";
 
 const Header = () => {
   const basics = useArtboardStore((state) => state.resume.basics);
+  const picture = useArtboardStore((state) => state.resume.basics.picture);
 
   return (
     <div className="flex flex-col items-center justify-center space-y-2 pb-2 text-center">
-      <Picture />
+
+      {(isUrl(picture.url) && !picture.effects.hidden) &&
+        <img
+          src={picture.url}
+          alt="Profile"
+          className={cn(
+            "relative z-20 object-cover",
+            picture.effects.border && "border-primary",
+            picture.effects.grayscale && "grayscale",
+          )}
+          style={{
+            maxWidth: `${picture.size}px`,
+            aspectRatio: `${picture.aspectRatio}`}}
+        />}
 
       <div>
         <div className="text-2xl font-bold">{basics.name}</div>

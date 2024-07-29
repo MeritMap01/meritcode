@@ -308,7 +308,7 @@ const Skills = () => {
       {(item) => (
         <div>
           <div className="flex">
-            <img src="https://www.svgrepo.com/show/533621/arrow-sm-right.svg" className="h-5 w-5 mt-1"/>
+            <img src="https://www.svgrepo.com/show/533621/arrow-sm-right.svg" className="h-5 w-5 mt-1 pl-0 ml-0"/>
             <div className="font-semibold">{item.name.toUpperCase()}</div>
           </div>
           

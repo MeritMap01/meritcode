@@ -27,13 +27,14 @@ import {
   
   const Header = () => {
     const basics = useArtboardStore((state) => state.resume.basics);
-  
+    const picture = useArtboardStore((state) => state.resume.basics.picture);
+
     return (
         <div className="relative bg-teal-400 text-white text-wrap p-6">
         <div className="p-custom flex items-center space-x-12">
-          <div className="relative z-10 -mb-10">
-            <div className="transform rotate-6 bg-yellow-300 p-2">
-              <Picture />
+          <div className="relative z-10 -mb-20">
+            <div className="transform rotate-6">
+              {picture.url && <img src={picture.url} className="w-48 h-48 text-center mb-2 border-yellow-300 border-[20px]" />}
             </div>
           </div>
           <div  className="overflow-wrap-anywhere mb-3">
@@ -519,7 +520,7 @@ import {
   
         <div className="flex flex-1 overflow-wrap " style={{margin:margin}}>
           
-          <div className="w-2/5 space-y-2 max-w-full overflow-wrap-anywhere">
+          <div className="w-2/5 space-y-2 max-w-full overflow-wrap-anywhere mt-7">
           <div className="overflow-wrap-anywhere">
              <h3 className="text-xl font-bold text-teal-400 mb-5 tracking-wider">GET IN TOUCH</h3>
              <p>Email: {basics.email}</p>
@@ -536,7 +537,7 @@ import {
              <p>Contact: {basics.phone}</p>
              <p>Address: {basics.location}</p></div> */}
           </div>
-          <div className="flex-1 space-y-0 space-x-5 max-w-full overflow-wrap-anywhere">
+          <div className="flex-1 space-y-0 space-x-5 max-w-full overflow-wrap-anywhere mt-7">
             {main.map((section) => (
               <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
             ))}

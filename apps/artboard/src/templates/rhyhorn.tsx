@@ -27,10 +27,11 @@ import { TemplateProps } from "../types/template";
 
 const Header = () => {
   const basics = useArtboardStore((state) => state.resume.basics);
+  const picture = useArtboardStore((state) => state.resume.basics.picture);
 
   return (
     <div className="flex items-center space-x-4">
-      <Picture />
+       {picture.url && <img src={picture.url} className="w-16 h-16 text-center mb-2" />}
 
       <div className="space-y-0.5">
         <div className="text-2xl font-bold">{basics.name}</div>

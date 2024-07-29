@@ -30,7 +30,7 @@ const Header = () => {
 
   return (
     <div className="p-custom space-y-4 bg-primary text-background">
-      <Picture className="border-background" />
+      {basics.picture.url && <img src={basics.picture.url} className="w-32 h-32 border-white border-4 text-center mb-2" />}
 
       <div>
         <h2 className="text-2xl font-bold">{basics.name}</h2>

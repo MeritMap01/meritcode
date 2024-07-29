@@ -28,6 +28,8 @@ import {
   const Header = () => {
     const basics = useArtboardStore((state) => state.resume.basics);
     const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary);
+    const picture = useArtboardStore((state) => state.resume.basics.picture);
+
     return (
       <div className="flex items-center space-x-4 border-b">  
         <div className="space-y-2 text-left m-10 ml-0  ">
@@ -35,10 +37,10 @@ import {
               {basics.name}
             </div>
             <div className="text-3xl " style={{ color: primaryColor }}>
-              {basics.headline}
+              {basics.headline} 
             </div>
         </div>
-        <Picture className="mt-2 mb-2" />
+        {picture.url && <img src={picture.url} className="w-96 h-48 text-center mb-2" />}
       </div>
     );
   };
@@ -167,8 +169,8 @@ import {
         </div>
   
         <div
-          className={cn(section.id === "skills" || section.id === "interests" ? "flex flex-wrap gap-x-9 gap-y-6 col-span-4 mb-4" : "col-span-4 grid gap-x-6 gap-y-3 mb-4")}
-          style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
+          className={cn((section.id === "skills" || section.id === "interests") ? "flex flex-wrap gap-x-9 gap-y-6 col-span-4 mb-4" : "col-span-4 grid gap-x-6 gap-y-3 mb-4", className)}
+          // style={{ gridTemplateColumns: `repeat(${section.columns}, 1fr)` }}
         >
           {section.items
             .filter((item) => item.visible)
@@ -179,7 +181,7 @@ import {
               const keywords = (keywordsKey && get(item, keywordsKey, [])) as string[] | undefined;
   
               return (
-                <div key={item.id} className={cn("space-y-2", className)}>
+                <div key={item.id} className={cn("space-y-2")}>
                   <div>
                     {children?.(item as T)}
                     {url !== undefined && <Link url={url} />}
@@ -260,7 +262,7 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.education);
   
     return (
-      <Section<Education> section={section} urlKey="url" summaryKey="summary">
+      <Section<Education> section={section} urlKey="url" summaryKey="summary" className="grid grid-cols-2">
         {(item) => (
           <div className="flex items-center justify-between">
             <div className="flex flex-col" >
@@ -325,7 +327,7 @@ import {
     const section = useArtboardStore((state) => state.resume.sections.skills);
   
     return (
-      <Section<Skill> section={section} levelKey="level" keywordsKey="keywords">
+      <Section<Skill> section={section} levelKey="level" keywordsKey="keywords" className="grid grid-cols-2">
         {(item) => (
           <div className="space-y-0.5">
             <div className="font-bold">{item.name}</div>

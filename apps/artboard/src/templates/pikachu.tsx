@@ -522,11 +522,12 @@ const mapSectionToComponent = (section: SectionKey) => {
 
 export const Pikachu = ({ columns, isFirstPage = false }: TemplateProps) => {
   const [main, sidebar] = columns;
+  const picture = useArtboardStore((state) => state.resume.basics.picture)
 
   return (
     <div className="p-custom grid grid-cols-3 space-x-6 overflow-wrap-anywhere">
       <div className="sidebar group space-y-4">
-        {isFirstPage && <Picture className="w-full !max-w-none" />}
+        {isFirstPage && picture.url && <img src={picture.url} className="h-72 w-72 text-center" />}
 
         {sidebar.map((section) => (
           <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>

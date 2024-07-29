@@ -30,8 +30,8 @@ const Header = () => {
 
   return (
     <div className="p-custom relative grid grid-cols-3 space-x-4 pb-0">
-      <Picture className="mx-auto" />
-
+      {basics.picture.url && <img src={basics.picture.url} className="w-32 h-32 z-10 mx-auto text-center mb-2" />}
+      
       <div className="relative z-10 col-span-2 text-background">
         <div className="space-y-0.5">
           <h2 className="text-3xl font-bold">{basics.name}</h2>

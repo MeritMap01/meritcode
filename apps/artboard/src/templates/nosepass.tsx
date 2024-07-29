@@ -31,7 +31,7 @@ const Header = () => {
   return (
     <div className="grid grid-cols-4 gap-x-6">
       <div className="mt-1 space-y-2 text-right">
-        <Picture className="ml-auto" />
+        {basics.picture.url && <img src={basics.picture.url} className="w-24 h-24 ml-auto" />}
       </div>
 
       <div className="col-span-3 space-y-2">
