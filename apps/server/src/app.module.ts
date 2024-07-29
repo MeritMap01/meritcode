@@ -65,6 +65,14 @@ import { UtilsModule } from "./utils/utils.module";
       rootPath: join(__dirname, "../../..", "staticHtml/features"),
     }),
     ServeStaticModule.forRoot({
+      renderPath: "/privacy",
+      rootPath: join(__dirname, "../../..", "staticHtml/privacy"),
+    }),
+    ServeStaticModule.forRoot({
+      renderPath: "/terms",
+      rootPath: join(__dirname, "../../..", "staticHtml/tac"),
+    }),
+    ServeStaticModule.forRoot({
       renderPath: "/article",
       rootPath: join(__dirname, "../../..", "staticHtml/article"),
     }),
