@@ -74,7 +74,7 @@ import {
     if (!section.visible || isEmptyString(section.content)) return null;
   
     return (
-        <section className="ml-5">
+        <section className="mt-7">
         <h3 className="text-xl font-bold text-teal-400 mb-4 tracking-widest">{section.name.toUpperCase()}</h3>
         <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: section.content }} />
         
@@ -519,22 +519,17 @@ import {
   
         <div className="flex flex-1 overflow-wrap " style={{margin:margin}}>
           
-          <div className="w-2/5 space-y-2 max-w-full overflow-wrap-anywhere">
-          <div className="overflow-wrap-anywhere">
-             <h3 className="text-xl font-bold text-teal-400 mb-5 tracking-wider">GET IN TOUCH</h3>
-             <p>Email: {basics.email}</p>
-             <p>Website: {basics.url.href}</p>
-             <p>Contact: {basics.phone}</p>
-             <p>Address: {basics.location}</p></div>
+          <div className="w-2/5 space-y-2 max-w-full overflow-wrap-anywhere pr-8">
             {sidebar.map((section) => (
               <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
             ))}
-            {/* <div className="overflow-wrap-anywhere">
-             <h3 className="text-xl font-bold text-yellow-300">Get In Touch</h3>
+            <div className="overflow-wrap-anywhere">
+             <h3 className="text-xl font-bold text-teal-400 mb-4 mt-7 tracking-wider">GET IN TOUCH</h3>
              <p>Email: {basics.email}</p>
              <p>Website: {basics.url.href}</p>
              <p>Contact: {basics.phone}</p>
-             <p>Address: {basics.location}</p></div> */}
+             <p>Address: {basics.location}</p>
+            </div>
           </div>
           <div className="flex-1 space-y-0 space-x-5 max-w-full overflow-wrap-anywhere">
             {main.map((section) => (
