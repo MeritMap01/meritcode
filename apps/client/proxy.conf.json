@@ -31,6 +31,14 @@
     "target": "http://localhost:3000",
     "secure": false
   },
+  "/privacy": {
+    "target": "http://localhost:3000",
+    "secure": false
+  },
+  "/terms": {
+    "target": "http://localhost:3000",
+    "secure": false
+  },
   "/article": {
     "target": "http://localhost:3000",
     "secure": false
