@@ -24,6 +24,99 @@
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/plugins.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
+
+    <style>
+      .video-container {
+        position: relative;
+        background-color: #000;
+        border-radius: 10px;
+        padding: 0px;
+        margin-bottom: 10px;
+      }
+  
+      .video-container .thumbnail-image {
+        display: block;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.3s ease;
+        border-radius: 20px;
+      }
+  
+      .iframe-element {
+        height: 90%;
+        width: 100%;
+        margin-top: 30px;
+      }
+  
+      .video-play-button-image{
+        cursor: pointer;
+      }
+  
+      .video-container:hover .thumbnail-image {
+        transform: scale(1.05);
+      }
+
+      .video-container div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      transition: opacity 0.3s ease;
+    }
+
+    .video-container div {
+      opacity: 1;
+    }
+
+    @media (max-width:768px) {
+      .video-container {
+        width: 340px;
+        height: 200px;
+      }
+
+      .video-container .thumbnail-image {
+        width: 100%;
+        height: 200px;
+        border-radius: 10px;
+      }
+
+      .iframe-element {
+        height: 100%;
+        width: 90%;
+        margin: 0px;
+      }
+    }
+
+    @media (min-width:768px){
+      .video-container{
+        width: 699px;
+        height: 450px;
+      }
+
+      .video-container .thumbnail-image {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+      }
+    }
+
+    @media (min-width:1400px){
+      .video-container{
+        height: 550px;
+        width: 1100px;
+      }
+
+      .video-container .thumbnail-image {
+        width: 100%;
+        border-radius: 10px;
+      }
+    }
+  </style>
   </head>
 
   <body>
@@ -32,7 +125,7 @@
       <nav class="navbar navbar-expand-lg fixed-top bg-hover-scroll on-over">
         <div class="container">
           <!-- Logo -->
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="/home">
             <img src="assets/images/icons/theResume-light-mood.svg" alt="theResume" />
           </a>
 
@@ -132,14 +225,13 @@
                         alt=""
                         class="shape animate-scale"
                       />
-                      <div
-                        class="mt-12 rounded-5 border border-primary shadow-lg overflow-hidden position-relative z-1"
-                      >
-                        <img
-                          class="img-fluid d-inline-block"
-                          src="assets/images/screens/screen-6.jpg"
-                          alt=""
-                        />
+                      <div id="video-container" class="relative mx-auto mt-10 video-container">
+                        <img id="thumbnail" src="assets/images/thumbnails/homepage.png"
+                          alt="Video Thumbnail" class="thumbnail-image border border-primary">
+                        <div>
+                          <img src="assets/images/play-button-svgrepo-com.svg" onclick="playVideo()" alt="play-button"
+                            class="h-12 w-12 video-play-button-image">
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -150,7 +242,7 @@
                     <li>Land Your Dream Job</li>
                     <li>Engage Recruiters Instantly</li>
                   </ul>
-                  <div
+                  <!-- <div
                     class="d-flex gap-8 align-center justify-center mt-12 review-badges"
                   >
                     <img
@@ -163,7 +255,7 @@
                       src="assets/images/review-logos/capterra_reviews_2.svg"
                       alt=""
                     />
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -1771,5 +1863,13 @@
     <!-- JS -->
     <script src="assets/js/plugins.js"></script>
     <script src="assets/js/main.js"></script>
+    <script>
+      function playVideo() {
+        const container = document.getElementById('video-container');
+        container.innerHTML = `
+              <iframe class="iframe-element" src="https://www.youtube.com/embed/WskxZD9_PLQ?autoplay=1&controls=0&start=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              `;
+      }
+    </script>
   </body>
 </html>
