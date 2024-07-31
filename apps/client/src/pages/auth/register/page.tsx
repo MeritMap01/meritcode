@@ -18,7 +18,7 @@ import {
   Input,
 } from "@reactive-resume/ui";
 import { cn } from "@reactive-resume/utils";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -40,6 +40,9 @@ export const RegisterPage = () => {
   const formRef = useRef<HTMLFormElement>(null);
   usePasswordToggle(formRef);
 
+  const [isTermsAccepted, setIsTermsAccepted] = useState(false);
+  const [termsError, setTermsError] = useState("");
+
   const form = useForm<FormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -48,11 +51,15 @@ export const RegisterPage = () => {
       email: "",
       password: "",
       locale: "en-US",
-      terms: false
     },
   });
 
   const onSubmit = async (data: FormValues) => {
+    if (!isTermsAccepted) {
+      setTermsError(t`You must accept the terms & conditions and privacy policy`);
+      return;
+    }
+
     try {
       await register(data);
       navigate("/auth/verify-email");
@@ -181,40 +188,37 @@ export const RegisterPage = () => {
                 </FormItem>
               )}
             />
-
-            <FormField
-              name="terms"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <div className="flex items-start space-x-2">
-                    <FormControl className="mt-1">
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
-                    <FormLabel className="mb-0 text-black leading-5">
-                      {t`I have read and accept the `}
-                      <a
-                        href="/privacy"
-                        className="text-blue-500 underline px-1"
-                      >
-                        Privacy Policy
-                      </a>
-                      {t` and `}
-                      <a
-                        href="/terms"
-                        className="text-blue-500 underline px-1"
-                      >
-                        Terms and Conditions
-                      </a>
-                    </FormLabel>
-                  </div>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="">
+            <div className="flex items-start space-x-2">
+              <Checkbox
+                className="mt-1"
+                checked={isTermsAccepted}
+                onCheckedChange={(checked) => {
+                  setIsTermsAccepted(checked === true);
+                  if (checked === true) {
+                    setTermsError("");
+                  }
+                }}
+              />
+              <FormLabel className="mb-0 text-black leading-5">
+                {t`I have read and accept the `}
+                <a
+                  href="/privacy"
+                  className="text-blue-500 underline px-1"
+                >
+                  Privacy Policy
+                </a>
+                {t` and `}
+                <a
+                  href="/terms"
+                  className="text-blue-500 underline px-1"
+                >
+                  Terms and Conditions
+                </a>
+              </FormLabel>
+              </div>
+              {!isTermsAccepted && <p className="text-red-500">{termsError}</p>}
+            </div>
 
             <Button disabled={loading} className="mt-4 w-full">
               {t`Sign up`}

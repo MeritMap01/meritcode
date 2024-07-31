@@ -13,13 +13,6 @@ export const usernameSchema = z
       "Usernames can only contain lowercase letters, numbers, periods, hyphens, and underscores.",
   });
 
-  const termsSchema = z
-    .boolean()
-    .default(true)
-    .refine(value => value=== true, {
-      message: "You must accept the terms & conditions and privacy policy.",
-    });
-
 export const userSchema = z.object({
   id: idSchema,
   name: z.string().min(3).max(255),
@@ -32,7 +25,6 @@ export const userSchema = z.object({
   provider: z.enum(["email", "github", "google"]).default("email"),
   createdAt: z.date().or(z.dateString()),
   updatedAt: z.date().or(z.dateString()),
-  terms:termsSchema
 });
 
 export class UserDto extends createZodDto(userSchema) {}
