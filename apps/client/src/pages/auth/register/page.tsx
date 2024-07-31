@@ -7,6 +7,7 @@ import {
   Alert,
   AlertTitle,
   Button,
+  Checkbox,
   Form,
   FormControl,
   FormDescription,
@@ -47,13 +48,13 @@ export const RegisterPage = () => {
       email: "",
       password: "",
       locale: "en-US",
+      terms: false
     },
   });
 
   const onSubmit = async (data: FormValues) => {
     try {
       await register(data);
-
       navigate("/auth/verify-email");
     } catch (error) {
       form.reset();
@@ -176,6 +177,40 @@ export const RegisterPage = () => {
                       temporarily.
                     </Trans>
                   </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              name="terms"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <div className="flex items-start space-x-2">
+                    <FormControl className="mt-1">
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormLabel className="mb-0 text-black leading-5">
+                      {t`I have read and accept the `}
+                      <a
+                        href="/privacy"
+                        className="text-blue-500 underline px-1"
+                      >
+                        Privacy Policy
+                      </a>
+                      {t` and `}
+                      <a
+                        href="/terms"
+                        className="text-blue-500 underline px-1"
+                      >
+                        Terms and Conditions
+                      </a>
+                    </FormLabel>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
