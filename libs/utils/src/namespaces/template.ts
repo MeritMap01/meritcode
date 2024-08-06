@@ -17,6 +17,7 @@ export const templatesList = [
   "nurture",
   "eternal",
   "innovate",
+  "pixel",
   // Vamsi
   "genesis",
   "nexus",
@@ -26,6 +27,8 @@ export const templatesList = [
   "maven",
   "vintage",
   "sleek",
+  "ethereal",
+  "equinox",
   // Old
   "azurill",
   "bronzor",
@@ -78,6 +81,8 @@ export const layoutsList = {
     ["profiles","interests", "certifications", "awards", "publications", "languages"]]],
     "innovate": [[[ "summary", "experience", "projects", "volunteer", "references"],
     ["profiles","skills","education", "certifications", "awards", "publications", "interests", "languages"]]],
+    "pixel": [[["summary", "education", "experience", "projects", "volunteer", "references"],
+    ["skills", "certifications", "awards", "profiles", "publications", "interests", "languages"]]],
 //vamsi
     "genesis": [[["experience","education", "certifications", "awards", "volunteer", "references"],
     ["summary", "skills", "projects", "profiles",   "interests",   "publications", "languages"]]],
@@ -95,6 +100,10 @@ export const layoutsList = {
     ["profiles","skills","interests", "certifications", "awards", "publications", "languages"]]],
     "sleek": [[[ "summary", "experience", "education", "volunteer", "references"],
     ["profiles","skills","interests", "certifications", "projects", "awards", "publications", "languages"]]],
+    "ethereal": [[["summary", "experience", "projects", "awards", "volunteer", "references"],
+    ["profiles", "education", "skills",   "interests", "certifications", "publications", "languages"]]],
+    "equinox": [[["summary", "experience", "projects", "awards", "volunteer", "references"],
+    ["profiles", "education", "skills",   "interests", "certifications", "publications", "languages"]]],
 //previous
     "azurill": [[["summary", "experience","education", "awards", "volunteer", "references"],
     ["profiles", "skills",  "interests",   "certifications", "projects", "publications", "languages"]]],

@@ -27,16 +27,16 @@ import {
   
   const Header = () => {
     const basics = useArtboardStore((state) => state.resume.basics);
-    const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary)
-    // Split the name into an array of words
-  const nameParts = basics.name.split(' ');
-  // Extract the first word and the rest of the name
-  const firstName = nameParts[0];
-  const restOfName = nameParts.slice(1).join(' ');
+
     return (
-      <div className="flex flex-col items-center space-y-2 text-center">
+      <div className="flex flex-col items-center space-y-1 text-center">
         {/* <Picture /> */}
-        <div className="flex flex-wrap justify-center items-center gap-x-2 gap-y-0.5 text-sm">
+        <div>
+        <div className="text-5xl font-[2200] tracking-wider mb-2">
+            {basics.name}
+        </div>
+        <div className="text-extrabold tracking-widest">{basics.headline.toUpperCase()}</div>
+        <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-0.5 text-sm">
           {basics.location && (
             <div className="flex items-center gap-x-1.5">
               <i className="ph ph-bold ph-map-pin text-primary" />
@@ -66,35 +66,24 @@ import {
               <span>{[item.name, item.value].filter(Boolean).join(": ")}</span>
             </div>
           ))}
-        </div>
-        <div>
-        <div className="text-5xl font-[100] tracking-widest mb-4">
-      {/* Apply primaryColor to the first word */}
-      <span style={{ color: primaryColor }}>{firstName.toUpperCase()}</span>
-      {/* The rest of the name without special styling */}
-      <span>{restOfName && ` ${restOfName.toUpperCase()}`}</span>
-      </div>      
-      <div className="text-extrabold tracking-widest" style={{color:primaryColor}}>{basics.headline.toUpperCase()}</div>
+        </div>      
       </div>
-  
-       
       </div>
     );
   };
   
   const Summary = () => {
     const section = useArtboardStore((state) => state.resume.sections.summary);
-    const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary);
     if (!section.visible || isEmptyString(section.content)) return null;
   
     return (
-      <section id={section.id} className="border-t pt-2.5" style={{ borderTopColor: primaryColor }}>
-        <div className="flex flex-col items-center justify-content-center mb-2">
-          <h4 className="text-base font-bold tracking-[.35em]" style={{color:primaryColor}}>{section.name.toUpperCase()}</h4>
+      <section id={section.id} className="pt-2.5">
+        <div className="flex flex-col mb-2">
+            <h4 className="text-base tracking-widest border-b mb-2"><span className="text-xl">{section.name.toUpperCase().substring(0,1)}</span>{section.name.toUpperCase().substring(1,)}</h4>
         </div>
   
         <div
-          className="wysiwyg"
+          className="wysiwyg pl-5"
           style={{ columns: section.columns }}
           dangerouslySetInnerHTML={{ __html: section.content }}
         />
@@ -160,15 +149,15 @@ import {
     keywordsKey,
   }: SectionProps<T>) => {
     if (!section.visible || !section.items.length) return null;
-    const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary)
+
     return (
-      <section id={section.id} className=" flex flex-col border-t pt-2.5" style={{ borderTopColor: primaryColor }}>
-        <div className="flex flex-col items-center">
-          <h4 className="text-base font-bold tracking-[.35em]" style={{color:primaryColor}}>{section.name.toUpperCase()}</h4>
+      <section id={section.id} className=" flex flex-col pt-2.5">
+        <div className="flex flex-col mb-2">
+          <h4 className="text-base tracking-widest border-b"><span className="text-xl">{section.name.toUpperCase().substring(0,1)}</span>{section.name.toUpperCase().substring(1,)}</h4>
         </div>
   
         <div
-          className={cn("gap-x-6 gap-y-3", className)}
+          className={cn("gap-x-6 gap-y-3 pl-5", className)}
         >
           {section.items
             .filter((item) => item.visible)
@@ -191,7 +180,7 @@ import {
   
                   {level !== undefined && level > 0 && <Rating level={level} />}
   
-                  {keywords !== undefined && keywords.length > 0 && (
+                  {keywords !== undefined && keywords.length > 0 && section.id!=="projects" && (
                     <p className="text-sm">{keywords.join(", ")}</p>
                   )}
                 </div>
@@ -244,13 +233,13 @@ import {
         {(item) => (
           <div className="flex items-center justify-between">
             <div className="text-left">
-              <div className="font-bold" style={{color:primaryColor}}>{item.company}</div>
-              <div>{item.position}</div>
+              <div className="font-bold tracking-wide">{item.position}</div>
+              <div className="italic font-extralight">{item.company}</div>
             </div>
   
             <div className="shrink-0 text-right">
-              <div className="font-bold">{item.date}</div>
-              <div>{item.location}</div>
+              <div>{item.date}</div>
+              <div className="italic font-extralight">{item.location}</div>
             </div>
           </div>
         )}
@@ -260,21 +249,20 @@ import {
   
   const Education = () => {
     const section = useArtboardStore((state) => state.resume.sections.education);
-    const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary)
 
     return (
       <Section<Education> section={section} urlKey="url" summaryKey="summary">
         {(item) => (
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between mb-1">
             <div className="text-left">
-              <div className="font-bold" style={{color:primaryColor}}>{item.institution}</div>
-              <div>{item.area}</div>
+              <div className="font-bold tracking-wide">{item.institution}</div>
+              <div className="italic font-extralight">{item.studyType}</div>
               <div>{item.score}</div>
             </div>
   
             <div className="shrink-0 text-right">
-              <div className="font-bold">{item.date}</div>
-              <div>{item.studyType}</div>
+              <div>{item.area}</div>
+              <div className="italic font-extralight">{item.date}</div>
             </div>
           </div>
         )}
@@ -290,7 +278,7 @@ import {
         {(item) => (
           <div className="flex items-center justify-between">
             <div className="text-left">
-              <div className="font-bold">{item.title}</div>
+              <div className="font-bold tracking-wide">{item.title}</div>
               <div>{item.awarder}</div>
             </div>
   
@@ -311,7 +299,7 @@ import {
         {(item) => (
           <div className="flex items-center justify-between">
             <div className="text-left">
-              <div className="font-bold">{item.name}</div>
+              <div className="font-bold tracking-wide">{item.name}</div>
               <div>{item.issuer}</div>
             </div>
   
@@ -326,15 +314,13 @@ import {
   
   const Skills = () => {
     const section = useArtboardStore((state) => state.resume.sections.skills);
-     const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary)
-
     
     if (!section.visible || !section.items.length) return null;
   
     return (
-      <div className="max-w-5xl mx-auto border-t" style={{borderColor:primaryColor}}>
-        <h2 className="mb-2 text-center text-normal font-bold mt-2 tracking-[.35em]" style={{color:primaryColor}}>{section.name.toUpperCase()}</h2>
-        <div className="grid grid-cols-3 gap-y-2">
+      <div className="max-w-5xl mx-auto">
+          <h4 className="text-base tracking-widest border-b mb-2"><span className="text-xl">{section.name.toUpperCase().substring(0,1)}</span>{section.name.toUpperCase().substring(1,)}</h4>
+          <div className="gap-y-2 pl-5">
           {section.items.map((item) => {
             const keywords = get(item, "keywords", []) as string[] | undefined;
             return (
@@ -342,13 +328,11 @@ import {
                 
                 <div className="flex flex-col ">
                   <div className="flex">
-                  <div className="text-2xl text-primary mr-1 mt-0 pt-0">&#8226;</div>
-                <div className="text-left pr-2 font-bold mt-1" style={{color:primaryColor}}>{item.name}</div>
+                    <div className="text-left pr-2 font-bold tracking-wide">{item.name}: </div>
+                    {keywords !== undefined && keywords.length > 0 && (
+                    <p className="ml-2">{keywords.join(", ")}</p>
+                    )}
                 </div>
-                <div className="ml-4">{item.description}</div>
-                {keywords !== undefined && keywords.length > 0 && (
-                  <p className="text-sm ml-4">{keywords.join(", ")}</p>
-                )}
                 </div>
               </div>
             );
@@ -363,7 +347,7 @@ import {
   
     return (
       <Section<Interest> section={section} keywordsKey="keywords" className="grid grid-cols-3">
-        {(item) => <div className="font-bold">{item.name}</div>}
+        {(item) => <div className="font-bold tracking-wide">{item.name}</div>}
       </Section>
     );
   };
@@ -376,7 +360,7 @@ import {
         {(item) => (
           <div className="flex items-center justify-between">
             <div className="text-left">
-              <div className="font-bold">{item.name}</div>
+              <div className="font-bold tracking-wide">{item.name}</div>
               <div>{item.publisher}</div>
             </div>
   
@@ -397,7 +381,7 @@ import {
         {(item) => (
           <div className="flex items-center justify-between">
             <div className="text-left">
-              <div className="font-bold">{item.organization}</div>
+              <div className="font-bold tracking-wide">{item.organization}</div>
               <div>{item.position}</div>
             </div>
   
@@ -418,7 +402,7 @@ import {
       <Section<Language> section={section} levelKey="level" className="grid grid-cols-3">
         {(item) => (
           <div className="col-span-1">
-            <div className="font-bold">{item.name}</div>
+            <div className="font-bold tracking-wide">{item.name}</div>
             <div>{item.description}</div>
           </div>
         )}
@@ -428,22 +412,30 @@ import {
   
   const Projects = () => {
     const section = useArtboardStore((state) => state.resume.sections.projects);
-    const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary)
 
     return (
       <Section<Project> section={section} urlKey="url" summaryKey="summary" keywordsKey="keywords">
-        {(item) => (
+        {(item) => 
+          {const keywords =get(item, "keywords", []) as string[] | undefined;
+
+        return(
           <div className="flex items-center justify-between col-span-1">
             <div className="text-left">
-              <div className="font-bold" style={{color:primaryColor}}>{item.name}</div>
+              <div className="flex">
+              <div className="font-bold tracking-wide">{item.name}</div>
+              {keywords && keywords?.length>0 && <div className="ml-2 mr-2">|</div>}
+              {keywords !== undefined && keywords.length > 0 && (
+                    <p className="italic">{keywords.join(", ")}</p>
+                  )}
+                </div>
               <div>{item.description}</div>
             </div>
   
             <div className="shrink-0 text-right">
-              <div className="font-bold">{item.date}</div>
+              <div>{item.date}</div>
             </div>
           </div>
-        )}
+        )}}
       </Section>
     );
   };
@@ -455,7 +447,7 @@ import {
       <Section<Reference> section={section} urlKey="url" summaryKey="summary">
         {(item) => (
           <div>
-            <div className="font-bold">{item.name}</div>
+            <div className="font-bold tracking-wide">{item.name}</div>
             <div>{item.description}</div>
           </div>
         )}
@@ -476,7 +468,7 @@ import {
         {(item) => (
           <div className="flex items-center justify-between">
             <div className="text-left">
-              <div className="font-bold">{item.name}</div>
+              <div className="font-bold tracking-wide">{item.name}</div>
               <div>{item.description}</div>
             </div>
   
@@ -525,7 +517,7 @@ import {
     }
   };
   
-  export const Naruto = ({ columns, isFirstPage = false }: TemplateProps) => {
+  export const Pixel = ({ columns, isFirstPage = false }: TemplateProps) => {
     const [main, sidebar] = columns;
   
     return (

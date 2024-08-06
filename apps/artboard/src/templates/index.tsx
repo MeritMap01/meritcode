@@ -36,7 +36,9 @@ import { Vintage } from "./vintage";
 import { Sleek } from "./sleek";
 import { Simple } from "./simple";
 import { Designer } from "./designer";
-
+import { Ethereal } from "./ethereal";
+import { Equinox } from "./equinox"
+import { Pixel } from "./pixel"
 
 
 
@@ -114,6 +116,12 @@ export const getTemplate = (template: Template) => {
       return Simple;
     case "designer":
       return Designer;
+    case "ethereal":
+      return Ethereal;
+    case "equinox":
+      return Equinox;
+    case "pixel":
+      return Pixel
     default:
       return Onyx;
   }
