@@ -326,7 +326,7 @@ const Skills = () => {
       <ul className="mt-2 grid grid-cols-4 gap-x-6 list-inside">
         {section.items.map((item) => (
           <div className="flex">
-            <div className="mr-2 text-3xl text-primary">&#8226;</div>
+            <div className="mr-2 text-3xl text-black">&#8226;</div>
             <li key={item.id} className="mt-2">{item.name}</li>
           </div>
         ))}

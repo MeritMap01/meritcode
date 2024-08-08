@@ -27,6 +27,9 @@ import {
   const Summary = () => {
     const section = useArtboardStore((state) => state.resume.sections.summary);
     const margin = useArtboardStore((state) => state.resume.metadata.page.margin);
+    
+    if (!section.visible || isEmptyString(section.content)) return null;
+
     return (
         <div style={{ margin }}>
             <div className="grid">

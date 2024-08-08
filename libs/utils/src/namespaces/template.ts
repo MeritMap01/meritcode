@@ -125,4 +125,16 @@ export const layoutsList = {
 
 };
 
+export const colorList = {
+  //jai
+  "orion": "light-grey", "legacy": "black", "palette": "black", "joyful": "black", "ignite": "black", "professional": "black", "classic": "black", "simple": "black", "designer": "black",
+  //vivek
+  "majestic": "black", "eternal": "grey", "naruto": "#395796", "nurture": "#302b8f", "elevate": "#ea580c", "innovate":  "#b8afa3", "horizon": "#372f25", 
+  //vamsi
+  "genesis": "#0284c7", "nexus": "black", "zenith": "#b0baca", "pinnacle": "black", "aurora": "#57534e", "maven": "black", "vintage": "#57534e", "sleek": "black",
+  //old
+  "azurill": "#ca8a04", "bronzor": "black", "chikorita": "#059669", "developerx": "black", "ditto": "#0891b2", "gengar": "#0891b2", "glalie": "#0891b2", "kakuna": "black", 
+  "leafish": "#563737", "nosepass": "black", "onyx": "black", "pikachu": "#ca8a04", "rhyhorn": "black"
+}
+
 export type Template = (typeof templatesList)[number];
