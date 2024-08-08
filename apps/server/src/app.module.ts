@@ -18,6 +18,7 @@ import { StorageModule } from "./storage/storage.module";
 import { TranslationModule } from "./translation/translation.module";
 import { UserModule } from "./user/user.module";
 import { UtilsModule } from "./utils/utils.module";
+import { SearchModule } from './search/search.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { UtilsModule } from "./utils/utils.module";
     PrinterModule,
     TranslationModule,
     ContributorsModule,
+    SearchModule,
 
     // Static Assets
     ServeStaticModule.forRoot({

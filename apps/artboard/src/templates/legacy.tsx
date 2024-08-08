@@ -624,7 +624,6 @@ export const Legacy = ({ columns, isFirstPage = false } : TemplateProps) => {
       {isFirstPage && <Header />}
       <div style={{margin:margin}}>
           <div className="grid grid-cols-4 gap-6">
-          
           <div className="col-span-12 p-custom pt-1">
               {main.map((section) => (
               <Fragment key={section}>
