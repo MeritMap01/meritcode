@@ -1,0 +1,57 @@
+{
+  "name": "recruitment-server",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/recruitment-server/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/recruitment-server",
+        "main": "apps/recruitment-server/src/main.ts",
+        "tsConfig": "apps/recruitment-server/tsconfig.app.json",
+        "assets": ["apps/recruitment-server/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/recruitment-server/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "recruitment-server:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "recruitment-server:build:development"
+        },
+        "production": {
+          "buildTarget": "recruitment-server:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/recruitment-server/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/recruitment-server/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}
