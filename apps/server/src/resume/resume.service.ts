@@ -19,7 +19,7 @@ import { PrinterService } from "@/server/printer/printer.service";
 
 import { StorageService } from "../storage/storage.service";
 import { UtilsService } from "../utils/utils.service";
-import { SearchServiceService } from "../search/search-service/search-service.service";
+// import { SearchServiceService } from "../search/search-service/search-service.service";
 
 @Injectable()
 export class ResumeService {
@@ -31,7 +31,7 @@ export class ResumeService {
     private readonly storageService: StorageService,
     private readonly redisService: RedisService,
     private readonly utils: UtilsService,
-    private readonly searchService: SearchServiceService,
+    // private readonly searchService: SearchServiceService,
   ) {
     this.redis = this.redisService.getClient();
   }
@@ -51,7 +51,7 @@ export class ResumeService {
     const cleanData = {basics, sections};
 
     // inserting data in elastic search
-    const elasticSearchResponse = await this.searchService.insertDocument(cleanData);
+    // const elasticSearchResponse = await this.searchService.insertDocument(cleanData);
 
     const resume = await this.prisma.resume.create({
       data: {
