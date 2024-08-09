@@ -16,9 +16,12 @@ import Redis from "ioredis";
 import { PrismaService } from "nestjs-prisma";
 
 import { PrinterService } from "@/server/printer/printer.service";
+import { MailService } from "../mail/mail.service";
+import { ConfigService } from "@nestjs/config";
 
 import { StorageService } from "../storage/storage.service";
 import { UtilsService } from "../utils/utils.service";
+import { Config } from "../config/schema";
 
 @Injectable()
 export class ResumeService {
@@ -30,6 +33,8 @@ export class ResumeService {
     private readonly storageService: StorageService,
     private readonly redisService: RedisService,
     private readonly utils: UtilsService,
+    private readonly mailService:MailService,
+    private readonly configService:ConfigService<Config>
   ) {
     this.redis = this.redisService.getClient();
   }
@@ -195,6 +200,34 @@ export class ResumeService {
 
   async printResume(resume: ResumeDto, userId?: string) {
     const url = await this.printerService.printResume(resume);
+    const userDownloads =await this.prisma.featureAccess.findUniqueOrThrow({
+      where:{id:userId}
+    })
+
+    const user = await this.prisma.user.findUnique({
+      where:{id:userId}
+    })
+
+    // const emailData={
+    //   to: user?.email,
+    //   from:{
+    //     name:"theResume",
+    //     email:this.configService.get("MAIL_FROM")
+    //   },
+    //   templateId:"d-bb5d5a751c8b4e019965cbf4eae3dd42",
+    //   dynamicTemplateData:{
+    //     subject:"Congratulations 🎉 🥳",
+    //     message:"Congratulations on Your Milestone Achievement!",
+    //     buttonContent:"CONTINUE",
+    //     content1:"We are thrilled to celebrate your recent milestone with you! Your dedication and effort in creating impressive resumes have not gone unnoticed.",
+    //     content2:"At theResume, we strive to support your career journey, and it's wonderful to see you taking full advantage of our platform's features. Keep up the great work and continue to build on your successes.",
+    //     buttonUrl:"https://theresume.io/dashboard/resumes"
+    //   }
+    // }
+
+    // if(userDownloads.downloadCount===4){
+    //   this.mailService.sendGridMail(emailData)
+    // }
 
     // Update statistics: increment the number of downloads by 1
     if (!userId) await this.redis.incr(`user:${resume.userId}:resume:${resume.id}:downloads`);
